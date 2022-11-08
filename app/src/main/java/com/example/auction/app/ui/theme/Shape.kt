@@ -1,4 +1,4 @@
-package com.example.auction_app.ui.theme
+package com.example.auction.app.ui.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Shapes
