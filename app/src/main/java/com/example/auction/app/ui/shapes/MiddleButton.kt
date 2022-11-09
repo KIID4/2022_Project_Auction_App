@@ -1,4 +1,4 @@
-package com.example.auction_app
+package com.example.auction.app.ui.shapes
 
 import androidx.compose.material.Button
 import androidx.compose.ui.Modifier
@@ -8,14 +8,24 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
+import io.github.untactorder.toasterAtSnackBar.InjectableSnackBar
+import io.github.untactorder.toasterAtSnackBar.IosSimpleToast
+import io.github.untactorder.toasterAtSnackBar.PastelColorSet
+import io.github.untactorder.toasterAtSnackBar.PastelToast
 
 
 @Composable
-fun MiddleButtons() {
-    Column{
-        Row(Modifier.padding(start = 15.dp, top = 130.dp)) {
+fun MiddleButtons(injector: InjectableSnackBar) {
+
+    Column(
+        modifier = Modifier,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Row {
             Button(onClick = {},
                 modifier = Modifier.size(width = 120.dp, height = 120.dp),
                 shape = RoundedCornerShape(30.dp)
@@ -25,7 +35,17 @@ fun MiddleButtons() {
 
             Spacer(Modifier.padding(5.dp))
 
-            Button(onClick = {},
+            Button(onClick = {
+                injector.showSnackbar(
+                    "This is a error notification. Please retry the previous action",
+                    title = "An Error Occurred",
+                    withDismissAction = true,
+                    actionLabel = "Okay",
+                    customToastDesign = { data ->
+                        PastelToast(data, containerColor = PastelColorSet.plain)
+                    }
+                )
+            },
                 modifier = Modifier.size(width = 120.dp, height = 120.dp),
                 shape = RoundedCornerShape(30.dp),
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xffF198FF))
@@ -42,7 +62,14 @@ fun MiddleButtons() {
                 Text("게시판", color = Color(0xff613838), fontSize = 25.sp)
             }
         }
-        Button(onClick = {},
+        Button(onClick = {
+            injector.showSnackbar(
+                "Hi there! Welcome to the Toast! Have a nice day!",
+                customToastDesign = { data ->
+                    IosSimpleToast(data, darkBackground = false, toastWidth = 250.dp)
+                }
+            )
+        },
             modifier = Modifier.size(width = 390.dp, height = 80.dp).padding(start = 15.dp, top = 15.dp),
             shape = RoundedCornerShape(30.dp)
         ) {
