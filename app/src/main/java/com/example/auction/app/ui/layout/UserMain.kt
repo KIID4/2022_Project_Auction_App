@@ -5,8 +5,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.example.auction.app.ui.shapes.LastProducts
-import com.example.auction.app.ui.shapes.MiddleButtons
+import com.example.auction.app.ui.shapes.PopularPreview
+import com.example.auction.app.ui.shapes.category
 import com.example.auction.app.ui.shapes.TopAppBar
 import io.github.untactorder.toasterAtSnackBar.InjectableSnackBar
 
@@ -16,8 +16,8 @@ fun UserMain() {
     injector.FloatingSnackBar(snackBarAlignment = Alignment.Center) {
         Column(Modifier.fillMaxSize()) {
             TopAppBar(injector)
-            MiddleButtons(injector)
-            LastProducts(injector)
+            category(injector)
+            PopularPreview(injector)
         }
     }
 }

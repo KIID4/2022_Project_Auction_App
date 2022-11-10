@@ -18,7 +18,7 @@ import io.github.untactorder.toasterAtSnackBar.PastelToast
 
 
 @Composable
-fun MiddleButtons(injector: InjectableSnackBar) {
+fun category(injector: InjectableSnackBar) {
 
     Column(
         modifier = Modifier,
