@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.sp
 import io.github.untactorder.toasterAtSnackBar.InjectableSnackBar
 
 @Composable
-fun PopularPreview(injector: InjectableSnackBar) {
+fun PopularPreview() {
     val number  = rememberSaveable { mutableStateOf(0) }
 
     Column(

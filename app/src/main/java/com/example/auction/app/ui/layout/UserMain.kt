@@ -6,18 +6,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.example.auction.app.ui.shapes.PopularPreview
-import com.example.auction.app.ui.shapes.category
-import com.example.auction.app.ui.shapes.TopAppBar
-import io.github.untactorder.toasterAtSnackBar.InjectableSnackBar
+import com.example.auction.app.ui.shapes.*
 
 @Composable
 fun UserMain() {
-    val injector = InjectableSnackBar()
-    injector.FloatingSnackBar(snackBarAlignment = Alignment.Center) {
         Column(Modifier.fillMaxSize()) {
-            TopAppBar(injector)
-            category(injector)
-            PopularPreview(injector)
+            TopAppBar()
+            NoticePreview()
+            buttons()
+            PopularPreview()
         }
-    }
 }

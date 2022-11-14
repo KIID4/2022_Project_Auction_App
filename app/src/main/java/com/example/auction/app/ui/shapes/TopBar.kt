@@ -11,24 +11,21 @@ import androidx.compose.material.ExposedDropdownMenuDefaults.textFieldColors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import io.github.untactorder.toasterAtSnackBar.InjectableSnackBar
 
 
 @Composable
-fun TopAppBar(injector: InjectableSnackBar) {
+fun TopAppBar() {
     Surface(
         modifier = Modifier
             .fillMaxWidth()
             .padding(bottom = 20.dp),
-        color = Color(0xffEFCECE)
+        color = Color(0xff4E7FFF)
     )  {
         Column(Modifier.padding(10.dp)) {
             Row(
@@ -36,21 +33,17 @@ fun TopAppBar(injector: InjectableSnackBar) {
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically  // Text 위젯들 간 세로 중앙 정렬 위함
             ) {
-                Text(text = "안동균님", color = Color.Black, fontSize = 18.sp)
+                Text(text = "안동균님", color = Color.White, fontSize = 18.sp)
                 Spacer(Modifier.weight(1.0f))
-                Text(text = "My", modifier = Modifier
-                    .background(color = Color.Transparent, shape = MaterialTheme.shapes.large)
-                    .clip(MaterialTheme.shapes.large)
-                    .then(
-                        Modifier.clickable(
+                Text(text = "My", color = Color.White, fontSize = 20.sp, modifier = Modifier
+                        .clickable(
                             interactionSource = remember { MutableInteractionSource() },
-                            indication = LocalIndication.current,
+                            indication = LocalIndication.current, // 버튼 중복 방지
                             enabled = true,
                             onClickLabel = null,
                             role = null,
                             onClick = {}
                         )
-                    ), color = Color.Black, fontSize = 20.sp
                 )
             }
             Spacer(Modifier.padding(6.dp))
