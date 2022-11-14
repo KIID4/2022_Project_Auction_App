@@ -15,16 +15,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 
 @Composable
+@Preview
 fun TopAppBar() {
     Surface(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 20.dp),
+            .fillMaxWidth(),
         color = Color(0xff4E7FFF)
     )  {
         Column(Modifier.padding(10.dp)) {
@@ -53,6 +54,7 @@ fun TopAppBar() {
 }
 
 @Composable
+@Preview
 // Compose의 경우 Textfield에 Text의 상태를 저장하는 공간이 없음 즉 저장하는 부분을 만들어 줘야함
 fun SearchBar() {
     var searchInput by remember { mutableStateOf(TextFieldValue()) }

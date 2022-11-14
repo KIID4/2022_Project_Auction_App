@@ -10,10 +10,12 @@ import com.example.auction.app.ui.shapes.*
 
 @Composable
 fun UserMain() {
-        Column(Modifier.fillMaxSize()) {
+        Column(
+            Modifier.fillMaxSize(),
+        ) {
             TopAppBar()
             NoticePreview()
-            buttons()
+            Buttons()
             PopularPreview()
         }
 }
