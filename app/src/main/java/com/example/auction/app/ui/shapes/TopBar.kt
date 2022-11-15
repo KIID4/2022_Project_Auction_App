@@ -18,6 +18,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.auction.app.ui.layout.*
 
 
 @Composable
@@ -43,7 +44,9 @@ fun TopAppBar() {
                             enabled = true,
                             onClickLabel = null,
                             role = null,
-                            onClick = {}
+                            onClick = {
+
+                            }
                         )
                 )
             }
