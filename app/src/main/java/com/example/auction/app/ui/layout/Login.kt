@@ -8,6 +8,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.auction.app.ui.shapes.*
 
 @Composable
+@Preview
 fun Login(){
     Column(
         Modifier.fillMaxSize(),

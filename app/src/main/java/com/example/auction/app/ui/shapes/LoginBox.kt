@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.sp
 import com.example.auction.app.ui.layout.*
 
 @Composable
+@Preview
 fun LoginBox(){
     Row(
         modifier = Modifier.fillMaxSize(),
@@ -31,8 +32,9 @@ fun LoginBox(){
         verticalAlignment = Alignment.CenterVertically  // Text 위젯들 간 세로 중앙 정렬 위함
     )  {
         Column(Modifier.padding(20.dp)){
-            SearchBar()
-            SearchBar()
+            IDBar()
+            Spacer(Modifier.padding(1.dp))
+            PasswordBar()
             Spacer(Modifier.padding(10.dp))
             Button(onClick = { },
                 modifier = Modifier.fillMaxWidth(),
