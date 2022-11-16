@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
@@ -107,7 +108,7 @@ fun PasswordBar() {
             singleLine = true,  // 한줄로만 입력
             leadingIcon = {
                 Icon(
-                    imageVector = Icons.Default.Search, contentDescription = null, modifier = Modifier.background(
+                    imageVector = Icons.Default.Lock, contentDescription = null, modifier = Modifier.background(
                         Color.LightGray
                     )
                 )
