@@ -5,15 +5,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import com.example.auction.app.ui.shapes.*
 
 @Composable
 @Preview
-fun Login(){
+fun Login(navController : NavController){
     Column(
         Modifier.fillMaxSize(),
     ) {
-        TopAppBar()
-        LoginBox()
+        TopAppBar(navController)
+        LoginBox(navController)
     }
 }
