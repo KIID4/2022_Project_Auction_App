@@ -17,7 +17,6 @@ import androidx.navigation.compose.rememberNavController
 
 
 @Composable
-@Preview
 fun TopAppBar(navController : NavController) {
     Surface(
         modifier = Modifier
@@ -53,7 +52,7 @@ fun TopAppBar(navController : NavController) {
 
 @Composable
 @Preview
-fun TopAppBarTest() {
+fun TopAppBarPriview() {
     Surface(
         modifier = Modifier
             .fillMaxWidth(),

@@ -3,7 +3,6 @@ package io.github.KIID_4.auction
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -26,6 +25,10 @@ class MainActivity : ComponentActivity() {
                     }
 
                     composable("Login") {
+                        Login(navController)
+                    }
+
+                    composable("Register") {
                         Login(navController)
                     }
                 }

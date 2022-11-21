@@ -3,6 +3,7 @@ package io.github.KIID_4.auction.ui.shapes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
@@ -127,7 +128,6 @@ fun PasswordBar() {
 }
 
 @Composable
-@Preview
 // Compose의 경우 Textfield에 Text의 상태를 저장하는 공간이 없음 즉 저장하는 부분을 만들어 줘야함
 fun InformationBar(value : String) {
     var searchInput by remember { mutableStateOf(TextFieldValue()) }
@@ -139,6 +139,7 @@ fun InformationBar(value : String) {
     ) {
         TextField(
             modifier = Modifier.size(width = 200.dp, height = 45.dp),
+            shape = RoundedCornerShape((10.dp)),
             value = searchInput,
             singleLine = true,  // 한줄로만 입력
 

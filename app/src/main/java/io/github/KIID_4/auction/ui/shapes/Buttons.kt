@@ -1,5 +1,6 @@
 package io.github.KIID_4.auction.ui.shapes
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -10,12 +11,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
 @Composable
 @Preview
 fun MainButton() {
@@ -55,6 +56,26 @@ fun MainButton() {
 
 @Composable
 @Preview
+fun MypageButton(){
+    Row(
+        modifier = Modifier.padding(20.dp),
+        horizontalArrangement = Arrangement.Center,
+    ) {
+        Button(onClick = { },
+            modifier = Modifier.size(width = 100.dp, height = 100.dp).
+            clip(CircleShape)
+        ) {
+            /*Image(
+                painter = painterResource(id = R.drawable.modify),
+                contentDescription = "Modify",
+                contentScale = ContentScale.Crop
+            )*/
+        }
+    }
+}
+
+@Composable
+@Preview
 fun DuplicationButton(){
     Button(onClick = { },
         modifier = Modifier.size(width = 80.dp, height = 30.dp),
@@ -62,5 +83,17 @@ fun DuplicationButton(){
         colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
     ) {
         Text("중복 확인", color = Color.White, fontSize = 10.sp)
+    }
+}
+
+@Composable
+@Preview
+fun RegisterButton(){
+    Button(onClick = { },
+        modifier = Modifier.size(width = 80.dp, height = 40.dp),
+        shape = RoundedCornerShape(10.dp),
+        colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
+    ) {
+        Text("회원 가입", color = Color.White, fontSize = 10.sp)
     }
 }
