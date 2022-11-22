@@ -1,4 +1,4 @@
-package io.github.KIID_4.auction.app.ui.layout
+package io.github.KIID_4.auction.ui.layout
 import android.graphics.Paint.Align
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
@@ -12,6 +12,18 @@ import io.github.KIID_4.auction.ui.shapes.*
 @Composable
 fun RegisterMember(navController : NavController){
     TopAppBar(navController)
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center
+    ) {
+        JoinMember()
+    }
+}
+
+@Composable
+@Preview
+fun RegisterMember22(){
+    TopAppBarPriview()
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center
