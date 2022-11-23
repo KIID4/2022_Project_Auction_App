@@ -20,3 +20,4 @@
 .externalNativeBuild
 .cxx
 *.hprof
+google-services.json
