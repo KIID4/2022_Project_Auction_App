@@ -17,6 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import io.github.KIID_4.auction.R // drawable에 있는 이미지 추가
 @Composable
 @Preview
 fun MainButton() {
@@ -58,18 +59,79 @@ fun MainButton() {
 @Preview
 fun MypageButton(){
     Row(
-        modifier = Modifier.padding(20.dp),
+        modifier = Modifier.padding(25.dp),
         horizontalArrangement = Arrangement.Center,
     ) {
-        Button(onClick = { },
-            modifier = Modifier.size(width = 100.dp, height = 100.dp).
-            clip(CircleShape)
-        ) {
-            /*Image(
-                painter = painterResource(id = R.drawable.modify),
-                contentDescription = "Modify",
-                contentScale = ContentScale.Crop
-            )*/
+        Column{
+            Button(onClick = { },
+                modifier = Modifier.size(width = 70.dp, height = 70.dp).
+                clip(CircleShape),
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.bill),
+                    contentDescription = "bill",
+                    contentScale = ContentScale.Crop
+                )
+            }
+            Spacer(Modifier.padding(7.dp))
+            Text("정보 수정", fontSize = 17.sp)
+        }
+
+
+        Spacer(Modifier.padding(10.dp))
+
+        Column{
+            Button(onClick = { },
+                modifier = Modifier.size(width = 70.dp, height = 70.dp).
+                clip(CircleShape),
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.attention),
+                    contentDescription = "attention",
+                    contentScale = ContentScale.Crop
+                )
+            }
+            Spacer(Modifier.padding(7.dp))
+            Text("관심 물품", fontSize = 17.sp)
+        }
+
+        Spacer(Modifier.padding(10.dp))
+
+        Column{
+            Button(onClick = { },
+                modifier = Modifier.size(width = 70.dp, height = 70.dp).
+                clip(CircleShape),
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.history),
+                    contentDescription = "history",
+                    contentScale = ContentScale.Crop
+                )
+            }
+            Spacer(Modifier.padding(7.dp))
+            Text("거래 내역", fontSize = 17.sp)
+        }
+
+
+        Spacer(Modifier.padding(10.dp))
+
+        Column{
+            Button(onClick = { },
+                modifier = Modifier.size(width = 70.dp, height = 70.dp).
+                clip(CircleShape),
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.cart),
+                    contentDescription = "cart",
+                    contentScale = ContentScale.Crop
+                )
+            }
+            Spacer(Modifier.padding(7.dp))
+            Text("경매 물품", fontSize = 17.sp, letterSpacing = 1.sp)
         }
     }
 }
