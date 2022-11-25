@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import io.github.KIID_4.auction.R // drawable에 있는 이미지 추가
 @Composable
 @Preview
-fun MainButton() {
+fun mainButton() {
     Row(
         modifier = Modifier.padding(10.dp),
         horizontalArrangement = Arrangement.Center,
@@ -57,7 +57,7 @@ fun MainButton() {
 
 @Composable
 @Preview
-fun MypageButton(){
+fun myPageButton(){
     Row(
         modifier = Modifier.padding(25.dp),
         horizontalArrangement = Arrangement.Center,
@@ -138,7 +138,7 @@ fun MypageButton(){
 
 @Composable
 @Preview
-fun DuplicationButton(){
+fun duplicationButton(){
     Button(onClick = { },
         modifier = Modifier.size(width = 80.dp, height = 30.dp),
         shape = RoundedCornerShape(12.dp),
@@ -150,7 +150,7 @@ fun DuplicationButton(){
 
 @Composable
 @Preview
-fun RegisterButton(){
+fun registerButton(){
     Button(onClick = {
 
     },

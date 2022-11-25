@@ -2,7 +2,6 @@ package io.github.KIID_4.auction.ui.shapes
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -12,11 +11,8 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -24,7 +20,7 @@ import androidx.compose.ui.unit.sp
 @Composable
 @Preview
 // Compose의 경우 Textfield에 Text의 상태를 저장하는 공간이 없음 즉 저장하는 부분을 만들어 줘야함
-fun SearchBar() {
+fun searchBar() {
     var searchInput by remember { mutableStateOf(TextFieldValue()) }
 
     Row(
@@ -59,7 +55,7 @@ fun SearchBar() {
 @Composable
 @Preview
 // Compose의 경우 Textfield에 Text의 상태를 저장하는 공간이 없음 즉 저장하는 부분을 만들어 줘야함
-fun IDBar() {
+fun iDBar() {
     var searchInput by remember { mutableStateOf(TextFieldValue()) }
 
     Row(
@@ -95,7 +91,7 @@ fun IDBar() {
 @Composable
 @Preview
 // Compose의 경우 Textfield에 Text의 상태를 저장하는 공간이 없음 즉 저장하는 부분을 만들어 줘야함
-fun PasswordBar() {
+fun passwordBar() {
     var searchInput by remember { mutableStateOf(TextFieldValue()) }
 
     Row(
@@ -129,7 +125,7 @@ fun PasswordBar() {
 
 @Composable
 // Compose의 경우 Textfield에 Text의 상태를 저장하는 공간이 없음 즉 저장하는 부분을 만들어 줘야함
-fun InformationBar(value : String) {
+fun informationBar(value : String) {
     var searchInput by remember { mutableStateOf(TextFieldValue()) }
 
     Row(

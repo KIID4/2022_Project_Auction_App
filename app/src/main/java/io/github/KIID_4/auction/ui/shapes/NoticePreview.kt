@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 @Preview
-fun NoticePreview() {
+fun noticePreview() {
     Row(
         Modifier.padding(10.dp),
         horizontalArrangement = Arrangement.Center

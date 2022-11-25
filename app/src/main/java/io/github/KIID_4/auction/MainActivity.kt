@@ -16,20 +16,21 @@ class MainActivity : ComponentActivity() {
             AuctionAppTheme {
                 val navController = rememberNavController() // 화면이동 담당 객체
 
+
                 NavHost(
                     navController = navController,
-                    startDestination = "UserMain"
+                    startDestination = "userMain"
                 ) {
-                    composable("UserMain") {
-                        UserMain(navController)
+                    composable("userMain") {
+                        userMain(navController)
                     }
 
-                    composable("Login") {
-                        Login(navController)
+                    composable("login") {
+                        login(navController)
                     }
 
-                    composable("RegisterMember") {
-                        RegisterMember(navController)
+                    composable("registerMember") {
+                        registerMember(navController)
                     }
                 }
                 // A surface container using the 'background' color from the theme

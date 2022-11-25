@@ -13,16 +13,16 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
-fun LoginBox(navController : NavController){
+fun loginBox(navController : NavController){
     Row(
         modifier = Modifier.fillMaxSize(),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically  // Text 위젯들 간 세로 중앙 정렬 위함
     )  {
         Column(Modifier.padding(20.dp)){
-            IDBar()
+            iDBar()
             Spacer(Modifier.padding(1.dp))
-            PasswordBar()
+            passwordBar()
             Spacer(Modifier.padding(10.dp))
             Button(onClick = { },
                 modifier = Modifier.fillMaxWidth(),
@@ -45,16 +45,16 @@ fun LoginBox(navController : NavController){
 
 @Composable
 @Preview
-fun LoginBoxPreview(){
+fun loginBoxPreview(){
     Row(
         modifier = Modifier.fillMaxSize(),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically  // Text 위젯들 간 세로 중앙 정렬 위함
     )  {
         Column(Modifier.padding(20.dp)){
-            IDBar()
+            iDBar()
             Spacer(Modifier.padding(1.dp))
-            PasswordBar()
+            passwordBar()
             Spacer(Modifier.padding(10.dp))
             Button(onClick = { },
                 modifier = Modifier.fillMaxWidth(),

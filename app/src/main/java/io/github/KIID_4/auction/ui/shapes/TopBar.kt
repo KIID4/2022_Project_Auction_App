@@ -1,6 +1,5 @@
 package io.github.KIID_4.auction.ui.shapes
 
-import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -13,11 +12,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 
 
 @Composable
-fun TopAppBar(navController : NavController) {
+fun topAppBar(navController : NavController) {
     Surface(
         modifier = Modifier
             .fillMaxWidth(),
@@ -45,14 +43,14 @@ fun TopAppBar(navController : NavController) {
                 )
             }
             Spacer(Modifier.padding(6.dp))
-            SearchBar()
+            searchBar()
         }
     }
 }
 
 @Composable
 @Preview
-fun TopAppBarPriview() {
+fun topAppBarPriview() {
     Surface(
         modifier = Modifier
             .fillMaxWidth(),
@@ -79,7 +77,7 @@ fun TopAppBarPriview() {
                 )
             }
             Spacer(Modifier.padding(6.dp))
-            SearchBar()
+            searchBar()
         }
     }
 }
