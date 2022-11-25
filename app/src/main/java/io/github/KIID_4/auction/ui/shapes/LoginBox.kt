@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
-fun loginBox(navController : NavController){
+fun loginBox(navController : NavController) {
     Row(
         modifier = Modifier.fillMaxSize(),
         horizontalArrangement = Arrangement.Center,
@@ -45,7 +45,7 @@ fun loginBox(navController : NavController){
 
 @Composable
 @Preview
-fun loginBoxPreview(){
+fun loginBoxPreview() {
     Row(
         modifier = Modifier.fillMaxSize(),
         horizontalArrangement = Arrangement.Center,

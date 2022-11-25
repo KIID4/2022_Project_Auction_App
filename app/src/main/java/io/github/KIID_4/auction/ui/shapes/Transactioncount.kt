@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 @Preview
-fun transsactionCount(){
+fun transsactionCount() {
 
     val buycount = 0
     val sellcount = 0

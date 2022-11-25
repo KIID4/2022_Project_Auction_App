@@ -57,7 +57,7 @@ fun mainButton() {
 
 @Composable
 @Preview
-fun myPageButton(){
+fun myPageButton() {
     Row(
         modifier = Modifier.padding(25.dp),
         horizontalArrangement = Arrangement.Center,
@@ -138,7 +138,7 @@ fun myPageButton(){
 
 @Composable
 @Preview
-fun duplicationButton(){
+fun duplicationButton() {
     Button(onClick = { },
         modifier = Modifier.size(width = 80.dp, height = 30.dp),
         shape = RoundedCornerShape(12.dp),
@@ -150,7 +150,7 @@ fun duplicationButton(){
 
 @Composable
 @Preview
-fun registerButton(){
+fun registerButton() {
     Button(onClick = {
 
     },

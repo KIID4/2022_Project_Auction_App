@@ -8,7 +8,7 @@ import io.github.KIID_4.auction.ui.shapes.*
 
 
 @Composable
-fun registerMember(navController : NavController){
+fun registerMember(navController : NavController) {
     topAppBar(navController)
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -20,7 +20,7 @@ fun registerMember(navController : NavController){
 
 @Composable
 @Preview
-fun registerMember22(){
+fun registerMember22() {
     topAppBarPriview()
     Column(
         modifier = Modifier.fillMaxSize(),

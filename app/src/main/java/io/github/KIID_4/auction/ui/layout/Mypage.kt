@@ -8,7 +8,7 @@ import io.github.KIID_4.auction.ui.shapes.*
 
 @Composable
 @Preview
-fun myPage(){
+fun myPage() {
     Column(
         Modifier.fillMaxSize(),
     ) {
