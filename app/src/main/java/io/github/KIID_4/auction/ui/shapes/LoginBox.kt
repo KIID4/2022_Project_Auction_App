@@ -30,6 +30,15 @@ fun LoginBox(navController : NavController){
             ) {
                 Text("로그인", color = Color.White, fontSize = 17.sp, textAlign = TextAlign.Center)
             }
+
+            Button(onClick = {
+                navController.navigate("RegisterMember")
+            },
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xff070000))
+            ) {
+                Text("회원가입", color = Color.White, fontSize = 17.sp, textAlign = TextAlign.Center)
+            }
         }
     }
 }
@@ -52,6 +61,13 @@ fun LoginBoxPreview(){
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xff070000))
             ) {
                 Text("로그인", color = Color.White, fontSize = 17.sp, textAlign = TextAlign.Center)
+            }
+
+            Button(onClick = { },
+                modifier = Modifier.fillMaxWidth(),
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xff070000))
+            ) {
+                Text("회원가입", color = Color.White, fontSize = 17.sp, textAlign = TextAlign.Center)
             }
         }
     }

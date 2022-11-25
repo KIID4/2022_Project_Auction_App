@@ -28,8 +28,8 @@ class MainActivity : ComponentActivity() {
                         Login(navController)
                     }
 
-                    composable("Register") {
-                        Login(navController)
+                    composable("RegisterMember") {
+                        RegisterMember(navController)
                     }
                 }
                 // A surface container using the 'background' color from the theme

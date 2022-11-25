@@ -151,7 +151,9 @@ fun DuplicationButton(){
 @Composable
 @Preview
 fun RegisterButton(){
-    Button(onClick = { },
+    Button(onClick = {
+
+    },
         modifier = Modifier.size(width = 80.dp, height = 40.dp),
         shape = RoundedCornerShape(10.dp),
         colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
