@@ -1,5 +1,6 @@
 package io.github.KIID_4.auction.ui.shapes
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -17,6 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.firebase.auth.FirebaseAuth
 import io.github.KIID_4.auction.R // drawable에 있는 이미지 추가
 @Composable
 @Preview
@@ -149,10 +151,12 @@ fun duplicationButton() {
 }
 
 @Composable
-@Preview
-fun registerButton() {
-    Button(onClick = {
+fun registerButton(email: String?, passwd: String?) {
+    var auth : FirebaseAuth? = null // 파이어베이스 인증 전역 변수
+    auth = FirebaseAuth.getInstance()
 
+    Button(onClick = {
+        auth.createUserWithEmailAndPassword("andonggyunan@naver.com", "12341234")
     },
         modifier = Modifier.size(width = 80.dp, height = 40.dp),
         shape = RoundedCornerShape(10.dp),

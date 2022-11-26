@@ -15,7 +15,7 @@ import androidx.navigation.NavController
 
 
 @Composable
-fun topAppBar(navController : NavController) {
+fun topAppBar(navController : NavController, use : Boolean) {
     Surface(
         modifier = Modifier
             .fillMaxWidth(),
@@ -33,7 +33,7 @@ fun topAppBar(navController : NavController) {
                         .clickable(
                             interactionSource = remember { MutableInteractionSource() },
                             indication = null, // 버튼 중복 방지
-                            enabled = true,
+                            enabled = use,
                             onClickLabel = null,
                             role = null,
                             onClick = {

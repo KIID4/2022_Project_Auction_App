@@ -13,7 +13,7 @@ fun userMain(navController : NavController) {
     Column(
         Modifier.fillMaxSize()
     ) {
-        topAppBar(navController)
+        topAppBar(navController, true)
         noticePreview()
         mainButton()
         popularPreview()

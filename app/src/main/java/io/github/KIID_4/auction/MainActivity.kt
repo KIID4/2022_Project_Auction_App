@@ -6,6 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import io.github.KIID_4.auction.ui.theme.AuctionAppTheme
 import io.github.KIID_4.auction.ui.layout.*
 
@@ -15,6 +18,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             AuctionAppTheme {
                 val navController = rememberNavController() // 화면이동 담당 객체
+                var auth : FirebaseAuth? = null // 파이어베이스 인증 전역 변수
+
+                auth = Firebase.auth
 
 
                 NavHost(

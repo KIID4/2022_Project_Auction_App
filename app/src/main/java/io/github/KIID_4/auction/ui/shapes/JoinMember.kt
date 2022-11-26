@@ -11,7 +11,15 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 @Preview
-fun joinMember(){
+fun joinMember() {
+
+    var emailID : String? = null
+    var passWD : String? = null
+    var repassWD : String? = null
+    var name : String? = null
+    var callnumber : String? = null
+    var birthday : String? = null
+
     Column(Modifier.padding(8.dp)){
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -21,7 +29,7 @@ fun joinMember(){
             Spacer(Modifier.padding(15.dp))
             Text("ID", fontSize = 16.sp)
             Spacer(Modifier.padding(20.dp))
-            informationBar("이메일 입력")
+            emailID = informationBar("이메일 입력")
             Spacer(Modifier.weight(0.1f))
             duplicationButton()
             Spacer(Modifier.weight(0.1f))
@@ -47,7 +55,7 @@ fun joinMember(){
             Spacer(Modifier.padding(12.dp))
             Text("PW", fontSize = 16.sp)
             Spacer(Modifier.padding(20.dp))
-            informationBar("비밀번호 입력")
+            passWD = informationBar("비밀번호 입력")
             Spacer(Modifier.weight(0.9f))
         }
 
@@ -61,7 +69,7 @@ fun joinMember(){
             Spacer(Modifier.padding(8.dp))
             Text("PW확인", fontSize = 16.sp)
             Spacer(Modifier.padding(14.dp))
-            informationBar("비밀번호 재입력")
+            repassWD = informationBar("비밀번호 재입력")
             Spacer(Modifier.weight(0.9f))
         }
 
@@ -72,7 +80,8 @@ fun joinMember(){
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            Text("비밀번호가 일치합니다.") // DB정보와 비교하여 코멘트 바꿈
+            if(passWD == repassWD) Text("비밀번호가 일치합니다.")
+            else Text("비밀번호가 일치하지 않습니다")
         }
 
         Spacer(Modifier.padding(4.dp))
@@ -85,7 +94,7 @@ fun joinMember(){
             Spacer(Modifier.padding(10.dp))
             Text("이름", fontSize = 16.sp)
             Spacer(Modifier.padding(20.dp))
-            informationBar("사용자 이름 입력")
+            name = informationBar("사용자 이름 입력")
             Spacer(Modifier.weight(0.9f))
         }
         Spacer(Modifier.padding(4.dp))
@@ -97,7 +106,7 @@ fun joinMember(){
             Spacer(Modifier.padding(4.dp))
             Text("전화 번호", fontSize = 16.sp)
             Spacer(Modifier.padding(14.dp))
-            informationBar("전화 번호 입력")
+            callnumber = informationBar("전화 번호 입력")
             Spacer(Modifier.weight(0.9f))
         }
         Spacer(Modifier.padding(4.dp))
@@ -109,7 +118,7 @@ fun joinMember(){
             Spacer(Modifier.padding(4.dp))
             Text("생년 월일", fontSize = 16.sp)
             Spacer(Modifier.padding(14.dp))
-            informationBar("생년 월일 입력")
+            birthday = informationBar("생년 월일 입력")
             Spacer(Modifier.weight(0.9f))
         }
         Spacer(Modifier.padding(30.dp))
@@ -118,7 +127,7 @@ fun joinMember(){
             verticalAlignment = Alignment.CenterVertically,  // Text 위젯들 간 세로 중앙 정렬 위함
             horizontalArrangement = Arrangement.Center
         ) {
-            registerButton()
+            registerButton(emailID, passWD)
         }
     }
 }
