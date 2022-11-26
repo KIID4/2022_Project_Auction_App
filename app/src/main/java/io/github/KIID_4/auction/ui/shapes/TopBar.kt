@@ -12,10 +12,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 
 @Composable
 fun topAppBar(navController : NavController, use : Boolean) {
+    val user = Firebase.auth.currentUser
+    var userName = "로그인이 필요합니다"
+    if (user != null) {
+        userName = user.displayName.toString()
+    }
+
     Surface(
         modifier = Modifier
             .fillMaxWidth(),
@@ -27,7 +35,7 @@ fun topAppBar(navController : NavController, use : Boolean) {
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically  // Text 위젯들 간 세로 중앙 정렬 위함
             ) {
-                Text(text = "안동균님", color = Color.White, fontSize = 18.sp)
+                Text(text = userName, color = Color.White, fontSize = 18.sp)
                 Spacer(Modifier.weight(1.0f))
                 Text(text = "My", color = Color.White, fontSize = 20.sp, modifier = Modifier
                         .clickable(
@@ -51,6 +59,12 @@ fun topAppBar(navController : NavController, use : Boolean) {
 @Composable
 @Preview
 fun topAppBarPriview() {
+    val user = Firebase.auth.currentUser
+    var userName = "로그인이 필요합니다"
+    if (user != null) {
+        userName = user.displayName.toString() + "님"
+    }
+
     Surface(
         modifier = Modifier
             .fillMaxWidth(),
@@ -62,7 +76,7 @@ fun topAppBarPriview() {
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically  // Text 위젯들 간 세로 중앙 정렬 위함
             ) {
-                Text(text = "안동균님", color = Color.White, fontSize = 18.sp)
+                Text(text = userName, color = Color.White, fontSize = 18.sp)
                 Spacer(Modifier.weight(1.0f))
                 Text(text = "My", color = Color.White, fontSize = 20.sp, modifier = Modifier
                     .clickable(

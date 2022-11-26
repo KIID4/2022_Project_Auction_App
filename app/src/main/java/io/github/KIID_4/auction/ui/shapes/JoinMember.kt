@@ -14,13 +14,13 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 @Preview
-fun joinMember() {
-    var (emailID, setEmailID) = remember { mutableStateOf(TextFieldValue()) }
-    var (passWD, setPassWD) = remember { mutableStateOf(TextFieldValue()) }
-    var (repassWD, setRepassWD) = remember { mutableStateOf(TextFieldValue()) }
-    var (name, setName) = remember { mutableStateOf(TextFieldValue()) }
-    var (callNum, setCallNum) = remember { mutableStateOf(TextFieldValue()) }
-    var (birthday, setBirthday) = remember { mutableStateOf(TextFieldValue()) }
+fun joinMember(toMainScreen: () -> Unit = {}) {
+    val (emailID, setEmailID) = remember { mutableStateOf(TextFieldValue()) }
+    val (passWD, setPassWD) = remember { mutableStateOf(TextFieldValue()) }
+    val (repassWD, setRepassWD) = remember { mutableStateOf(TextFieldValue()) }
+    val (name, setName) = remember { mutableStateOf(TextFieldValue()) }
+    val (callNum, setCallNum) = remember { mutableStateOf(TextFieldValue()) }
+    val (birthday, setBirthday) = remember { mutableStateOf(TextFieldValue()) }
 
     Column(Modifier.padding(8.dp)){
         Row(
@@ -134,7 +134,7 @@ fun joinMember() {
             verticalAlignment = Alignment.CenterVertically,  // Text 위젯들 간 세로 중앙 정렬 위함
             horizontalArrangement = Arrangement.Center
         ) {
-            registerButton(emailID.text, passWD.text)
+            registerButton(emailID.text, passWD.text, toMainScreen)
         }
     }
 }

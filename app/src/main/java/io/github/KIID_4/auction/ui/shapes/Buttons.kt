@@ -10,6 +10,8 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -22,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.firebase.auth.FirebaseAuth
 import io.github.KIID_4.auction.R // drawable에 있는 이미지 추가
+import io.github.KIID_4.auction.ui.function.registerToFirebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -157,25 +160,21 @@ fun duplicationButton() {
 }
 
 @Composable
-fun registerButton(email: String, passwd: String) {
+fun registerButton(email: String, passwd: String, toMainScreen: () -> Unit) {
     val context = LocalContext.current
+    val (registerSuccess, setSuccess) = remember { mutableStateOf(false) }
+
+    if (registerSuccess) {
+        toMainScreen()
+    }
+
     Button(
         onClick = {
             if (email.isNotEmpty() && passwd.isNotEmpty()) {
                 CoroutineScope(Dispatchers.IO).launch {
-                    println("email: $email, passwd: $passwd")
-                    FirebaseAuth.getInstance()
-                        .createUserWithEmailAndPassword(email, passwd)
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                Toast.makeText(context, task.result?.user.toString(), Toast.LENGTH_SHORT).show()
-                                //to goMainActivity(task.result?.user)
-                            } else if (!task.exception?.message.isNullOrEmpty()) {
-                                Toast.makeText(context, task.exception?.message, Toast.LENGTH_SHORT).show()
-                            } else {
-                                // to login func
-                            }
-                        }
+                    registerToFirebase(email, passwd, context) {
+                        setSuccess(true)
+                    }
                 }
             }
         },

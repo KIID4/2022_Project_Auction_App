@@ -55,9 +55,7 @@ fun searchBar() {
 @Composable
 @Preview
 // Compose의 경우 Textfield에 Text의 상태를 저장하는 공간이 없음 즉 저장하는 부분을 만들어 줘야함
-fun iDBar() {
-    var searchInput by remember { mutableStateOf(TextFieldValue()) }
-
+fun iDBar(searchInput: TextFieldValue, setter: (TextFieldValue) -> Unit) {
     Row(
         modifier = Modifier,
         horizontalArrangement = Arrangement.Center,
@@ -67,7 +65,7 @@ fun iDBar() {
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight(),  // width value will be ignored because of fillMaxWidth
-            value = searchInput,
+            value = searchInput.text,
             singleLine = true,  // 한줄로만 입력
             leadingIcon = {
                 Icon(
@@ -81,7 +79,7 @@ fun iDBar() {
                     0xFFE0E0E0
                 )
             )),
-            onValueChange = { newValue -> searchInput = newValue },  // 사용자의 새로운 입력을 사용자의 입력을 넣어줌
+            onValueChange = { setter(TextFieldValue(it)) },  // 사용자의 새로운 입력을 사용자의 입력을 넣어줌
             placeholder = { Text(text = "아이디", color = Color.Gray) }  // 바탕 글
         )
     }
@@ -91,9 +89,7 @@ fun iDBar() {
 @Composable
 @Preview
 // Compose의 경우 Textfield에 Text의 상태를 저장하는 공간이 없음 즉 저장하는 부분을 만들어 줘야함
-fun passwordBar() {
-    var searchInput by remember { mutableStateOf(TextFieldValue()) }
-
+fun passwordBar(searchInput: TextFieldValue, setter: (TextFieldValue) -> Unit) {
     Row(
         modifier = Modifier,
         horizontalArrangement = Arrangement.Center,
@@ -103,7 +99,7 @@ fun passwordBar() {
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight(),  // width value will be ignored because of fillMaxWidth
-            value = searchInput,
+            value = searchInput.text,
             singleLine = true,  // 한줄로만 입력
             leadingIcon = {
                 Icon(
@@ -117,7 +113,7 @@ fun passwordBar() {
                     0xFFE0E0E0
                 )
             )),
-            onValueChange = { newValue -> searchInput = newValue },  // 사용자의 새로운 입력을 사용자의 입력을 넣어줌
+            onValueChange = { setter(TextFieldValue(it)) },  // 사용자의 새로운 입력을 사용자의 입력을 넣어줌
             placeholder = { Text(text = "비밀번호", color = Color.Gray) }  // 바탕 글
         )
     }
