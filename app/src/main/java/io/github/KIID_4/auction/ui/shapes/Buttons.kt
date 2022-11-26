@@ -1,6 +1,7 @@
 package io.github.KIID_4.auction.ui.shapes
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -13,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -156,12 +158,24 @@ fun duplicationButton() {
 
 @Composable
 fun registerButton(email: String, passwd: String) {
+    val context = LocalContext.current
     Button(
         onClick = {
             if (email.isNotEmpty() && passwd.isNotEmpty()) {
                 CoroutineScope(Dispatchers.IO).launch {
                     println("email: $email, passwd: $passwd")
-                    FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, passwd)
+                    FirebaseAuth.getInstance()
+                        .createUserWithEmailAndPassword(email, passwd)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                Toast.makeText(context, task.result?.user.toString(), Toast.LENGTH_SHORT).show()
+                                //to goMainActivity(task.result?.user)
+                            } else if (!task.exception?.message.isNullOrEmpty()) {
+                                Toast.makeText(context, task.exception?.message, Toast.LENGTH_SHORT).show()
+                            } else {
+                                // to login func
+                            }
+                        }
                 }
             }
         },
