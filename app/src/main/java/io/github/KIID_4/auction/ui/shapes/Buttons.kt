@@ -20,6 +20,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.firebase.auth.FirebaseAuth
 import io.github.KIID_4.auction.R // drawable에 있는 이미지 추가
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
 @Composable
 @Preview
 fun mainButton() {
@@ -151,13 +155,16 @@ fun duplicationButton() {
 }
 
 @Composable
-fun registerButton(email: String?, passwd: String?) {
-    var auth : FirebaseAuth? = null // 파이어베이스 인증 전역 변수
-    auth = FirebaseAuth.getInstance()
-
-    Button(onClick = {
-        auth.createUserWithEmailAndPassword("andonggyunan@naver.com", "12341234")
-    },
+fun registerButton(email: String, passwd: String) {
+    Button(
+        onClick = {
+            if (email.isNotEmpty() && passwd.isNotEmpty()) {
+                CoroutineScope(Dispatchers.IO).launch {
+                    println("email: $email, passwd: $passwd")
+                    FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, passwd)
+                }
+            }
+        },
         modifier = Modifier.size(width = 80.dp, height = 40.dp),
         shape = RoundedCornerShape(10.dp),
         colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)

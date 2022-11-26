@@ -125,10 +125,7 @@ fun passwordBar() {
 
 @Composable
 // Compose의 경우 Textfield에 Text의 상태를 저장하는 공간이 없음 즉 저장하는 부분을 만들어 줘야함
-fun informationBar(value : String) : String {
-    var typing by remember { mutableStateOf(TextFieldValue()) }
-
-
+fun informationBar(value: String, typing: TextFieldValue, setter: (TextFieldValue) -> Unit) {
     Row(
         modifier = Modifier,
         horizontalArrangement = Arrangement.Center,
@@ -137,7 +134,7 @@ fun informationBar(value : String) : String {
         TextField(
             modifier = Modifier.size(width = 200.dp, height = 55.dp),
             shape = RoundedCornerShape((10.dp)),
-            value = typing,
+            value = typing.text,
             singleLine = true,  // 한줄로만 입력
 
             colors = @OptIn(ExperimentalMaterialApi::class) (ExposedDropdownMenuDefaults.textFieldColors(
@@ -145,10 +142,8 @@ fun informationBar(value : String) : String {
                     0xFFE0E0E0
                 )
             )),
-            onValueChange = { newValue -> typing = newValue },  // 사용자의 새로운 입력을 사용자의 입력을 넣어줌
+            onValueChange = { setter(TextFieldValue(it)) },  // 사용자의 새로운 입력을 사용자의 입력을 넣어줌
             placeholder = { Text(text = value, color = Color.Gray, fontSize = 10.sp) }  // 바탕 글
         )
     }
-
-    return typing.toString()
 }

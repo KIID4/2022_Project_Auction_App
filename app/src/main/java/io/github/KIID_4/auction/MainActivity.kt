@@ -17,7 +17,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AuctionAppTheme {
-                val navController = rememberNavController() // 화면이동 담당 객체
+                val navController = rememberNavController()  // 화면이동 담당 객체
                 var auth : FirebaseAuth? = null // 파이어베이스 인증 전역 변수
 
                 auth = Firebase.auth
