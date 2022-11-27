@@ -53,7 +53,6 @@ fun searchBar() {
 }
 
 @Composable
-@Preview
 // Compose의 경우 Textfield에 Text의 상태를 저장하는 공간이 없음 즉 저장하는 부분을 만들어 줘야함
 fun iDBar(searchInput: TextFieldValue, setter: (TextFieldValue) -> Unit) {
     Row(
@@ -87,7 +86,6 @@ fun iDBar(searchInput: TextFieldValue, setter: (TextFieldValue) -> Unit) {
 
 
 @Composable
-@Preview
 // Compose의 경우 Textfield에 Text의 상태를 저장하는 공간이 없음 즉 저장하는 부분을 만들어 줘야함
 fun passwordBar(searchInput: TextFieldValue, setter: (TextFieldValue) -> Unit) {
     Row(

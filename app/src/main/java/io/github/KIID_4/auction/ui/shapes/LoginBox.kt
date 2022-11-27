@@ -21,6 +21,7 @@ import kotlinx.coroutines.launch
 @Composable
 fun loginBox(navController : NavController) {
     val context = LocalContext.current
+
     Row(
         modifier = Modifier.fillMaxSize(),
         horizontalArrangement = Arrangement.Center,
@@ -31,7 +32,7 @@ fun loginBox(navController : NavController) {
         val (loginSuccess, setSuccess) = remember { mutableStateOf(false) }
 
         if (loginSuccess) {
-            navController.navigate("mainScreen")
+            navController.navigate("userMain")
         }
 
         Column(Modifier.padding(20.dp)){
