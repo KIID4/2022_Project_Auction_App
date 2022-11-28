@@ -15,7 +15,7 @@ fun userMain(navController : NavController) {
     val user = Firebase.auth.currentUser
 
     if (user != null) {
-        // User is signed in
+
     } else {
         // No user is signed in
     }

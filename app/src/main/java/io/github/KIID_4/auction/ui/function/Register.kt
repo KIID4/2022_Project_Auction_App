@@ -30,3 +30,8 @@ fun loginToFirebase(email: String, passwd: String, context: Context, setSuccess:
             }
         }
 }
+
+fun modifyToFirebase(passwd: String, context: Context, setSuccess: () -> Unit) {
+    FirebaseAuth.getInstance()
+
+}

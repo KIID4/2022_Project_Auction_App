@@ -9,10 +9,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.firebase.storage.FirebaseStorage
+import java.io.File
 
 @Composable
 @Preview
 fun popularPreview() {
+    val storage = FirebaseStorage.getInstance() // 파이어베이스 스토리지 인스턴스를 만듦
+    val storageRef = storage.getReference() // 스토리지를 참조
+
     Row(
         Modifier.padding(10.dp),
         horizontalArrangement = Arrangement.Center

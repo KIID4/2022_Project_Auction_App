@@ -33,6 +33,7 @@ fun loginBox(navController : NavController) {
 
         if (loginSuccess) {
             navController.navigate("userMain")
+            setSuccess(false)
         }
 
         Column(Modifier.padding(20.dp)){
@@ -58,39 +59,6 @@ fun loginBox(navController : NavController) {
             Button(onClick = {
                 navController.navigate("RegisterMember")
             },
-                modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xff070000))
-            ) {
-                Text("회원가입", color = Color.White, fontSize = 17.sp, textAlign = TextAlign.Center)
-            }
-        }
-    }
-}
-
-@Composable
-@Preview
-fun loginBoxPreview() {
-    Row(
-        modifier = Modifier.fillMaxSize(),
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically  // Text 위젯들 간 세로 중앙 정렬 위함
-    )  {
-        var (emailID, setEmailID) = remember { mutableStateOf(TextFieldValue()) }
-        var (passWD, setPassWD) = remember { mutableStateOf(TextFieldValue()) }
-
-        Column(Modifier.padding(20.dp)){
-            iDBar(emailID, setEmailID)
-            Spacer(Modifier.padding(1.dp))
-            passwordBar(passWD, setPassWD)
-            Spacer(Modifier.padding(10.dp))
-            Button(onClick = { },
-                modifier = Modifier.fillMaxWidth(),
-                colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xff070000))
-            ) {
-                Text("로그인", color = Color.White, fontSize = 17.sp, textAlign = TextAlign.Center)
-            }
-
-            Button(onClick = { },
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xff070000))
             ) {

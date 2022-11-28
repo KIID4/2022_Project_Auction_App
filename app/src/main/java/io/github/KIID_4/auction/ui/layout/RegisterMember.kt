@@ -19,15 +19,3 @@ fun registerMember(navController : NavController) {
         }
     }
 }
-
-@Composable
-@Preview
-fun registerMemberPreview() {
-    topAppBarPriview()
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center
-    ) {
-        joinMember()
-    }
-}

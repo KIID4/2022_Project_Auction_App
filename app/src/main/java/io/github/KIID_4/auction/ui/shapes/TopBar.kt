@@ -12,13 +12,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 
 @Composable
-fun topAppBar(navController : NavController, use : Boolean) {
+fun topAppBar(navController: NavController, use: Boolean) {
     val user = Firebase.auth.currentUser
+
     var userName = "로그인이 필요합니다"
     if (user != null) {
         userName = user.displayName.toString() + "님"
@@ -45,7 +47,10 @@ fun topAppBar(navController : NavController, use : Boolean) {
                             onClickLabel = null,
                             role = null,
                             onClick = {
-                                navController.navigate("Login")
+                                if (user != null) {
+                                    navController.navigate("myPage")
+                                }
+                                else navController.navigate("Login")
                             }
                         )
                 )
@@ -55,44 +60,3 @@ fun topAppBar(navController : NavController, use : Boolean) {
         }
     }
 }
-
-@Composable
-@Preview
-fun topAppBarPriview() {
-    val user = Firebase.auth.currentUser
-    var userName = "로그인이 필요합니다"
-    if (user != null) {
-        userName = user.displayName.toString() + "님"
-    }
-
-    Surface(
-        modifier = Modifier
-            .fillMaxWidth(),
-        color = Color(0xff4E7FFF)
-    )  {
-        Column(Modifier.padding(10.dp)) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically  // Text 위젯들 간 세로 중앙 정렬 위함
-            ) {
-                Text(text = userName, color = Color.White, fontSize = 18.sp)
-                Spacer(Modifier.weight(1.0f))
-                Text(text = "My", color = Color.White, fontSize = 20.sp, modifier = Modifier
-                    .clickable(
-                        interactionSource = remember { MutableInteractionSource() },
-                        indication = null, // 버튼 중복 방지
-                        enabled = true,
-                        onClickLabel = null,
-                        role = null,
-                        onClick = {
-                        }
-                    )
-                )
-            }
-            Spacer(Modifier.padding(6.dp))
-            searchBar()
-        }
-    }
-}
-

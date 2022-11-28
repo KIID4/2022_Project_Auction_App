@@ -1,7 +1,5 @@
 package io.github.KIID_4.auction.ui.shapes
 
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -22,8 +20,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.google.firebase.auth.FirebaseAuth
 import io.github.KIID_4.auction.R // drawable에 있는 이미지 추가
+import io.github.KIID_4.auction.ui.function.modifyToFirebase
 import io.github.KIID_4.auction.ui.function.registerToFirebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -67,14 +67,15 @@ fun mainButton() {
 }
 
 @Composable
-@Preview
-fun myPageButton() {
+fun myPageButton(navController : NavController) {
     Row(
         modifier = Modifier.padding(25.dp),
         horizontalArrangement = Arrangement.Center,
     ) {
         Column{
-            Button(onClick = { },
+            Button(onClick = {
+                navController.navigate("modifyinginfor")
+            },
                 modifier = Modifier.size(width = 70.dp, height = 70.dp).
                 clip(CircleShape),
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
@@ -183,5 +184,32 @@ fun registerButton(email: String, passwd: String, toMainScreen: () -> Unit) {
         colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
     ) {
         Text("회원 가입", color = Color.White, fontSize = 10.sp)
+    }
+}
+
+@Composable
+fun modifiyButton(passwd: String, toMypageScreen: () -> Unit) {
+    val context = LocalContext.current
+    val (registerSuccess, setSuccess) = remember { mutableStateOf(false) }
+
+    if (registerSuccess) {
+        toMypageScreen()
+    }
+
+    Button(
+        onClick = {
+            if (passwd.isNotEmpty()) {
+                CoroutineScope(Dispatchers.IO).launch {
+                    modifyToFirebase(passwd, context) {
+                        setSuccess(true)
+                    }
+                }
+            }
+        },
+        modifier = Modifier.size(width = 80.dp, height = 40.dp),
+        shape = RoundedCornerShape(10.dp),
+        colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
+    ) {
+        Text("수정 완료", color = Color.White, fontSize = 10.sp)
     }
 }
