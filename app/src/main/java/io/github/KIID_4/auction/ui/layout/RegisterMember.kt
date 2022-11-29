@@ -14,8 +14,6 @@ fun registerMember(navController : NavController) {
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center
     ) {
-        joinMember{
-            navController.navigate("userMain")
-        }
+        joinMember(navController)
     }
 }

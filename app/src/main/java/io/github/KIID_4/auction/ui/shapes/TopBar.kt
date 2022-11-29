@@ -47,10 +47,7 @@ fun topAppBar(navController: NavController, use: Boolean) {
                             onClickLabel = null,
                             role = null,
                             onClick = {
-                                if (user != null) {
-                                    navController.navigate("myPage")
-                                }
-                                else navController.navigate("Login")
+                                navController.navigate("Login")
                             }
                         )
                 )

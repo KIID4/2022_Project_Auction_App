@@ -8,19 +8,25 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 @Composable
-@Preview
-fun joinMember(toMainScreen: () -> Unit = {}) {
+fun joinMember(navController : NavController, toLoginScreen: () -> Unit = {}) {
+
     val (emailID, setEmailID) = remember { mutableStateOf(TextFieldValue()) }
     val (passWD, setPassWD) = remember { mutableStateOf(TextFieldValue()) }
     val (repassWD, setRepassWD) = remember { mutableStateOf(TextFieldValue()) }
     val (name, setName) = remember { mutableStateOf(TextFieldValue()) }
     val (callNum, setCallNum) = remember { mutableStateOf(TextFieldValue()) }
     val (birthday, setBirthday) = remember { mutableStateOf(TextFieldValue()) }
+    val (registerSuccess, setSuccess) = remember { mutableStateOf(false) }
+
+    if (registerSuccess) {
+        navController.navigate("userMain")
+        setSuccess(false)
+    }
 
     Column(Modifier.padding(8.dp)){
         Row(
@@ -134,7 +140,7 @@ fun joinMember(toMainScreen: () -> Unit = {}) {
             verticalAlignment = Alignment.CenterVertically,  // Text 위젯들 간 세로 중앙 정렬 위함
             horizontalArrangement = Arrangement.Center
         ) {
-            registerButton(emailID.text, passWD.text, toMainScreen)
+            registerButton(navController, emailID.text, passWD.text, toLoginScreen)
         }
     }
 }

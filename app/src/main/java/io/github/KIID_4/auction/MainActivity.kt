@@ -40,7 +40,7 @@ class MainActivity : ComponentActivity() {
                     }
 
                     composable("modifyinginfor") {
-                        Modifyinginfor(navController)
+                        modifyinginfor(navController)
                     }
                 }
                 // A surface container using the 'background' color from the theme

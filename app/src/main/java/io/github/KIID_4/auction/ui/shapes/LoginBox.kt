@@ -57,7 +57,7 @@ fun loginBox(navController : NavController) {
             }
 
             Button(onClick = {
-                navController.navigate("RegisterMember")
+                navController.navigate("registerMember")
             },
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xff070000))

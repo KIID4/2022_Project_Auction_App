@@ -10,11 +10,10 @@ fun registerToFirebase(email: String, passwd: String, context: Context, setSucce
         .createUserWithEmailAndPassword(email, passwd)
         .addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                loginToFirebase(email, passwd, context, setSuccess)
+                setSuccess()
+                Toast.makeText(context, "회원가입에 성공하셨습니다.", Toast.LENGTH_SHORT).show()
             } else if (!task.exception?.message.isNullOrEmpty()) {
                 Toast.makeText(context, task.exception?.message, Toast.LENGTH_SHORT).show()
-            } else {
-                loginToFirebase(email, passwd, context, setSuccess)
             }
         }
 }
@@ -25,6 +24,7 @@ fun loginToFirebase(email: String, passwd: String, context: Context, setSuccess:
         .addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 setSuccess()
+                Toast.makeText(context, "로그인에 성공하셨습니다.", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(context, task.exception?.message, Toast.LENGTH_SHORT).show()
             }

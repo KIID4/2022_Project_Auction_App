@@ -21,7 +21,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.google.firebase.auth.FirebaseAuth
 import io.github.KIID_4.auction.R // drawable에 있는 이미지 추가
 import io.github.KIID_4.auction.ui.function.modifyToFirebase
 import io.github.KIID_4.auction.ui.function.registerToFirebase
@@ -161,12 +160,13 @@ fun duplicationButton() {
 }
 
 @Composable
-fun registerButton(email: String, passwd: String, toMainScreen: () -> Unit) {
+fun registerButton(navController: NavController, email: String, passwd: String, toLoginScreen: () -> Unit) {
     val context = LocalContext.current
-    val (registerSuccess, setSuccess) = remember { mutableStateOf(false) }
+    val (registerSuccess, registersetSuccess) = remember { mutableStateOf(false) }
 
     if (registerSuccess) {
-        toMainScreen()
+        navController.navigate("login")
+        registersetSuccess(false)
     }
 
     Button(
@@ -174,11 +174,12 @@ fun registerButton(email: String, passwd: String, toMainScreen: () -> Unit) {
             if (email.isNotEmpty() && passwd.isNotEmpty()) {
                 CoroutineScope(Dispatchers.IO).launch {
                     registerToFirebase(email, passwd, context) {
-                        setSuccess(true)
+                        registersetSuccess(true)
                     }
                 }
             }
         },
+
         modifier = Modifier.size(width = 80.dp, height = 40.dp),
         shape = RoundedCornerShape(10.dp),
         colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)

@@ -10,7 +10,7 @@ import io.github.KIID_4.auction.ui.shapes.Modifiymember
 import io.github.KIID_4.auction.ui.shapes.topAppBar
 
 @Composable
-fun Modifyinginfor(navController : NavController) {
+fun modifyinginfor(navController : NavController) {
     topAppBar(navController, true)
     Column(
         modifier = Modifier.fillMaxSize(),
