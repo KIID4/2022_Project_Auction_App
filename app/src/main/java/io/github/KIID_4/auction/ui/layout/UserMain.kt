@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import io.github.KIID_4.auction.ui.shapes.popularPreview
 import io.github.KIID_4.auction.ui.shapes.*
@@ -14,12 +15,27 @@ import io.github.KIID_4.auction.ui.shapes.*
 fun userMain(navController : NavController) {
     val user = Firebase.auth.currentUser
 
-    Column(
-        Modifier.fillMaxSize()
-    ) {
-        topAppBar(navController, true, "My")
-        noticePreview()
-        mainButton()
-        popularPreview()
+    if(user != null) {
+        Column(
+            Modifier.fillMaxSize()
+        ) {
+            topAppBar(navController, true, "My")
+            noticePreview()
+            mainButton()
+            popularPreview()
+        }
     }
+    else {
+        Column(
+            Modifier.fillMaxSize()
+        ) {
+            topAppBar(navController, true, "My")
+            noticePreview()
+            mainButton()
+            popularPreview()
+        }
+    }
+
+
+
 }

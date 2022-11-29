@@ -1,5 +1,6 @@
 package io.github.KIID_4.auction.ui.shapes
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -21,7 +22,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import io.github.KIID_4.auction.R // drawable에 있는 이미지 추가
+import io.github.KIID_4.auction.ui.function.inputToFirebase
 import io.github.KIID_4.auction.ui.function.modifyToFirebase
 import io.github.KIID_4.auction.ui.function.registerToFirebase
 import kotlinx.coroutines.CoroutineScope
@@ -148,35 +153,35 @@ fun myPageButton(navController : NavController) {
 }
 
 @Composable
-@Preview
-fun duplicationButton() {
-    Button(onClick = { },
-        modifier = Modifier.size(width = 80.dp, height = 30.dp),
-        shape = RoundedCornerShape(12.dp),
-        colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
-    ) {
-        Text("중복 확인", color = Color.White, fontSize = 10.sp)
-    }
-}
-
-@Composable
-fun registerButton(navController: NavController, email: String, passwd: String, toLoginScreen: () -> Unit) {
+fun registerButton(
+    navController: NavController,
+    email: String,
+    passwd: String,
+    name: String,
+    callNum: String,
+    birthday: String,
+    toLoginScreen: () -> Unit
+) {
     val context = LocalContext.current
-    val (registerSuccess, registersetSuccess) = remember { mutableStateOf(false) }
+    val (registerSuccess, registerSetSuccess) = remember { mutableStateOf(false) }
 
     if (registerSuccess) {
         navController.navigate("login")
-        registersetSuccess(false)
+        FirebaseAuth.getInstance().signOut()
+        registerSetSuccess(false)
     }
 
     Button(
         onClick = {
-            if (email.isNotEmpty() && passwd.isNotEmpty()) {
+            if (email.isNotEmpty() && passwd.isNotEmpty() && name.isNotEmpty() && callNum.isNotEmpty() && birthday.isNotEmpty()) {
                 CoroutineScope(Dispatchers.IO).launch {
-                    registerToFirebase(email, passwd, context) {
-                        registersetSuccess(true)
+                    registerToFirebase(email, passwd, name, callNum, birthday, context) {
+                        registerSetSuccess(true)
                     }
                 }
+            }
+            else {
+                Toast.makeText(context, "정보를 똑바로 입력해 주세요", Toast.LENGTH_SHORT).show()
             }
         },
 

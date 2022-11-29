@@ -11,6 +11,9 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+import io.github.KIID_4.auction.ui.function.inputToFirebase
 
 @Composable
 fun joinMember(navController : NavController, toLoginScreen: () -> Unit = {}) {
@@ -38,8 +41,6 @@ fun joinMember(navController : NavController, toLoginScreen: () -> Unit = {}) {
             Text("ID", fontSize = 16.sp)
             Spacer(Modifier.padding(20.dp))
             informationBar("이메일 입력", emailID, setEmailID)
-            Spacer(Modifier.weight(0.1f))
-            duplicationButton()
             Spacer(Modifier.weight(0.1f))
         }
 
@@ -140,7 +141,7 @@ fun joinMember(navController : NavController, toLoginScreen: () -> Unit = {}) {
             verticalAlignment = Alignment.CenterVertically,  // Text 위젯들 간 세로 중앙 정렬 위함
             horizontalArrangement = Arrangement.Center
         ) {
-            registerButton(navController, emailID.text, passWD.text, toLoginScreen)
+            registerButton(navController, emailID.text, passWD.text, name.text, callNum.text, birthday.text, toLoginScreen)
         }
     }
 }

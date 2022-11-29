@@ -12,17 +12,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 
 
 @Composable
-fun topAppBar(navController: NavController, use: Boolean, check : String) {
+fun topAppBar(navController: NavController, use: Boolean, check: String) {
     val user = Firebase.auth.currentUser
-
     var userName = "로그인이 필요합니다"
+
     if (user != null) {
-        userName = user.uid
+        val database = FirebaseDatabase.getInstance().getReference(user.uid)
+        database.child("users").child("name").get().addOnSuccessListener {
+            userName = it.value.toString() + "님"
+        }
     }
 
     Surface(
