@@ -12,7 +12,7 @@ fun login(navController : NavController){
     Column(
         Modifier.fillMaxSize(),
     ) {
-        topAppBar(navController, false)
+        topAppBar(navController, false, "My")
         loginBox(navController)
     }
 }

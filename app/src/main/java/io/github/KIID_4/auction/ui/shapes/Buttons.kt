@@ -73,7 +73,7 @@ fun myPageButton(navController : NavController) {
     ) {
         Column{
             Button(onClick = {
-                navController.navigate("modifyinginfor")
+                navController.navigate("modifyingInfor")
             },
                 modifier = Modifier.size(width = 70.dp, height = 70.dp).
                 clip(CircleShape),

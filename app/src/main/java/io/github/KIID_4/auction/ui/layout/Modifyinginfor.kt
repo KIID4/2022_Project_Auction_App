@@ -10,8 +10,8 @@ import io.github.KIID_4.auction.ui.shapes.Modifiymember
 import io.github.KIID_4.auction.ui.shapes.topAppBar
 
 @Composable
-fun modifyinginfor(navController : NavController) {
-    topAppBar(navController, true)
+fun modifyingInfor(navController : NavController) {
+    topAppBar(navController, true, "Logout")
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center

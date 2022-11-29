@@ -14,16 +14,10 @@ import io.github.KIID_4.auction.ui.shapes.*
 fun userMain(navController : NavController) {
     val user = Firebase.auth.currentUser
 
-    if (user != null) {
-
-    } else {
-        // No user is signed in
-    }
-
     Column(
         Modifier.fillMaxSize()
     ) {
-        topAppBar(navController, true)
+        topAppBar(navController, true, "My")
         noticePreview()
         mainButton()
         popularPreview()

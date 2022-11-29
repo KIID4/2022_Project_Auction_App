@@ -6,9 +6,6 @@ import androidx.activity.compose.setContent
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import io.github.KIID_4.auction.ui.theme.AuctionAppTheme
 import io.github.KIID_4.auction.ui.layout.*
 
@@ -39,8 +36,8 @@ class MainActivity : ComponentActivity() {
                         myPage(navController)
                     }
 
-                    composable("modifyinginfor") {
-                        modifyinginfor(navController)
+                    composable("modifyingInfor") {
+                        modifyingInfor(navController)
                     }
                 }
                 // A surface container using the 'background' color from the theme

@@ -8,22 +8,21 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 
 @Composable
-fun topAppBar(navController: NavController, use: Boolean) {
+fun topAppBar(navController: NavController, use: Boolean, check : String) {
     val user = Firebase.auth.currentUser
 
     var userName = "로그인이 필요합니다"
     if (user != null) {
-        userName = user.displayName.toString() + "님"
+        userName = user.uid
     }
 
     Surface(
@@ -39,7 +38,8 @@ fun topAppBar(navController: NavController, use: Boolean) {
             ) {
                 Text(text = userName, color = Color.White, fontSize = 18.sp)
                 Spacer(Modifier.weight(1.0f))
-                Text(text = "My", color = Color.White, fontSize = 20.sp, modifier = Modifier
+                if (check == "My") {
+                    Text(text = "My", color = Color.White, fontSize = 20.sp, modifier = Modifier
                         .clickable(
                             interactionSource = remember { MutableInteractionSource() },
                             indication = null, // 버튼 중복 방지
@@ -47,10 +47,32 @@ fun topAppBar(navController: NavController, use: Boolean) {
                             onClickLabel = null,
                             role = null,
                             onClick = {
-                                navController.navigate("Login")
+                                if (user != null) {
+                                    navController.navigate("myPage")
+                                } else {
+                                    navController.navigate("Login")
+                                }
                             }
                         )
-                )
+                    )
+                }
+
+                else if (check == "Logout") {
+                    Text(text = "Logout", color = Color.White, fontSize = 20.sp, modifier = Modifier
+                        .clickable(
+                            interactionSource = remember { MutableInteractionSource() },
+                            indication = null, // 버튼 중복 방지
+                            enabled = true,
+                            onClickLabel = null,
+                            role = null,
+                            onClick = {
+                                FirebaseAuth.getInstance().signOut()
+                                navController.navigate("userMain")
+                            }
+                        )
+                    )
+                }
+
             }
             Spacer(Modifier.padding(6.dp))
             searchBar()
