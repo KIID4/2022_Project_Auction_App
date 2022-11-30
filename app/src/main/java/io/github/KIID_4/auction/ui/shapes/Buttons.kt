@@ -22,6 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.navigation.NavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -233,9 +234,9 @@ fun modifiyButton(passwd: String, toMypageScreen: () -> Unit) {
 @Composable
 @Preview
 fun takeImageButton() {
-    val intent: Intent = Intent(Intent.ACTION_GET_CONTENT)
-    val GALLERY = 1
-    intent.setType("image/*")
+    val intent = Intent(Intent.ACTION_PICK)
+    intent.type = "image/*"
+    intent.action = Intent.ACTION_GET_CONTENT
 
     Button(
         onClick = { },
