@@ -1,6 +1,8 @@
 package io.github.KIID_4.auction.ui.shapes
 
+
 import android.content.Intent
+import android.provider.MediaStore
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -27,12 +29,13 @@ import androidx.navigation.NavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import io.github.KIID_4.auction.R // drawable에 있는 이미지 추가
+import io.github.KIID_4.auction.R
 import io.github.KIID_4.auction.ui.function.modifyToFirebase
 import io.github.KIID_4.auction.ui.function.registerToFirebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+
 
 @Composable
 fun mainButton(navController: NavController) {
@@ -234,12 +237,11 @@ fun modifiyButton(passwd: String, toMypageScreen: () -> Unit) {
 @Composable
 @Preview
 fun takeImageButton() {
-    val intent = Intent(Intent.ACTION_PICK)
-    intent.type = "image/*"
-    intent.action = Intent.ACTION_GET_CONTENT
 
     Button(
-        onClick = { },
+        onClick = {
+
+        },
         modifier = Modifier.size(width = 80.dp, height = 40.dp),
         shape = RoundedCornerShape(10.dp),
         colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)

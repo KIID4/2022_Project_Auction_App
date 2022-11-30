@@ -1,6 +1,5 @@
 package io.github.KIID_4.auction.ui.shapes
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -22,8 +21,8 @@ import androidx.compose.ui.unit.sp
 @Preview
 fun galleryImage() {
 
+    val (productName, setproductName) = remember { mutableStateOf(TextFieldValue()) }
     val (price, setPrice) = remember { mutableStateOf(TextFieldValue()) }
-    val (fPrice, setFPrice) = remember { mutableStateOf(TextFieldValue()) }
     val (time, setTime) = remember { mutableStateOf(TextFieldValue()) }
 
     Row (
@@ -43,7 +42,7 @@ fun galleryImage() {
 
             Row {
                 Spacer(Modifier.weight(1.0f))
-                takeImageButton()
+                takeImageButton() // 파이어베이스 DB상에 등록
             }
 
             Spacer(Modifier.padding(20.dp))
@@ -53,7 +52,7 @@ fun galleryImage() {
             ) {
                 Text("물품 이름", fontSize = 17.sp)
                 Spacer(Modifier.padding(10.dp))
-                productInfo(price, setPrice, 150)
+                productInfo(productName, setproductName, 150)
             }
 
             Spacer(Modifier.padding(5.dp))
@@ -75,7 +74,7 @@ fun galleryImage() {
             ) {
                 Text("초기 가격", fontSize = 17.sp)
                 Spacer(Modifier.padding(10.dp))
-                productInfo(fPrice, setFPrice, 150)
+                productInfo(price, setPrice, 150)
             }
 
             Spacer(Modifier.padding(10.dp))
