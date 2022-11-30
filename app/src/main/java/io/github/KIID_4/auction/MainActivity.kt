@@ -14,6 +14,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AuctionAppTheme {
+
+
                 val navController = rememberNavController()  // 화면이동 담당 객체
 
                 NavHost(
@@ -44,8 +46,6 @@ class MainActivity : ComponentActivity() {
                         regisProduct(navController)
                     }
                 }
-                // A surface container using the 'background' color from the theme
-                // Compose의 경우 상태가 바뀔때마다 Recompose를 사용하게 되는데 setContent블록을 처음부터 다시 수행함
             }
         }
     }

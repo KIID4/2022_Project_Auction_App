@@ -1,17 +1,27 @@
 package io.github.KIID_4.auction.ui.shapes
 
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.net.Uri
+import android.os.Build
+import android.provider.MediaStore
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -21,9 +31,30 @@ import androidx.compose.ui.unit.sp
 @Preview
 fun galleryImage() {
 
-    val (productName, setproductName) = remember { mutableStateOf(TextFieldValue()) }
+    val (productName, setProductName) = remember { mutableStateOf(TextFieldValue()) }
     val (price, setPrice) = remember { mutableStateOf(TextFieldValue()) }
     val (time, setTime) = remember { mutableStateOf(TextFieldValue()) }
+    var imageUri by remember { mutableStateOf<Uri?>(null) }
+    val context = LocalContext.current
+    val bitmap =  remember { mutableStateOf<Bitmap?>(null) }
+
+    val launcher = rememberLauncherForActivityResult(contract =
+    ActivityResultContracts.GetContent()) { uri: Uri? ->
+        imageUri = uri
+    }
+
+    imageUri?.let {
+        if (Build.VERSION.SDK_INT < 28) {
+            bitmap.value = MediaStore.Images
+                .Media.getBitmap(context.contentResolver, it)
+
+        } else {
+            val source = ImageDecoder
+                .createSource(context.contentResolver, it)
+            bitmap.value = ImageDecoder.decodeBitmap(source)
+        }
+    }
+
 
     Row (
         modifier = Modifier.padding(70.dp),
@@ -35,14 +66,33 @@ fun galleryImage() {
                 shape = RoundedCornerShape(20.dp),
                 color = Color.White
             ) {
-                Spacer(Modifier.padding(100.dp))
+                if (bitmap.value != null) {
+                    bitmap.value?.let { btm ->
+                        Image(
+                            bitmap = btm.asImageBitmap(),
+                            contentDescription = null,
+                            modifier = Modifier.size(width = 200.dp, height = 200.dp)
+                        )
+                    }
+                }
+                else Spacer(Modifier.padding(100.dp))
+
             }
 
             Spacer(Modifier.padding(5.dp))
 
             Row {
                 Spacer(Modifier.weight(1.0f))
-                takeImageButton() // 파이어베이스 DB상에 등록
+                Button(
+                    onClick = {
+                        launcher.launch("image/*") // 갤러리 실행시켜주는 메소드
+                    },
+                    modifier = Modifier.size(width = 80.dp, height = 40.dp),
+                    shape = RoundedCornerShape(10.dp),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
+                ) {
+                    Text("갤러리", color = Color.White, fontSize = 10.sp)
+                }
             }
 
             Spacer(Modifier.padding(20.dp))
@@ -52,7 +102,7 @@ fun galleryImage() {
             ) {
                 Text("물품 이름", fontSize = 17.sp)
                 Spacer(Modifier.padding(10.dp))
-                productInfo(productName, setproductName, 150)
+                productInfo(productName, setProductName, 150)
             }
 
             Spacer(Modifier.padding(5.dp))

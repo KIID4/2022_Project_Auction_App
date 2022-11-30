@@ -1,9 +1,11 @@
 package io.github.KIID_4.auction.ui.shapes
 
 
-import android.content.Intent
-import android.provider.MediaStore
+import android.graphics.Bitmap
+import android.net.Uri
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -11,9 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -24,7 +24,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.navigation.NavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -236,11 +235,19 @@ fun modifiyButton(passwd: String, toMypageScreen: () -> Unit) {
 
 @Composable
 @Preview
-fun takeImageButton() {
+fun takeImageButton() { // 갤러리 불러오는 메소드
+    var imageUri = remember { mutableStateOf<Uri?>(null) } // UPDATE
+    val context = LocalContext.current
+    var bitmap by remember { mutableStateOf<Bitmap?>(null) }
+
+    val launcher = rememberLauncherForActivityResult(contract =
+    ActivityResultContracts.GetContent()) { uri: Uri? ->
+        imageUri.value = uri // UPDATE
+    }
 
     Button(
         onClick = {
-
+            launcher.launch("image/*")
         },
         modifier = Modifier.size(width = 80.dp, height = 40.dp),
         shape = RoundedCornerShape(10.dp),
