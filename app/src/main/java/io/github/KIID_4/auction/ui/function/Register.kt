@@ -15,6 +15,7 @@ fun registerToFirebase(email: String, passwd: String, name: String, callNum: Str
             if (task.isSuccessful) {
                 registersetSuccess()
                 val user = Firebase.auth.currentUser
+
                 var useruid = ""
                 if (user != null) {
                     useruid = user.uid
@@ -48,8 +49,10 @@ fun inputToFirebase(name: String, callNum: String, birthday: String, useruid: St
     userModel["callNumber"] = callNum
     userModel["birthday"] = birthday
     userModel["uid"] = useruid
+    userModel["money"] = "100000"
 
-    FirebaseDatabase.getInstance().getReference().child("users").child(useruid).setValue(userModel) // getReference()
+    FirebaseDatabase.getInstance().reference.child("users").child(useruid).setValue(userModel) // getReference
+
 }
 
 fun modifyToFirebase(passwd: String, context: Context, setSuccess: () -> Unit) {

@@ -39,6 +39,10 @@ class MainActivity : ComponentActivity() {
                     composable("modifyingInfor") {
                         modifyingInfor(navController)
                     }
+
+                    composable("regisProduct") {
+                        regisProduct(navController)
+                    }
                 }
                 // A surface container using the 'background' color from the theme
                 // Compose의 경우 상태가 바뀔때마다 Recompose를 사용하게 되는데 setContent블록을 처음부터 다시 수행함

@@ -16,7 +16,6 @@ import java.io.File
 @Preview
 fun popularPreview() {
     val storage = FirebaseStorage.getInstance() // 파이어베이스 스토리지 인스턴스를 만듦
-    val storageRef = storage.getReference() // 스토리지를 참조
 
     Row(
         Modifier.padding(10.dp),

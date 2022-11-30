@@ -1,5 +1,6 @@
 package io.github.KIID_4.auction.ui.shapes
 
+import android.content.Intent
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -26,7 +27,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import io.github.KIID_4.auction.R // drawable에 있는 이미지 추가
-import io.github.KIID_4.auction.ui.function.inputToFirebase
 import io.github.KIID_4.auction.ui.function.modifyToFirebase
 import io.github.KIID_4.auction.ui.function.registerToFirebase
 import kotlinx.coroutines.CoroutineScope
@@ -34,8 +34,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 @Composable
-@Preview
-fun mainButton() {
+fun mainButton(navController: NavController) {
+    val user = Firebase.auth.currentUser
+    var check = false
+
+    if (user != null) {
+        check = true
+    }
     Row(
         modifier = Modifier.padding(10.dp),
         horizontalArrangement = Arrangement.Center,
@@ -43,17 +48,21 @@ fun mainButton() {
         Button(onClick = { },
             modifier = Modifier.size(width = 100.dp, height = 100.dp).
             clip(CircleShape),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xffAD55F2))
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xffAD55F2)),
+            enabled = check
         ) {
             Text("온라인 경매", color = Color.White, fontSize = 17.sp, textAlign = TextAlign.Center)
         }
 
         Spacer(Modifier.weight(0.5f))
 
-        Button(onClick = { },
+        Button(onClick = {
+            navController.navigate("regisProduct")
+        },
             modifier = Modifier.size(width = 100.dp, height = 100.dp).
             clip(CircleShape),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xffD1C0FF))
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xffD1C0FF)),
+            enabled = check
         ) {
             Text("물품 등록", color = Color.White, fontSize = 17.sp, textAlign = TextAlign.Center)
         }
@@ -63,7 +72,8 @@ fun mainButton() {
         Button(onClick = { },
             modifier = Modifier.size(width = 100.dp, height = 100.dp).
             clip(CircleShape),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xff888DFF))
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xff888DFF)),
+            enabled = check
         ) {
             Text("게시판", color = Color.White, fontSize = 17.sp, textAlign = TextAlign.Center)
         }
@@ -217,5 +227,34 @@ fun modifiyButton(passwd: String, toMypageScreen: () -> Unit) {
         colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
     ) {
         Text("수정 완료", color = Color.White, fontSize = 10.sp)
+    }
+}
+
+@Composable
+@Preview
+fun takeImageButton() {
+    val intent: Intent = Intent(Intent.ACTION_GET_CONTENT)
+    val GALLERY = 1
+    intent.setType("image/*")
+
+    Button(
+        onClick = { },
+        modifier = Modifier.size(width = 80.dp, height = 40.dp),
+        shape = RoundedCornerShape(10.dp),
+        colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
+    ) {
+        Text("갤러리", color = Color.White, fontSize = 10.sp)
+    }
+}
+
+@Composable
+fun regisProductButton() {
+    Button(
+        onClick = { },
+        modifier = Modifier.size(width = 80.dp, height = 40.dp),
+        shape = RoundedCornerShape(10.dp),
+        colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
+    ) {
+        Text("등록", color = Color.White, fontSize = 10.sp)
     }
 }
