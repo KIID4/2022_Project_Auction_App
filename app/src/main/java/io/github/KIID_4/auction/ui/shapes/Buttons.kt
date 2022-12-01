@@ -237,7 +237,7 @@ fun modifiyButton(passwd: String, toMypageScreen: () -> Unit) {
 @Composable
 @Preview
 fun takeImageButton() { // 갤러리 불러오는 메소드
-    var imageUri = remember { mutableStateOf<Uri?>(null) } // UPDATE
+    val imageUri = remember { mutableStateOf<Uri?>(null) } // UPDATE
     val context = LocalContext.current
     var bitmap by remember { mutableStateOf<Bitmap?>(null) }
 
@@ -261,7 +261,7 @@ fun takeImageButton() { // 갤러리 불러오는 메소드
 @Composable
 fun regisProductButton(
     navController: NavController,
-    imageUri: Uri?,
+    bitmap : Bitmap?,
     productName: String,
     price: String,
     time: String
@@ -279,7 +279,7 @@ fun regisProductButton(
         onClick = {
             if (productName.isNotEmpty() && price.isNotEmpty() && time.isNotEmpty()) {
                 CoroutineScope(Dispatchers.IO).launch {
-                    upLoadToFirebase(imageUri, productName, price, time, context) {
+                    upLoadToFirebase(bitmap, productName, price, time, context) {
                         upLoadSetSuccess(true)
                     }
                 }

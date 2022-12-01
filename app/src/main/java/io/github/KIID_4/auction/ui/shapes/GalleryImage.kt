@@ -132,7 +132,7 @@ fun galleryImage(navController: NavController) {
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Spacer(Modifier.weight(1.0f))
-                regisProductButton(navController, imageUri, productName.text, price.text, time.text)
+                regisProductButton(navController, bitmap.value, productName.text, price.text, time.text)
             }
         }
     }
