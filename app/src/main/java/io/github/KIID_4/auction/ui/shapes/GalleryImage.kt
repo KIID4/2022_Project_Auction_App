@@ -23,13 +23,12 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 @Composable
-@Preview
-fun galleryImage() {
+fun galleryImage(navController: NavController) {
 
     val (productName, setProductName) = remember { mutableStateOf(TextFieldValue()) }
     val (price, setPrice) = remember { mutableStateOf(TextFieldValue()) }
@@ -40,10 +39,10 @@ fun galleryImage() {
 
     val launcher = rememberLauncherForActivityResult(contract =
     ActivityResultContracts.GetContent()) { uri: Uri? ->
-        imageUri = uri
+            imageUri = uri
     }
 
-    imageUri?.let {
+    imageUri?.let { //
         if (Build.VERSION.SDK_INT < 28) {
             bitmap.value = MediaStore.Images
                 .Media.getBitmap(context.contentResolver, it)
@@ -133,7 +132,7 @@ fun galleryImage() {
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Spacer(Modifier.weight(1.0f))
-                regisProductButton()
+                regisProductButton(navController, imageUri, productName.text, price.text, time.text)
             }
         }
     }

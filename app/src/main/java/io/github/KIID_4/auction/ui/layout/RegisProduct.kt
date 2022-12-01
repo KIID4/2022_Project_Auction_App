@@ -16,6 +16,6 @@ fun regisProduct(navController: NavHostController) {
         Modifier.fillMaxSize()
     ) {
         topAppBar(navController, true, "My")
-        galleryImage()
+        galleryImage(navController)
     }
 }

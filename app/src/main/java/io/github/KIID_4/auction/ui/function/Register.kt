@@ -1,6 +1,7 @@
 package io.github.KIID_4.auction.ui.function
 
 import android.content.Context
+import android.net.Uri
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -51,8 +52,39 @@ fun inputToFirebase(name: String, callNum: String, birthday: String, useruid: St
     userModel["uid"] = useruid
     userModel["money"] = "100000"
 
-    FirebaseDatabase.getInstance().reference.child("users").child(useruid).setValue(userModel) // getReference
+    FirebaseDatabase.getInstance().reference
+        .child("users")
+        .child(useruid)
+        .child("info")
+        .setValue(userModel)
+}
 
+fun upLoadToFirebase(imageUri: Uri?, productName: String, price: String, time: String, context: Context, upLoadSetSuccess: () -> Unit) {
+    val user = Firebase.auth.currentUser
+    val ProductinfoModel = HashMap<String, Any>()
+
+    ProductinfoModel["imageUri"] = imageUri.toString()
+    ProductinfoModel["productName"] = productName
+    ProductinfoModel["price"] = price
+    ProductinfoModel["time"] = time
+
+    var useruid = ""
+    if (user != null) {
+        useruid = user.uid
+        FirebaseDatabase.getInstance().reference
+            .child("users")
+            .child(useruid)
+            .child("Products")
+            .setValue(ProductinfoModel)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    upLoadSetSuccess()
+                    Toast.makeText(context, "사진을 성공적으로 업로드하였습니다", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, "사진이 정상적으로 업로드 되지 않았습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+    }
 }
 
 fun modifyToFirebase(passwd: String, context: Context, setSuccess: () -> Unit) {

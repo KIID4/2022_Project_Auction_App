@@ -1,5 +1,6 @@
 package io.github.KIID_4.auction.ui.shapes
 
+import android.net.Uri
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -16,6 +17,7 @@ import java.io.File
 @Preview
 fun popularPreview() {
     val storage = FirebaseStorage.getInstance() // 파이어베이스 스토리지 인스턴스를 만듦
+    var imageUri by remember { mutableStateOf<Uri?>(null) }
 
     Row(
         Modifier.padding(10.dp),

@@ -31,6 +31,7 @@ import com.google.firebase.ktx.Firebase
 import io.github.KIID_4.auction.R
 import io.github.KIID_4.auction.ui.function.modifyToFirebase
 import io.github.KIID_4.auction.ui.function.registerToFirebase
+import io.github.KIID_4.auction.ui.function.upLoadToFirebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -258,9 +259,35 @@ fun takeImageButton() { // 갤러리 불러오는 메소드
 }
 
 @Composable
-fun regisProductButton() {
+fun regisProductButton(
+    navController: NavController,
+    imageUri: Uri?,
+    productName: String,
+    price: String,
+    time: String
+) {
+    val context = LocalContext.current
+    val (upLoadSuccess, upLoadSetSuccess) = remember { mutableStateOf(false) }
+
+
+    if (upLoadSuccess) {
+        navController.navigate("userMain")
+        upLoadSetSuccess(false)
+    }
+
     Button(
-        onClick = { },
+        onClick = {
+            if (productName.isNotEmpty() && price.isNotEmpty() && time.isNotEmpty()) {
+                CoroutineScope(Dispatchers.IO).launch {
+                    upLoadToFirebase(imageUri, productName, price, time, context) {
+                        upLoadSetSuccess(true)
+                    }
+                }
+            }
+            else {
+                Toast.makeText(context, "물품 정보를 똑바로 입력해 주세요", Toast.LENGTH_SHORT).show()
+            }
+        },
         modifier = Modifier.size(width = 80.dp, height = 40.dp),
         shape = RoundedCornerShape(10.dp),
         colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
