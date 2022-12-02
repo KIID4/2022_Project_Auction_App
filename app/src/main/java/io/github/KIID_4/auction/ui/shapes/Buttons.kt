@@ -1,6 +1,7 @@
 package io.github.KIID_4.auction.ui.shapes
 
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import android.widget.Toast
@@ -31,7 +32,7 @@ import com.google.firebase.ktx.Firebase
 import io.github.KIID_4.auction.R
 import io.github.KIID_4.auction.ui.function.modifyToFirebase
 import io.github.KIID_4.auction.ui.function.registerToFirebase
-import io.github.KIID_4.auction.ui.function.upLoadToFirebase
+import io.github.KIID_4.auction.ui.function.updateToFirebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -208,23 +209,25 @@ fun registerButton(
 }
 
 @Composable
-fun modifiyButton(passwd: String, toMypageScreen: () -> Unit) {
+fun modifiyButton(passWD: String, repassWD: String, name: String, callNumber: String, birthday : String, navController : NavController) {
     val context = LocalContext.current
-    val (registerSuccess, setSuccess) = remember { mutableStateOf(false) }
+    val (changeSuccess, setSuccess) = remember { mutableStateOf(false) }
 
-    if (registerSuccess) {
-        toMypageScreen()
+    if (changeSuccess) {
+        navController.navigate("userMain")
+        setSuccess(false)
     }
 
     Button(
         onClick = {
-            if (passwd.isNotEmpty()) {
+            if ((passWD == repassWD) && passWD.isNotEmpty() && name.isNotEmpty() && callNumber.isNotEmpty() && birthday.isNotEmpty()) {
                 CoroutineScope(Dispatchers.IO).launch {
-                    modifyToFirebase(passwd, context) {
+                    modifyToFirebase(passWD, name, callNumber, birthday, context) {
                         setSuccess(true)
                     }
                 }
             }
+            else Toast.makeText(context, "변경할 정보를 똑바로 입력해주십시오", Toast.LENGTH_SHORT).show()
         },
         modifier = Modifier.size(width = 80.dp, height = 40.dp),
         shape = RoundedCornerShape(10.dp),
@@ -233,6 +236,8 @@ fun modifiyButton(passwd: String, toMypageScreen: () -> Unit) {
         Text("수정 완료", color = Color.White, fontSize = 10.sp)
     }
 }
+
+
 
 @Composable
 @Preview
@@ -261,7 +266,7 @@ fun takeImageButton() { // 갤러리 불러오는 메소드
 @Composable
 fun regisProductButton(
     navController: NavController,
-    bitmap : Bitmap?,
+    bitmap: Bitmap?,
     productName: String,
     price: String,
     time: String
@@ -279,7 +284,7 @@ fun regisProductButton(
         onClick = {
             if (productName.isNotEmpty() && price.isNotEmpty() && time.isNotEmpty()) {
                 CoroutineScope(Dispatchers.IO).launch {
-                    upLoadToFirebase(bitmap, productName, price, time, context) {
+                    updateToFirebase(bitmap, productName, price, time, context) {
                         upLoadSetSuccess(true)
                     }
                 }

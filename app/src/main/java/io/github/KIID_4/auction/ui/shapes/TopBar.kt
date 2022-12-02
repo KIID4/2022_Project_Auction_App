@@ -22,7 +22,7 @@ fun topAppBar(navController: NavController, use: Boolean, check: String) {
     var userName = "로그인이 필요합니다"
 
     if (user != null) {
-        userName = user.displayName.toString() + "님"
+        userName = user.displayName + "님"
     }
     Surface(
         modifier = Modifier

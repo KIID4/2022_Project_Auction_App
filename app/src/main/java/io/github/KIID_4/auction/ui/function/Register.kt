@@ -2,7 +2,6 @@ package io.github.KIID_4.auction.ui.function
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.net.Uri
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -17,7 +16,6 @@ fun registerToFirebase(email: String, passwd: String, name: String, callNum: Str
             if (task.isSuccessful) {
                 registersetSuccess()
                 val user = Firebase.auth.currentUser
-
                 var useruid = ""
                 if (user != null) {
                     useruid = user.uid
@@ -31,20 +29,7 @@ fun registerToFirebase(email: String, passwd: String, name: String, callNum: Str
         }
 }
 
-fun loginToFirebase(email: String, passwd: String, context: Context, setSuccess: () -> Unit) {
-    FirebaseAuth.getInstance()
-        .signInWithEmailAndPassword(email, passwd)
-        .addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                setSuccess()
-                Toast.makeText(context, "로그인에 성공하셨습니다.", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(context, "로그인에 실패하셨습니다.", Toast.LENGTH_SHORT).show()
-            }
-        }
-}
-
-fun inputToFirebase(name: String, callNum: String, birthday: String, useruid: String) { // 사용자의 데이터를 넣어줌
+fun inputToFirebase(name: String, callNum: String, birthday: String, useruid: String) {
     val userModel = HashMap<String, Any>()
 
     userModel["name"] = name
@@ -60,7 +45,45 @@ fun inputToFirebase(name: String, callNum: String, birthday: String, useruid: St
         .setValue(userModel)
 }
 
-fun upLoadToFirebase(bitmap: Bitmap?, productName: String, price: String, time: String, context: Context, upLoadSetSuccess: () -> Unit) {
+fun updateToFirebase(name: String, callNum: String, birthday: String) {
+    val userModel = HashMap<String, Any>()
+    val user = Firebase.auth.currentUser
+
+    userModel["name"] = name
+    userModel["callNumber"] = callNum
+    userModel["birthday"] = birthday
+
+    var useruid = ""
+    if (user != null) {
+        useruid = user.uid
+        FirebaseDatabase.getInstance().reference
+            .child("users")
+            .child("info")
+            .child(useruid)
+            .setValue(userModel)
+    }
+}
+
+fun loginToFirebase(email: String, passwd: String, context: Context, setSuccess: () -> Unit) {
+    FirebaseAuth.getInstance()
+        .signInWithEmailAndPassword(email, passwd)
+        .addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val user = Firebase.auth.currentUser
+                var useruid = ""
+                if (user != null) {
+                    useruid = user.uid
+                    //updateInfo(useruid)
+                    setSuccess()
+                    Toast.makeText(context, "로그인에 성공하셨습니다.", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, "로그인에 실패하셨습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+}
+
+fun updateToFirebase(bitmap: Bitmap?, productName: String, price: String, time: String, context: Context, upLoadSetSuccess: () -> Unit) {
     val user = Firebase.auth.currentUser
     val productInfoModel = HashMap<String, Any>()
     val productImage = HashMap<String, Bitmap?>()
@@ -90,7 +113,15 @@ fun upLoadToFirebase(bitmap: Bitmap?, productName: String, price: String, time: 
         }
 }
 
-fun modifyToFirebase(passwd: String, context: Context, setSuccess: () -> Unit) {
-    FirebaseAuth.getInstance()
-
+fun modifyToFirebase(passwd: String,  name: String, callNumber: String, birthday : String, context: Context, setpasswordSuccess: () -> Unit) {
+    FirebaseAuth.getInstance().currentUser!!
+        .updatePassword (passwd)
+        .addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                setpasswordSuccess()
+                updateToFirebase(name, callNumber, birthday)
+                Toast.makeText(context, "정보가 성공적으로 업데이트 되었습니다", Toast.LENGTH_SHORT).show()
+            }
+            else Toast.makeText(context, task.exception?.message, Toast.LENGTH_SHORT).show()
+        }
 }

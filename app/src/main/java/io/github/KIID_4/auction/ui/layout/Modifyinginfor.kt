@@ -16,8 +16,7 @@ fun modifyingInfor(navController : NavController) {
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center
     ) {
-        Modifiymember {
-            navController.navigate("Mypage")
-        }
+        Modifiymember(navController)
     }
 }
+

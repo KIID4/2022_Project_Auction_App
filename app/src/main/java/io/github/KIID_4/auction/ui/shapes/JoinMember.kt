@@ -11,9 +11,6 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
-import io.github.KIID_4.auction.ui.function.inputToFirebase
 
 @Composable
 fun joinMember(navController : NavController, toLoginScreen: () -> Unit = {}) {
@@ -24,12 +21,8 @@ fun joinMember(navController : NavController, toLoginScreen: () -> Unit = {}) {
     val (name, setName) = remember { mutableStateOf(TextFieldValue()) }
     val (callNum, setCallNum) = remember { mutableStateOf(TextFieldValue()) }
     val (birthday, setBirthday) = remember { mutableStateOf(TextFieldValue()) }
-    val (registerSuccess, setSuccess) = remember { mutableStateOf(false) }
 
-    if (registerSuccess) {
-        navController.navigate("userMain")
-        setSuccess(false)
-    }
+
 
     Column(Modifier.padding(8.dp)){
         Row(
@@ -146,13 +139,20 @@ fun joinMember(navController : NavController, toLoginScreen: () -> Unit = {}) {
     }
 }
 @Composable
-fun Modifiymember(toMypageScreen: () -> Unit) {
+fun Modifiymember(navController : NavController) {
 
     val (passWD, setPassWD) = remember { mutableStateOf(TextFieldValue()) }
     val (repassWD, setRepassWD) = remember { mutableStateOf(TextFieldValue()) }
     val (name, setName) = remember { mutableStateOf(TextFieldValue()) }
     val (callNum, setCallNum) = remember { mutableStateOf(TextFieldValue()) }
     val (birthday, setBirthday) = remember { mutableStateOf(TextFieldValue()) }
+    val (modifySuccess, setSuccess) = remember { mutableStateOf(false) }
+
+
+    if (modifySuccess) {
+        navController.navigate("myPage")
+        setSuccess(false)
+    }
 
     Column(Modifier.padding(8.dp)){
         Spacer(Modifier.padding(4.dp))
@@ -242,7 +242,7 @@ fun Modifiymember(toMypageScreen: () -> Unit) {
             verticalAlignment = Alignment.CenterVertically,  // Text 위젯들 간 세로 중앙 정렬 위함
             horizontalArrangement = Arrangement.Center
         ) {
-            modifiyButton(passWD.text, toMypageScreen)
+            modifiyButton(passWD.text, repassWD.text, name.text, callNum.text, birthday.text, navController)
         }
     }
 }
