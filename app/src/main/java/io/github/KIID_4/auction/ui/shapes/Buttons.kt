@@ -1,7 +1,5 @@
 package io.github.KIID_4.auction.ui.shapes
 
-
-import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import android.widget.Toast
@@ -31,8 +29,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import io.github.KIID_4.auction.R
 import io.github.KIID_4.auction.ui.function.modifyToFirebase
+import io.github.KIID_4.auction.ui.function.pushToFirebase
 import io.github.KIID_4.auction.ui.function.registerToFirebase
-import io.github.KIID_4.auction.ui.function.updateToFirebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -243,8 +241,6 @@ fun modifiyButton(passWD: String, repassWD: String, name: String, callNumber: St
 @Preview
 fun takeImageButton() { // 갤러리 불러오는 메소드
     val imageUri = remember { mutableStateOf<Uri?>(null) } // UPDATE
-    val context = LocalContext.current
-    var bitmap by remember { mutableStateOf<Bitmap?>(null) }
 
     val launcher = rememberLauncherForActivityResult(contract =
     ActivityResultContracts.GetContent()) { uri: Uri? ->
@@ -284,7 +280,7 @@ fun regisProductButton(
         onClick = {
             if (productName.isNotEmpty() && price.isNotEmpty() && time.isNotEmpty()) {
                 CoroutineScope(Dispatchers.IO).launch {
-                    updateToFirebase(bitmap, productName, price, time, context) {
+                    pushToFirebase(bitmap, productName, price, time, context) {
                         upLoadSetSuccess(true)
                     }
                 }

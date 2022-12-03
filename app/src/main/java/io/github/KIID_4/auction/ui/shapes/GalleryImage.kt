@@ -37,7 +37,7 @@ fun galleryImage(navController: NavController) {
     val context = LocalContext.current
     val bitmap =  remember { mutableStateOf<Bitmap?>(null) }
 
-    val launcher = rememberLauncherForActivityResult(contract =
+    val launcher = rememberLauncherForActivityResult(contract = // 갤러리에서 가져오는 이미지는 Uri형식으로 가져옴
     ActivityResultContracts.GetContent()) { uri: Uri? ->
             imageUri = uri
     }
@@ -53,7 +53,6 @@ fun galleryImage(navController: NavController) {
             bitmap.value = ImageDecoder.decodeBitmap(source)
         }
     }
-
 
     Row (
         modifier = Modifier.padding(70.dp),
@@ -137,3 +136,4 @@ fun galleryImage(navController: NavController) {
         }
     }
 }
+

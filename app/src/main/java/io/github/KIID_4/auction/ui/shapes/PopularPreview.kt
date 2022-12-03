@@ -1,6 +1,8 @@
 package io.github.KIID_4.auction.ui.shapes
 
+import android.content.ContentValues.TAG
 import android.graphics.Bitmap
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,14 +17,28 @@ import androidx.compose.ui.unit.sp
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.firebase.database.*
+import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
+import com.google.firebase.ktx.Firebase
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 @Preview
 fun popularPreview() {
-    val database : DatabaseReference = FirebaseDatabase.getInstance().reference
-    var imagebitmap by remember { mutableStateOf<Bitmap?>(null) }
+    val database = Firebase.database
+    val reflatitude = database.getReference("/user/Products")
+    val imagebitmap by remember { mutableStateOf<Bitmap?>(null) }
+    var latitude = ""
 
+    reflatitude .addValueEventListener(object : ValueEventListener {
+        override fun onDataChange(dataSnapshot: DataSnapshot){
+            latitude = dataSnapshot.getValue<String>().toString()
+        }
+        override fun onCancelled(error: DatabaseError) {
+            // Failed to read value
+            Log.w(TAG, "Failed to read value.", error.toException())
+        }
+    } )
 
     Row(
         Modifier.padding(10.dp),
@@ -46,6 +62,7 @@ fun popularPreview() {
                                 )
                             }
                         }
+                        else Text(latitude)
                     }
                 }
             }

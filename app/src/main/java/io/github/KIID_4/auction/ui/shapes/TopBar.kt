@@ -1,5 +1,6 @@
 package io.github.KIID_4.auction.ui.shapes
 
+import android.graphics.Bitmap
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -15,15 +16,15 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-
 @Composable
 fun topAppBar(navController: NavController, use: Boolean, check: String) {
     val user = Firebase.auth.currentUser
-    var userName = "로그인이 필요합니다"
+    var userName by remember { mutableStateOf<String>("로그인이 필요합니다") }
 
     if (user != null) {
         userName = user.displayName + "님"
     }
+
     Surface(
         modifier = Modifier
             .fillMaxWidth(),

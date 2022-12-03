@@ -73,7 +73,7 @@ fun loginToFirebase(email: String, passwd: String, context: Context, setSuccess:
                 var useruid = ""
                 if (user != null) {
                     useruid = user.uid
-                    //updateInfo(useruid)
+                    updateInfo(useruid)
                     setSuccess()
                     Toast.makeText(context, "로그인에 성공하셨습니다.", Toast.LENGTH_SHORT).show()
                 } else {
@@ -83,12 +83,12 @@ fun loginToFirebase(email: String, passwd: String, context: Context, setSuccess:
         }
 }
 
-fun updateToFirebase(bitmap: Bitmap?, productName: String, price: String, time: String, context: Context, upLoadSetSuccess: () -> Unit) {
+fun pushToFirebase(bitmap: Bitmap?, productName: String, price: String, time: String, context: Context, upLoadSetSuccess: () -> Unit) {
     val user = Firebase.auth.currentUser
     val productInfoModel = HashMap<String, Any>()
     val productImage = HashMap<String, Bitmap?>()
 
-    productImage["Bitmap"] = bitmap
+    productInfoModel["Bitmap"] = bitmap.toString()
     productInfoModel["productName"] = productName
     productInfoModel["price"] = price
     productInfoModel["time"] = time
@@ -102,7 +102,7 @@ fun updateToFirebase(bitmap: Bitmap?, productName: String, price: String, time: 
     FirebaseDatabase.getInstance().reference
         .child("users")
         .child("Products")
-        .setValue(productImage, productInfoModel)
+        .setValue(productInfoModel)
         .addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 upLoadSetSuccess()
@@ -112,6 +112,7 @@ fun updateToFirebase(bitmap: Bitmap?, productName: String, price: String, time: 
             }
         }
 }
+
 
 fun modifyToFirebase(passwd: String,  name: String, callNumber: String, birthday : String, context: Context, setpasswordSuccess: () -> Unit) {
     FirebaseAuth.getInstance().currentUser!!
