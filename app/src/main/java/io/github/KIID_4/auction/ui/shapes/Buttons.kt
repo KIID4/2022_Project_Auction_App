@@ -278,7 +278,7 @@ fun regisProductButton(
 
     Button(
         onClick = {
-            if (productName.isNotEmpty() && price.isNotEmpty() && time.isNotEmpty()) {
+            if (bitmap != null && productName.isNotEmpty() && price.isNotEmpty() && time.isNotEmpty()) {
                 CoroutineScope(Dispatchers.IO).launch {
                     pushToFirebase(bitmap, productName, price, time, context) {
                         upLoadSetSuccess(true)

@@ -20,12 +20,14 @@ import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import io.github.KIID_4.auction.data.SerialBitmap
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 @Preview
 fun popularPreview() {
     val database = Firebase.database
+<<<<<<< Updated upstream
     val reflatitude = database.getReference("/user/Products")
     val imagebitmap by remember { mutableStateOf<Bitmap?>(null) }
     var latitude = ""
@@ -33,6 +35,22 @@ fun popularPreview() {
     reflatitude .addValueEventListener(object : ValueEventListener {
         override fun onDataChange(dataSnapshot: DataSnapshot){
             latitude = dataSnapshot.getValue<String>().toString()
+=======
+    val myRef = database.getReference("users").child("Products").child("Bitmap")
+    var bitmapImage by remember { mutableStateOf<Bitmap?>(null) }
+
+
+    myRef.addValueEventListener(object : ValueEventListener {
+        override fun onDataChange(snapshot: DataSnapshot) {
+            if (snapshot.exists()) {
+                val value = snapshot.value as String
+                val serialBitmap = SerialBitmap(null)
+                serialBitmap.bitmapData = value.toByteArray()
+                bitmapImage = serialBitmap.bitmap
+                Log.i("bitmap : ", String(serialBitmap.bitmapData!!))
+            }
+
+>>>>>>> Stashed changes
         }
         override fun onCancelled(error: DatabaseError) {
             // Failed to read value
@@ -47,7 +65,9 @@ fun popularPreview() {
         Column{
             Text("인기 있는 물품", fontSize = 20.sp)
             Surface(
-                modifier = Modifier.fillMaxSize().padding(40.dp),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(40.dp),
                 shape = RoundedCornerShape(20.dp),
                 color = Color.White
             ) {

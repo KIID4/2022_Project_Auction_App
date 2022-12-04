@@ -39,7 +39,7 @@ fun galleryImage(navController: NavController) {
 
     val launcher = rememberLauncherForActivityResult(contract = // 갤러리에서 가져오는 이미지는 Uri형식으로 가져옴
     ActivityResultContracts.GetContent()) { uri: Uri? ->
-            imageUri = uri
+        imageUri = uri
     }
 
     imageUri?.let { //
