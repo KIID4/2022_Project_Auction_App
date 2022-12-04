@@ -1,7 +1,8 @@
 package io.github.KIID_4.auction.ui.shapes
 
-import android.content.ContentValues.TAG
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -18,27 +19,33 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
-import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 @Preview
 fun popularPreview() {
     val database = Firebase.database
-    val reflatitude = database.getReference("/user/Products")
-    val imagebitmap by remember { mutableStateOf<Bitmap?>(null) }
-    var latitude = ""
+    val myRef = database.getReference("users").child("Products").child("Bitmap")
+    var bitmap by remember { mutableStateOf<String?>(null) }
+    var bitmapImage by remember { mutableStateOf<Bitmap?>(null) }
 
-    reflatitude .addValueEventListener(object : ValueEventListener {
-        override fun onDataChange(dataSnapshot: DataSnapshot){
-            latitude = dataSnapshot.getValue<String>().toString()
+
+    myRef.addValueEventListener(object : ValueEventListener {
+        override fun onDataChange(snapshot: DataSnapshot) {
+            bitmap = snapshot.value as String
+            Log.e("bitmap : ", bitmap!!)
+            val decodedByteArray = Base64.decode("변환된 문자열", Base64.NO_WRAP)
+            Log.e("bitmap : ", decodedByteArray.toString())
+            bitmapImage = BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.size)
+            Log.e("bitmap : ", bitmapImage.toString())
         }
         override fun onCancelled(error: DatabaseError) {
-            // Failed to read value
-            Log.w(TAG, "Failed to read value.", error.toException())
+
         }
     } )
+
 
     Row(
         Modifier.padding(10.dp),
@@ -51,10 +58,10 @@ fun popularPreview() {
                 shape = RoundedCornerShape(20.dp),
                 color = Color.White
             ) {
-                HorizontalPager(modifier = Modifier.fillMaxWidth(), count = 2) { page -> // 화면 슬라이드
+                HorizontalPager(modifier = Modifier.fillMaxWidth(), count = 1) { page -> // 화면 슬라이드
                     Row {
-                        if (imagebitmap != null) {
-                            imagebitmap?.let { btm ->
+                        if (bitmapImage != null) {
+                            bitmapImage?.let { btm ->
                                 Image(
                                     bitmap = btm.asImageBitmap(),
                                     contentDescription = null,
@@ -62,7 +69,6 @@ fun popularPreview() {
                                 )
                             }
                         }
-                        else Text(latitude)
                     }
                 }
             }
