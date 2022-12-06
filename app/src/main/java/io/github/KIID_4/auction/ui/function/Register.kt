@@ -2,16 +2,13 @@ package io.github.KIID_4.auction.ui.function
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.Bitmap.CompressFormat
-import android.graphics.BitmapFactory
+import android.util.Base64
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
-import io.github.KIID_4.auction.data.SerialBitmap
 import java.io.ByteArrayOutputStream
-import java.io.Serializable
 
 
 fun registerToFirebase(email: String, passwd: String, name: String, callNum: String, birthday: String, context: Context, registersetSuccess: () -> Unit) {
@@ -92,12 +89,14 @@ fun loginToFirebase(email: String, passwd: String, context: Context, setSuccess:
 fun pushToFirebase(bitmap: Bitmap, productName: String, price: String, time: String, context: Context, upLoadSetSuccess: () -> Unit) {
     val user = Firebase.auth.currentUser
     val productInfoModel = HashMap<String, Any>()
+    val stream = ByteArrayOutputStream()
+    val str: String
 
-    productInfoModel["Bitmap"] = ""
-    val serialBitmap = SerialBitmap(bitmap).bitmapData
-    if (serialBitmap != null) {
-        productInfoModel["Bitmap"] = String(serialBitmap)
-    }
+    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+    val byteArray = stream.toByteArray()
+    str = Base64.encodeToString(byteArray, Base64.DEFAULT)
+
+    productInfoModel["Bitmap"] = str
     productInfoModel["productName"] = productName
     productInfoModel["price"] = price
     productInfoModel["time"] = time

@@ -2,6 +2,8 @@ package io.github.KIID_4.auction.ui.shapes
 
 import android.content.ContentValues.TAG
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -19,7 +21,6 @@ import com.google.accompanist.pager.HorizontalPager
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import io.github.KIID_4.auction.data.SerialBitmap
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
@@ -35,10 +36,8 @@ fun popularPreview() {
         override fun onDataChange(snapshot: DataSnapshot) {
             if (snapshot.exists()) {
                 val value = snapshot.value as String
-                val serialBitmap = SerialBitmap(null)
-                serialBitmap.bitmapData = value.toByteArray()
-                bitmapImage = serialBitmap.bitmap
-                Log.i("bitmap : ", String(serialBitmap.bitmapData!!))
+                val encodeByte = Base64.decode(value, Base64.DEFAULT)
+                bitmapImage = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.size)
             }
         }
         override fun onCancelled(error: DatabaseError) {

@@ -26,6 +26,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import java.io.ByteArrayOutputStream
 
 @Composable
 fun galleryImage(navController: NavController) {
@@ -35,7 +36,7 @@ fun galleryImage(navController: NavController) {
     val (time, setTime) = remember { mutableStateOf(TextFieldValue()) }
     var imageUri by remember { mutableStateOf<Uri?>(null) }
     val context = LocalContext.current
-    val bitmap =  remember { mutableStateOf<Bitmap?>(null) }
+    var bitmap =  remember { mutableStateOf<Bitmap?>(null) }
 
     val launcher = rememberLauncherForActivityResult(contract = // 갤러리에서 가져오는 이미지는 Uri형식으로 가져옴
     ActivityResultContracts.GetContent()) { uri: Uri? ->
