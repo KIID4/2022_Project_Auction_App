@@ -1,9 +1,6 @@
 package io.github.KIID_4.auction.ui.shapes
 
-import android.content.ContentValues.TAG
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.util.Base64
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -19,40 +16,18 @@ import androidx.compose.ui.unit.sp
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.firebase.database.*
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
+import io.github.KIID_4.auction.ui.function.takeImageToFirebase
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 @Preview
 fun popularPreview() {
-    val database = Firebase.database
-    val myRef = database.getReference("users").child("Products")
-    var bitmapImage by remember { mutableStateOf<Bitmap?>(null) }
-    val (bitmapImageList, setter) = remember { mutableStateOf(listOf<Bitmap?>(null)) }
-    val bitmapList = mutableListOf<Bitmap?>()
-    var key = ""
+    val (bitmapImageList, setBitmap) = remember { mutableStateOf(listOf<Bitmap?>(null)) } // 물품이미지의 비트맵 저장 리스트
+    val (priceList, setPrice) = remember { mutableStateOf(listOf<Int?>(null)) } // 물품 가격 저장 리스트
+    val (productNameList, setName) = remember { mutableStateOf(listOf<String?>(null)) } // 물품 이름 저장 리스트
 
-    myRef.addValueEventListener(object : ValueEventListener {
-        override fun onDataChange(snapshot: DataSnapshot) {
-            if (snapshot.exists()) {
-                for (data in snapshot.children) {
-                    key = data.key as String
-                    val value =  snapshot.child(key).child("Bitmap").value as String
-                    val encodeByte = Base64.decode(value, Base64.DEFAULT)
-                    bitmapImage = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.size)
-                    bitmapList.add(bitmapImage)
-                }
-                setter(bitmapList)
-            }
-        }
-        override fun onCancelled(error: DatabaseError) {
-            // Failed to read value
-            Log.w(TAG, "Failed to read value.", error.toException())
-        }
-    } )
+    takeImageToFirebase(setBitmap, setPrice, setName) // 파이어베이스에서 사진 가져오기
 
-    Log.e("size", bitmapImageList.size.toString())
     Row(
         Modifier.padding(10.dp),
         horizontalArrangement = Arrangement.Center
@@ -62,18 +37,30 @@ fun popularPreview() {
             Surface(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(40.dp),
-                shape = RoundedCornerShape(20.dp),
+                    .padding(50.dp),
+                shape = RoundedCornerShape(30.dp),
                 color = Color.White
             ) {
-                HorizontalPager(modifier = Modifier.fillMaxWidth(), count = 1) { page -> // 화면 슬라이드
-                    Row {
+                HorizontalPager(modifier = Modifier.fillMaxSize(), count = bitmapImageList.size) { page -> // 화면 슬라이드
+                    Row (
+                        horizontalArrangement = Arrangement.Center
+                    ) {
                         bitmapImageList[page]?.let { btm ->
                             Image(
                                 bitmap = btm.asImageBitmap(),
                                 contentDescription = null,
-                                modifier = Modifier.size(width = 200.dp, height = 200.dp)
+                                modifier = Modifier.fillMaxSize(0.5f)
                             )
+                        }
+                        Spacer(Modifier.weight(0.5f))
+                        Column {
+                            priceList[page]?.let { price ->
+                                Text(price.toString() + "원", fontSize = 30.sp)
+                            }
+                            Spacer(Modifier.padding(5.dp))
+                            productNameList[page]?.let { name ->
+                                Text(name, fontSize = 30.sp)
+                            }
                         }
                     }
                 }

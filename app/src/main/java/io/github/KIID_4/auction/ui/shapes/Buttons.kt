@@ -28,6 +28,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import io.github.KIID_4.auction.R
+import io.github.KIID_4.auction.ui.function.isInteger
 import io.github.KIID_4.auction.ui.function.modifyToFirebase
 import io.github.KIID_4.auction.ui.function.pushToFirebase
 import io.github.KIID_4.auction.ui.function.registerToFirebase
@@ -278,7 +279,7 @@ fun regisProductButton(
 
     Button(
         onClick = {
-            if (bitmap != null && productName.isNotEmpty() && price.isNotEmpty() && time.isNotEmpty()) {
+            if (bitmap != null && productName.isNotEmpty() && price.isNotEmpty() && time.isNotEmpty() && isInteger(price) && isInteger(time)) {
                 CoroutineScope(Dispatchers.IO).launch {
                     pushToFirebase(bitmap, productName, price, time, context) {
                         upLoadSetSuccess(true)
