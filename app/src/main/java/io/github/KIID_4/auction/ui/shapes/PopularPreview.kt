@@ -27,17 +27,23 @@ import com.google.firebase.ktx.Firebase
 @Preview
 fun popularPreview() {
     val database = Firebase.database
-    val latitude = ""
-    val myRef = database.getReference("users").child("Products").child("Bitmap")
+    val myRef = database.getReference("users").child("Products")
     var bitmapImage by remember { mutableStateOf<Bitmap?>(null) }
-
+    val (bitmapImageList, setter) = remember { mutableStateOf(listOf<Bitmap?>(null)) }
+    val bitmapList = mutableListOf<Bitmap?>()
+    var key = ""
 
     myRef.addValueEventListener(object : ValueEventListener {
         override fun onDataChange(snapshot: DataSnapshot) {
             if (snapshot.exists()) {
-                val value = snapshot.value as String
-                val encodeByte = Base64.decode(value, Base64.DEFAULT)
-                bitmapImage = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.size)
+                for (data in snapshot.children) {
+                    key = data.key as String
+                    val value =  snapshot.child(key).child("Bitmap").value as String
+                    val encodeByte = Base64.decode(value, Base64.DEFAULT)
+                    bitmapImage = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.size)
+                    bitmapList.add(bitmapImage)
+                }
+                setter(bitmapList)
             }
         }
         override fun onCancelled(error: DatabaseError) {
@@ -46,6 +52,7 @@ fun popularPreview() {
         }
     } )
 
+    Log.e("size", bitmapImageList.size.toString())
     Row(
         Modifier.padding(10.dp),
         horizontalArrangement = Arrangement.Center
@@ -61,16 +68,13 @@ fun popularPreview() {
             ) {
                 HorizontalPager(modifier = Modifier.fillMaxWidth(), count = 1) { page -> // 화면 슬라이드
                     Row {
-                        if (bitmapImage != null) {
-                            bitmapImage?.let { btm ->
-                                Image(
-                                    bitmap = btm.asImageBitmap(),
-                                    contentDescription = null,
-                                    modifier = Modifier.size(width = 200.dp, height = 200.dp)
-                                )
-                            }
+                        bitmapImageList[page]?.let { btm ->
+                            Image(
+                                bitmap = btm.asImageBitmap(),
+                                contentDescription = null,
+                                modifier = Modifier.size(width = 200.dp, height = 200.dp)
+                            )
                         }
-                        else Text(latitude)
                     }
                 }
             }

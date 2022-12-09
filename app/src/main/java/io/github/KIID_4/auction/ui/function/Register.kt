@@ -110,6 +110,7 @@ fun pushToFirebase(bitmap: Bitmap, productName: String, price: String, time: Str
     FirebaseDatabase.getInstance().reference
         .child("users")
         .child("Products")
+        .child(productName)
         .setValue(productInfoModel)
         .addOnCompleteListener { task ->
             if (task.isSuccessful) {
