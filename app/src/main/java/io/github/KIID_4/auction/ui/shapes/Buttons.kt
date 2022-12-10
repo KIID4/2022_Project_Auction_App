@@ -49,7 +49,9 @@ fun mainButton(navController: NavController) {
         modifier = Modifier.padding(10.dp),
         horizontalArrangement = Arrangement.Center,
     ) {
-        Button(onClick = { },
+        Button(onClick = {
+            navController.navigate("auctionList")
+        },
             modifier = Modifier.size(width = 100.dp, height = 100.dp).
             clip(CircleShape),
             colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xffAD55F2)),
@@ -174,7 +176,6 @@ fun registerButton(
     name: String,
     callNum: String,
     birthday: String,
-    toLoginScreen: () -> Unit
 ) {
     val context = LocalContext.current
     val (registerSuccess, registerSetSuccess) = remember { mutableStateOf(false) }

@@ -14,8 +14,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             AuctionAppTheme {
-
-
                 val navController = rememberNavController()  // 화면이동 담당 객체
 
                 NavHost(
@@ -44,6 +42,10 @@ class MainActivity : ComponentActivity() {
 
                     composable("regisProduct") {
                         regisProduct(navController)
+                    }
+
+                    composable("auctionList") {
+                        auctionList(navController)
                     }
                 }
             }

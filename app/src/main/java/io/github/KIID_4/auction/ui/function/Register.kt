@@ -100,11 +100,12 @@ fun pushToFirebase(bitmap: Bitmap, productName: String, price: String, time: Str
     productInfoModel["productName"] = productName
     productInfoModel["price"] = price
     productInfoModel["time"] = time
-
     var useruid = ""
+
     if (user != null) {
         useruid = user.uid
         productInfoModel["userid"] = useruid
+        productInfoModel["seller"] = user.displayName.toString()
     }
 
     FirebaseDatabase.getInstance().reference

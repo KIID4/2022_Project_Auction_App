@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.sp
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.firebase.database.*
-import io.github.KIID_4.auction.ui.function.takeImageToFirebase
+import io.github.KIID_4.auction.ui.function.take4ImageFromFirebase
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
@@ -23,7 +23,7 @@ import io.github.KIID_4.auction.ui.function.takeImageToFirebase
 fun popularPreview() {
     val (bitmapImageList, setBitmap) = remember { mutableStateOf(listOf <Triple<String, Bitmap, Int>>()) }
 
-    takeImageToFirebase(setBitmap)  // 파이어베이스에서 사진 가져오기
+    take4ImageFromFirebase(setBitmap)  // 파이어베이스에서 사진 가져오기
 
     Row(
         Modifier.padding(10.dp),
