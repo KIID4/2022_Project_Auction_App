@@ -100,7 +100,7 @@ fun galleryImage(navController: NavController) {
             ) {
                 Text("물품 이름", fontSize = 17.sp)
                 Spacer(Modifier.padding(10.dp))
-                productInfo(productName, setProductName, 150)
+                informationBar("물품이름 입력", 150, 55, productName, setProductName)
             }
 
             Spacer(Modifier.padding(5.dp))
@@ -110,7 +110,7 @@ fun galleryImage(navController: NavController) {
             ) {
                 Text("판매 시간", fontSize = 17.sp)
                 Spacer(Modifier.padding(10.dp))
-                productInfo(time, setTime, 90)
+                informationBar("판매 시간 입력",90, 55, time, setTime)
                 Spacer(Modifier.padding(10.dp))
                 Text("시간", fontSize = 17.sp)
             }
@@ -122,7 +122,7 @@ fun galleryImage(navController: NavController) {
             ) {
                 Text("초기 가격", fontSize = 17.sp)
                 Spacer(Modifier.padding(10.dp))
-                productInfo(price, setPrice, 150)
+                informationBar("초기 가격 입력", 150, 55, price, setPrice)
             }
 
             Spacer(Modifier.padding(10.dp))

@@ -33,7 +33,7 @@ fun joinMember(navController : NavController) {
             Spacer(Modifier.padding(15.dp))
             Text("ID", fontSize = 16.sp)
             Spacer(Modifier.padding(20.dp))
-            informationBar("이메일 입력", emailID, setEmailID)
+            informationBar("이메일 입력", 200, 55, emailID, setEmailID)
             Spacer(Modifier.weight(0.1f))
         }
 
@@ -57,7 +57,7 @@ fun joinMember(navController : NavController) {
             Spacer(Modifier.padding(12.dp))
             Text("PW", fontSize = 16.sp)
             Spacer(Modifier.padding(20.dp))
-            informationBar("비밀번호 입력", passWD, setPassWD)
+            informationBar("비밀번호 입력", 200,55, passWD, setPassWD)
             Spacer(Modifier.weight(0.9f))
         }
 
@@ -71,7 +71,7 @@ fun joinMember(navController : NavController) {
             Spacer(Modifier.padding(8.dp))
             Text("PW확인", fontSize = 16.sp)
             Spacer(Modifier.padding(14.dp))
-            informationBar("비밀번호 재입력", repassWD, setRepassWD)
+            informationBar("비밀번호 재입력", 200,55, repassWD, setRepassWD)
             Spacer(Modifier.weight(0.9f))
         }
 
@@ -101,7 +101,7 @@ fun joinMember(navController : NavController) {
             Spacer(Modifier.padding(10.dp))
             Text("이름", fontSize = 16.sp)
             Spacer(Modifier.padding(20.dp))
-            informationBar("사용자 이름 입력", name, setName)
+            informationBar("사용자 이름 입력", 200, 55, name, setName)
             Spacer(Modifier.weight(0.9f))
         }
         Spacer(Modifier.padding(4.dp))
@@ -113,7 +113,7 @@ fun joinMember(navController : NavController) {
             Spacer(Modifier.padding(4.dp))
             Text("전화 번호", fontSize = 16.sp)
             Spacer(Modifier.padding(14.dp))
-            informationBar("전화 번호 입력(- 제외)", callNum, setCallNum)
+            informationBar("전화 번호 입력(- 제외)", 200, 55, callNum, setCallNum)
             Spacer(Modifier.weight(0.9f))
         }
         Spacer(Modifier.padding(4.dp))
@@ -125,7 +125,7 @@ fun joinMember(navController : NavController) {
             Spacer(Modifier.padding(4.dp))
             Text("생년 월일", fontSize = 16.sp)
             Spacer(Modifier.padding(14.dp))
-            informationBar("생년 월일 입력", birthday, setBirthday)
+            informationBar("생년 월일 입력", 200, 55, birthday, setBirthday)
             Spacer(Modifier.weight(0.9f))
         }
         Spacer(Modifier.padding(30.dp))
@@ -165,7 +165,7 @@ fun modifiymember(navController : NavController) {
             Spacer(Modifier.padding(12.dp))
             Text("PW", fontSize = 16.sp)
             Spacer(Modifier.padding(20.dp))
-            informationBar("비밀번호 입력", passWD, setPassWD)
+            informationBar("비밀번호 입력", 200, 55,  passWD, setPassWD)
             Spacer(Modifier.weight(0.9f))
         }
 
@@ -179,7 +179,7 @@ fun modifiymember(navController : NavController) {
             Spacer(Modifier.padding(8.dp))
             Text("PW확인", fontSize = 16.sp)
             Spacer(Modifier.padding(14.dp))
-            informationBar("비밀번호 재입력", repassWD, setRepassWD)
+            informationBar("비밀번호 재입력", 200, 55, repassWD, setRepassWD)
             Spacer(Modifier.weight(0.9f))
         }
 
@@ -209,7 +209,7 @@ fun modifiymember(navController : NavController) {
             Spacer(Modifier.padding(10.dp))
             Text("이름", fontSize = 16.sp)
             Spacer(Modifier.padding(20.dp))
-            informationBar("사용자 이름 입력", name, setName)
+            informationBar("사용자 이름 입력", 200, 55, name, setName)
             Spacer(Modifier.weight(0.9f))
         }
         Spacer(Modifier.padding(4.dp))
@@ -221,7 +221,7 @@ fun modifiymember(navController : NavController) {
             Spacer(Modifier.padding(4.dp))
             Text("전화 번호", fontSize = 16.sp)
             Spacer(Modifier.padding(14.dp))
-            informationBar("전화 번호 입력", callNum, setCallNum)
+            informationBar("전화 번호 입력", 200, 55, callNum, setCallNum)
             Spacer(Modifier.weight(0.9f))
         }
         Spacer(Modifier.padding(4.dp))
@@ -233,7 +233,7 @@ fun modifiymember(navController : NavController) {
             Spacer(Modifier.padding(4.dp))
             Text("생년 월일", fontSize = 16.sp)
             Spacer(Modifier.padding(14.dp))
-            informationBar("생년 월일 입력", birthday, setBirthday)
+            informationBar("생년 월일 입력", 200, 55, birthday, setBirthday)
             Spacer(Modifier.weight(0.9f))
         }
         Spacer(Modifier.padding(30.dp))

@@ -167,3 +167,34 @@ fun pushBulletinInfoToFirebase(title : String, content : String, context: Contex
             }
         }
 }
+
+
+fun pushNoticeToFirebase(title : String, content : String, context: Context, upLoadSetSuccess: () -> Unit) {
+    val user = Firebase.auth.currentUser
+    val bulletinInfoModel = HashMap<String, Any>()
+    val hits = "0"
+
+    bulletinInfoModel["title"] = title
+    bulletinInfoModel["content"] = content
+    bulletinInfoModel["hits"] = hits
+    var useruid = ""
+
+    if (user != null) {
+        useruid = user.uid
+        bulletinInfoModel["userid"] = useruid
+    }
+
+    FirebaseDatabase.getInstance().reference
+        .child("users")
+        .child("notice")
+        .push()
+        .setValue(bulletinInfoModel)
+        .addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                upLoadSetSuccess()
+                Toast.makeText(context, "공지사항이 성공적으로 업로드하였습니다", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "공지사항이 정상적으로 업로드 되지 않았습니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
+}

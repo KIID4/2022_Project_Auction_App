@@ -73,7 +73,7 @@ fun mainButton(navController: NavController) {
         Spacer(Modifier.weight(0.5f))
 
         Button(onClick = {
-            navController.navigate("bulletinBoard")
+            navController.navigate("bulletin")
         },
             modifier = Modifier.size(width = 100.dp, height = 100.dp).
             clip(CircleShape),
@@ -93,7 +93,7 @@ fun myPageButton(navController : NavController) {
     ) {
         Column{
             Button(onClick = {
-                //navController.navigate("modifyingInfo")
+                navController.navigate("modifyingInfo")
             },
                 modifier = Modifier.size(width = 70.dp, height = 70.dp).
                 clip(CircleShape),
@@ -298,8 +298,9 @@ fun regisProductButton(
     }
 }
 @Composable
-fun registerBulletinButton(navController: NavController, title: String, content: String) {
+fun registerBulletButton(navController: NavController, title: String, content: String) {
     val context = LocalContext.current
+
     val (upLoadSuccess, upLoadSetSuccess) = remember { mutableStateOf(false) }
 
 
@@ -328,15 +329,32 @@ fun registerBulletinButton(navController: NavController, title: String, content:
         Text("등록", color = Color.White, fontSize = 10.sp)
     }
 }
+
 @Composable
-fun bulletinWriteButton(navController: NavController) { // 게시글 작성 버튼
+fun writeButton(navController: NavController, info : String) { // 게시글 작성 버튼
+    val (permission, permissionCheck) = remember { mutableStateOf(false) }
+    val context = LocalContext.current
+
     Spacer(Modifier.padding(10.dp))
-    Row(
-        modifier = Modifier.fillMaxWidth(0.8f)
-    ) {
+    Row {
         Button(
             onClick = {
-                navController.navigate("bulletin")
+                if(info == "notice") {
+                    if (info.isNotEmpty()) {
+                        CoroutineScope(Dispatchers.IO).launch {
+                            checkPermission(info) {
+                                permissionCheck(true)
+                            }
+                        }
+                    }
+                }
+                else navController.navigate("bulletinLayout")
+
+                if(permission) {
+                    navController.navigate("NoticeLayout")
+                    permissionCheck(false)
+                }
+                else Toast.makeText(context, "권한이 존재하지 않습니다.", Toast.LENGTH_SHORT).show()
             },
             modifier = Modifier.size(width = 80.dp, height = 40.dp),
             shape = RoundedCornerShape(10.dp),
@@ -344,5 +362,39 @@ fun bulletinWriteButton(navController: NavController) { // 게시글 작성 버�
         ) {
             Text("작성하기", color = Color.White, fontSize = 12.sp)
         }
+    }
+}
+
+
+@Composable
+fun registerNoticeButton(navController: NavController, title: String, content: String) {
+    val context = LocalContext.current
+
+    val (upLoadSuccess, upLoadSetSuccess) = remember { mutableStateOf(false) }
+
+
+    if (upLoadSuccess) {
+        navController.navigate("userMain")
+        upLoadSetSuccess(false)
+    }
+
+    Button(
+        onClick = {
+            if (title.isNotEmpty() && content.isNotEmpty()) {
+                CoroutineScope(Dispatchers.IO).launch {
+                    pushNoticeToFirebase(title, content, context) {
+                        upLoadSetSuccess(true)
+                    }
+                }
+            }
+            else {
+                Toast.makeText(context, "공자사항글을 한번더 확인해 주세요", Toast.LENGTH_SHORT).show()
+            }
+        },
+        modifier = Modifier.size(width = 80.dp, height = 40.dp),
+        shape = RoundedCornerShape(10.dp),
+        colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
+    ) {
+        Text("등록", color = Color.White, fontSize = 10.sp)
     }
 }

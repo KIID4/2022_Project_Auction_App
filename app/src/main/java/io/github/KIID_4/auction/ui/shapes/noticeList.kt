@@ -15,20 +15,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import io.github.KIID_4.auction.ui.function.takeBulletinFromFirebase
+import io.github.KIID_4.auction.ui.function.takeNoticeInFromFirebase
 
 @Composable
-fun bulletinBoardList(navController : NavController) {
+fun noticeList(navController: NavController) {
     val scrollState = rememberLazyListState()
-    val (boardList, setboard) = remember { mutableStateOf(listOf <Triple<String, String, Int>>()) }
+    val (noticeList, setboard) = remember { mutableStateOf(listOf <Pair<String, Int>>()) }
     // 게시글 제목, 작성자, 조회수가 저장된 리스트
 
-    takeBulletinFromFirebase(setboard)  // 파이어베이스에서 게시글 가져오기
+    takeNoticeInFromFirebase(setboard)  // 파이어베이스에서 게시글 가져오기
 
     LazyColumn(
         state = scrollState,
         modifier = Modifier.fillMaxHeight(0.8f)) {
-        items(boardList.size) {
+        items(noticeList.size) {
             Column{
                 Spacer(Modifier.padding(10.dp))
             }
@@ -37,7 +37,7 @@ fun bulletinBoardList(navController : NavController) {
                 horizontalArrangement = Arrangement.Center,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                val (title, writer, hits) = boardList[it]
+                val (title, hits) = noticeList[it]
                 Button(
                     onClick = {
 
@@ -45,7 +45,7 @@ fun bulletinBoardList(navController : NavController) {
                     modifier = Modifier.fillMaxWidth().height(80.dp),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xffF9F1F1)),
                 ) {
-                    Text("게시글 제목 : $title      작성자 : $writer      조회수 : $hits ", fontSize = 17.sp)
+                    Text("게시글 제목 : $title                            조회수 : $hits ", fontSize = 17.sp)
                 }
             }
         }
@@ -55,7 +55,7 @@ fun bulletinBoardList(navController : NavController) {
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.End  // 수평,
     ) {
-        writeButton(navController, "bulletin")
+        writeButton(navController, "notice")
         Spacer(Modifier.padding(10.dp))
     }
 }

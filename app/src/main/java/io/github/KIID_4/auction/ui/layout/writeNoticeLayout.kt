@@ -6,14 +6,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import io.github.KIID_4.auction.ui.shapes.topAppBar
-import io.github.KIID_4.auction.ui.shapes.writeBulletin
+import io.github.KIID_4.auction.ui.shapes.writeNotice
 
 @Composable
-fun bulletin(navController: NavController) {
+fun NoticeLayout(navController: NavController) {
     Column(
         Modifier.fillMaxSize(),
     ) {
         topAppBar(navController, true, "My")
-        writeBulletin(navController)
+        writeNotice(navController)
     }
 }

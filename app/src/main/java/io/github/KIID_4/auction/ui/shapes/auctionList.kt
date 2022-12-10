@@ -33,9 +33,9 @@ fun auctionList(navController : NavController) {
         state = scrollState) {
         items(bpnpList.size) {
             Row (
+                modifier = Modifier.fillMaxSize(),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center,
-                modifier = Modifier.fillMaxSize()
+                horizontalArrangement = Arrangement.Start
             ) {
                 val (productName, btm, price) = bpnpList[it]
                 val (sellerName, time) = sntList[it]

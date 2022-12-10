@@ -13,13 +13,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 
 @Composable
-@Preview
-fun noticePreview() {
+fun noticePreview(navController: NavController) {
     Row(
         Modifier.padding(10.dp),
         horizontalArrangement = Arrangement.Center
@@ -44,7 +43,9 @@ fun noticePreview() {
                             enabled = true,
                             onClickLabel = null,
                             role = null,
-                            onClick = {}
+                            onClick = {
+                                navController.navigate("notice")
+                            }
                         )
                     )
                 }

@@ -13,10 +13,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
-fun writeBulletin(navController: NavController) {
+fun writeNotice(navController: NavController) {
     val (title, setTitle) = remember { mutableStateOf(TextFieldValue()) }
     val (content, setContent) = remember { mutableStateOf(TextFieldValue()) }
-
     Column(
         modifier = Modifier.padding(20.dp)
     ) {
@@ -27,7 +26,7 @@ fun writeBulletin(navController: NavController) {
         ) {
             Text("제목", fontSize = 20.sp)
             Spacer(Modifier.padding(10.dp))
-            informationBar("게시글 제목 입력", 300, 55, title, setTitle)
+            informationBar("공지사항 제목 입력", 300, 55, title, setTitle)
         }
 
         Spacer(Modifier.padding(16.dp))
@@ -47,7 +46,7 @@ fun writeBulletin(navController: NavController) {
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.End  // 수평,
         ) {
-            registerBulletButton(navController, title.text, content.text)
+            registerNoticeButton(navController, title.text, content.text)
         }
     }
 }

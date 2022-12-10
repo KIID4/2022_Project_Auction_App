@@ -14,7 +14,7 @@ fun userMain(navController : NavController) {
             Modifier.fillMaxSize()
         ) {
             topAppBar(navController, true, "My")
-            noticePreview()
+            noticePreview(navController)
             mainButton(navController)
             popularPreview()
         }

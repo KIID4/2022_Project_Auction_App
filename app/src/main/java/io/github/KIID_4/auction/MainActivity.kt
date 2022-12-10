@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
                         myPage(navController)
                     }
 
-                    composable("modifyingInfor") {
+                    composable("modifyingInfo") {
                         modifyingInfor(navController)
                     }
 
@@ -44,20 +44,28 @@ class MainActivity : ComponentActivity() {
                         regisProduct(navController)
                     }
 
-                    composable("auctionList") {
-                        printAuctionList(navController)
+                    composable("Auction") {
+                        Auction(navController)
                     }
 
                     composable("printProductInfo") {
                         productInfo(navController)
                     }
 
-                    composable("bulletinBoard") {
-                        bulletinBoard(navController)
-                    }
-
                     composable("bulletin") {
                         bulletin(navController)
+                    }
+
+                    composable("bulletinLayout") {
+                        bulletinLayout(navController)
+                    }
+
+                    composable("notice") {
+                        notice(navController)
+                    }
+
+                    composable("NoticeLayout") {
+                        NoticeLayout(navController)
                     }
                 }
             }

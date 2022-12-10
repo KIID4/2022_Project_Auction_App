@@ -128,3 +128,37 @@ fun takeBulletinFromFirebase ( // 파이어베이스에서 게시글 정보 가�
         }
     } )
 }
+
+fun takeNoticeInFromFirebase ( // 파이어베이스에서 공지사항 정보 가져오는 함수
+    setContentList: (List<Pair<String, Int>>) -> Unit,
+) {
+    val database = Firebase.database
+    val myRef = database.getReference("users").child("notice")
+    var hits = 0
+
+    myRef.addValueEventListener(object : ValueEventListener { // 데이터 한번만 받고 연결 닫는 함수
+        override fun onDataChange(snapshot: DataSnapshot) {
+            if (snapshot.exists()) {
+                var key: String
+                val bulletinList = mutableListOf<Pair<String, Int>>()
+                for (data in snapshot.children) {
+                    key = data.key as String
+                    val title =  snapshot.child(key).child("title").value as String // 공지사항 제목
+                    val checkHits = (snapshot.child(key).child("hits").value as String) // 조회수
+                    if (checkHits != "null") {
+                        hits =  checkHits.toInt() // null check required
+                    }
+                    bulletinList.add(Pair(title, hits))
+
+                }
+                if (bulletinList.isNotEmpty()) {
+                    setContentList(bulletinList.toList())
+                }
+            }
+        }
+        override fun onCancelled(error: DatabaseError) {
+            // Failed to read value
+            Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
+        }
+    } )
+}

@@ -119,14 +119,14 @@ fun passwordBar(searchInput: TextFieldValue, setter: (TextFieldValue) -> Unit) {
 
 @Composable
 // Compose의 경우 Textfield에 Text의 상태를 저장하는 공간이 없음 즉 저장하는 부분을 만들어 줘야함
-fun informationBar(value: String, typing: TextFieldValue, setter: (TextFieldValue) -> Unit) {
+fun informationBar(text: String, xValue : Int, yValue : Int, typing: TextFieldValue, setter: (TextFieldValue) -> Unit) {
     Row(
         modifier = Modifier,
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
         TextField(
-            modifier = Modifier.size(width = 200.dp, height = 55.dp),
+            modifier = Modifier.size(width = xValue.dp, height = yValue.dp),
             shape = RoundedCornerShape((10.dp)),
             value = typing.text,
             singleLine = true,  // 한줄로만 입력
@@ -137,47 +137,7 @@ fun informationBar(value: String, typing: TextFieldValue, setter: (TextFieldValu
                 )
             )),
             onValueChange = { setter(TextFieldValue(it)) },  // 사용자의 새로운 입력을 사용자의 입력에 넣어줌
-            placeholder = { Text(text = value, color = Color.Gray, fontSize = 10.sp) }  // 바탕 글
+            placeholder = { Text(text = text, color = Color.Gray, fontSize = 10.sp) }  // 바탕 글
         )
     }
-}
-@Composable
-fun bulletinBar(value: String, typing: TextFieldValue, setter: (TextFieldValue) -> Unit) {
-    Row(
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        TextField(
-            modifier = Modifier.fillMaxWidth().fillMaxHeight(0.7f),
-            shape = RoundedCornerShape((10.dp)),
-            value = typing.text,
-            colors = @OptIn(ExperimentalMaterialApi::class) (ExposedDropdownMenuDefaults.textFieldColors(
-                backgroundColor = Color(
-                    0xFFE0E0E0
-                )
-            )),
-            onValueChange = { setter(TextFieldValue(it)) },  // 사용자의 새로운 입력을 사용자의 입력에 넣어줌
-            placeholder = { Text(text = value, color = Color.Gray, fontSize = 10.sp) }  // 바탕 글
-        )
-    }
-}
-
-
-
-@Composable
-// Compose의 경우 Textfield에 Text의 상태를 저장하는 공간이 없음 즉 저장하는 부분을 만들어 줘야함
-fun productInfo(typing: TextFieldValue, setter: (TextFieldValue) -> Unit, value : Int) {
-
-    TextField(
-        modifier = Modifier.size(width = value.dp, height = 55.dp),
-        shape = RoundedCornerShape((10.dp)),
-        value = typing.text,
-        colors = @OptIn(ExperimentalMaterialApi::class) (ExposedDropdownMenuDefaults.textFieldColors(
-            backgroundColor = Color(
-                0xFFE0E0E0
-            )
-        )),
-        singleLine = true,  // 한줄로만 입력
-        onValueChange = { setter(TextFieldValue(it)) },  // 사용자의 새로운 입력을 사용자의 입력에 넣어줌
-    )
 }
