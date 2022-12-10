@@ -10,7 +10,6 @@ import io.github.KIID_4.auction.ui.shapes.*
 
 @Composable
 fun myPage(navController : NavController) {
-    val user = Firebase.auth.currentUser // 유저 정보를 불러옴
 
     Column(
         Modifier.fillMaxSize(),

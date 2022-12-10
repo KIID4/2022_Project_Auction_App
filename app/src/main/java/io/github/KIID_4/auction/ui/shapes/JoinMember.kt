@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
-fun joinMember(navController : NavController, toLoginScreen: () -> Unit = {}) {
+fun joinMember(navController : NavController) {
 
     val (emailID, setEmailID) = remember { mutableStateOf(TextFieldValue()) }
     val (passWD, setPassWD) = remember { mutableStateOf(TextFieldValue()) }
@@ -113,7 +113,7 @@ fun joinMember(navController : NavController, toLoginScreen: () -> Unit = {}) {
             Spacer(Modifier.padding(4.dp))
             Text("전화 번호", fontSize = 16.sp)
             Spacer(Modifier.padding(14.dp))
-            informationBar("전화 번호 입력", callNum, setCallNum)
+            informationBar("전화 번호 입력(- 제외)", callNum, setCallNum)
             Spacer(Modifier.weight(0.9f))
         }
         Spacer(Modifier.padding(4.dp))
@@ -134,7 +134,7 @@ fun joinMember(navController : NavController, toLoginScreen: () -> Unit = {}) {
             verticalAlignment = Alignment.CenterVertically,  // Text 위젯들 간 세로 중앙 정렬 위함
             horizontalArrangement = Arrangement.Center
         ) {
-            registerButton(navController, emailID.text, passWD.text, name.text, callNum.text, birthday.text, toLoginScreen)
+            registerButton(navController, emailID.text, passWD.text, name.text, callNum.text, birthday.text)
         }
     }
 }
