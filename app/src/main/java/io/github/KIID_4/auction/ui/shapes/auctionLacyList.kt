@@ -17,10 +17,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import io.github.KIID_4.auction.ui.function.takeProductFromFirebase
 
 @Composable
-fun auctionList() {
+fun auctionList(navController : NavController) {
     val scrollState = rememberLazyListState()
     val (bpnpList, setInfo) = remember { mutableStateOf(listOf <Triple<String, Bitmap, Int>>()) }
     // 비트맵, 물건 이름, 가격 정보 들어 있는 리스트
@@ -39,7 +40,9 @@ fun auctionList() {
                 val (productName, btm, price) = bpnpList[it]
                 val (sellerName, time) = sntList[it]
                 Button(
-                    onClick = { },
+                    onClick = {
+                        navController.navigate("productInfo")
+                    },
                     modifier = Modifier.size(200.dp),
                     colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
                 ) {
@@ -50,12 +53,11 @@ fun auctionList() {
                     )
                 }
 
-
                 Spacer(Modifier.weight(0.5f))
                 Column {
-                    Text("이름 : $productName       가격 : $price 원", fontSize = 15.sp)
-                    Spacer(Modifier.padding(1.dp))
-                    Text("판매자 : $sellerName       시간 : $time", fontSize = 15.sp)
+                    Text("이름 : $productName       가격 : $price 원", fontSize = 17.sp)
+                    Spacer(Modifier.padding(5.dp))
+                    Text("판매자 : $sellerName       시간 : $time", fontSize = 16.sp)
                 }
             }
         }

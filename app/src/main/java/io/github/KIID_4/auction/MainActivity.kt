@@ -45,7 +45,19 @@ class MainActivity : ComponentActivity() {
                     }
 
                     composable("auctionList") {
-                        auctionList(navController)
+                        printAuctionList(navController)
+                    }
+
+                    composable("printProductInfo") {
+                        productInfo(navController)
+                    }
+
+                    composable("bulletinBoard") {
+                        bulletinBoard(navController)
+                    }
+
+                    composable("bulletin") {
+                        bulletin(navController)
                     }
                 }
             }

@@ -141,6 +141,27 @@ fun informationBar(value: String, typing: TextFieldValue, setter: (TextFieldValu
         )
     }
 }
+@Composable
+fun bulletinBar(value: String, typing: TextFieldValue, setter: (TextFieldValue) -> Unit) {
+    Row(
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        TextField(
+            modifier = Modifier.fillMaxWidth().fillMaxHeight(0.7f),
+            shape = RoundedCornerShape((10.dp)),
+            value = typing.text,
+            colors = @OptIn(ExperimentalMaterialApi::class) (ExposedDropdownMenuDefaults.textFieldColors(
+                backgroundColor = Color(
+                    0xFFE0E0E0
+                )
+            )),
+            onValueChange = { setter(TextFieldValue(it)) },  // 사용자의 새로운 입력을 사용자의 입력에 넣어줌
+            placeholder = { Text(text = value, color = Color.Gray, fontSize = 10.sp) }  // 바탕 글
+        )
+    }
+}
+
 
 
 @Composable

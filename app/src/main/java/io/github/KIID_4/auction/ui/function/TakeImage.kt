@@ -13,12 +13,12 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 @Composable
-fun take4ImageFromFirebase(setProductList: (List<Triple<String, Bitmap, Int>>) -> Unit) {
+fun take4ImageFromFirebase(setProductList: (List<Triple<String, Bitmap, Int>>) -> Unit) { // 파이어베이스에서 제한된 경매물품의 정보를 가져옴
     val database = Firebase.database
     val myRef = database.getReference("users").child("Products").limitToFirst(4)
     var price = 0
 
-    myRef.addListenerForSingleValueEvent(object : ValueEventListener { // 데이터 한번만 받고 연결 닫는 함수
+    myRef.addValueEventListener(object : ValueEventListener { // 데이터 한번만 받고 연결 닫는 함수
         override fun onDataChange(snapshot: DataSnapshot) {
             if (snapshot.exists()) {
                 var key: String
@@ -47,7 +47,7 @@ fun take4ImageFromFirebase(setProductList: (List<Triple<String, Bitmap, Int>>) -
     } )
 }
 
-fun takeProductFromFirebase(
+fun takeProductFromFirebase( // 파이어베이스에 있는 모든 경매 물품 목록 가져오는 함수
     setProductList: (List<Triple<String, Bitmap, Int>>) -> Unit,
     setProductList2: (List<Pair<String, Int>>) -> Unit
 ) {
@@ -56,7 +56,7 @@ fun takeProductFromFirebase(
     var price = 0
     var time = 0
 
-    myRef.addListenerForSingleValueEvent(object : ValueEventListener { // 데이터 한번만 받고 연결 닫는 함수
+    myRef.addValueEventListener(object : ValueEventListener { // 데이터 상시수신대기 함수
         override fun onDataChange(snapshot: DataSnapshot) {
             if (snapshot.exists()) {
                 var key: String
@@ -84,6 +84,41 @@ fun takeProductFromFirebase(
                 if (productList.isNotEmpty() && productList2.isNotEmpty()) {
                     setProductList(productList.toList())
                     setProductList2(productList2.toList())
+                }
+            }
+        }
+        override fun onCancelled(error: DatabaseError) {
+            // Failed to read value
+            Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
+        }
+    } )
+}
+
+fun takeBulletinFromFirebase ( // 파이어베이스에서 게시글 정보 가져오는 함수
+    setContentList: (List<Triple<String, String, Int>>) -> Unit,
+) {
+    val database = Firebase.database
+    val myRef = database.getReference("users").child("Bulletin")
+    var hits = 0
+
+    myRef.addValueEventListener(object : ValueEventListener { // 데이터 한번만 받고 연결 닫는 함수
+        override fun onDataChange(snapshot: DataSnapshot) {
+            if (snapshot.exists()) {
+                var key: String
+                val bulletinList = mutableListOf<Triple<String, String, Int>>()
+                for (data in snapshot.children) {
+                    key = data.key as String
+                    val title =  snapshot.child(key).child("title").value as String // 게시글 제목
+                    val writer = (snapshot.child(key).child("writer").value as String) // 작성자
+                    val checkHits = (snapshot.child(key).child("hits").value as String) // 조회수
+                    if (checkHits != "null") {
+                        hits =  checkHits.toInt() // null check required
+                    }
+                    bulletinList.add(Triple(title, writer , hits))
+
+                }
+                if (bulletinList.isNotEmpty()) {
+                    setContentList(bulletinList.toList())
                 }
             }
         }

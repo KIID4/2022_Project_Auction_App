@@ -28,10 +28,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import io.github.KIID_4.auction.R
-import io.github.KIID_4.auction.ui.function.isInteger
-import io.github.KIID_4.auction.ui.function.modifyToFirebase
-import io.github.KIID_4.auction.ui.function.pushToFirebase
-import io.github.KIID_4.auction.ui.function.registerToFirebase
+import io.github.KIID_4.auction.ui.function.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -75,7 +72,9 @@ fun mainButton(navController: NavController) {
 
         Spacer(Modifier.weight(0.5f))
 
-        Button(onClick = { },
+        Button(onClick = {
+            navController.navigate("bulletinBoard")
+        },
             modifier = Modifier.size(width = 100.dp, height = 100.dp).
             clip(CircleShape),
             colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xff888DFF)),
@@ -94,7 +93,7 @@ fun myPageButton(navController : NavController) {
     ) {
         Column{
             Button(onClick = {
-                navController.navigate("modifyingInfor")
+                //navController.navigate("modifyingInfo")
             },
                 modifier = Modifier.size(width = 70.dp, height = 70.dp).
                 clip(CircleShape),
@@ -282,7 +281,7 @@ fun regisProductButton(
         onClick = {
             if (bitmap != null && productName.isNotEmpty() && price.isNotEmpty() && time.isNotEmpty() && isInteger(price) && isInteger(time)) {
                 CoroutineScope(Dispatchers.IO).launch {
-                    pushToFirebase(bitmap, productName, price, time, context) {
+                    pushProductInfoToFirebase(bitmap, productName, price, time, context) {
                         upLoadSetSuccess(true)
                     }
                 }
@@ -296,5 +295,54 @@ fun regisProductButton(
         colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
     ) {
         Text("등록", color = Color.White, fontSize = 10.sp)
+    }
+}
+@Composable
+fun registerBulletinButton(navController: NavController, title: String, content: String) {
+    val context = LocalContext.current
+    val (upLoadSuccess, upLoadSetSuccess) = remember { mutableStateOf(false) }
+
+
+    if (upLoadSuccess) {
+        navController.navigate("userMain")
+        upLoadSetSuccess(false)
+    }
+
+    Button(
+        onClick = {
+            if (title.isNotEmpty() && content.isNotEmpty()) {
+                CoroutineScope(Dispatchers.IO).launch {
+                    pushBulletinInfoToFirebase(title, content, context) {
+                        upLoadSetSuccess(true)
+                    }
+                }
+            }
+            else {
+                Toast.makeText(context, "게시물을 한번더 확인해 주세요", Toast.LENGTH_SHORT).show()
+            }
+        },
+        modifier = Modifier.size(width = 80.dp, height = 40.dp),
+        shape = RoundedCornerShape(10.dp),
+        colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
+    ) {
+        Text("등록", color = Color.White, fontSize = 10.sp)
+    }
+}
+@Composable
+fun bulletinWriteButton(navController: NavController) { // 게시글 작성 버튼
+    Spacer(Modifier.padding(10.dp))
+    Row(
+        modifier = Modifier.fillMaxWidth(0.8f)
+    ) {
+        Button(
+            onClick = {
+                navController.navigate("bulletin")
+            },
+            modifier = Modifier.size(width = 80.dp, height = 40.dp),
+            shape = RoundedCornerShape(10.dp),
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
+        ) {
+            Text("작성하기", color = Color.White, fontSize = 12.sp)
+        }
     }
 }

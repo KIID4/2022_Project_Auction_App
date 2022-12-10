@@ -86,7 +86,7 @@ fun loginToFirebase(email: String, passwd: String, context: Context, setSuccess:
 }
 
 
-fun pushToFirebase(bitmap: Bitmap, productName: String, price: String, time: String, context: Context, upLoadSetSuccess: () -> Unit) {
+fun pushProductInfoToFirebase(bitmap: Bitmap, productName: String, price: String, time: String, context: Context, upLoadSetSuccess: () -> Unit) {
     val user = Firebase.auth.currentUser
     val productInfoModel = HashMap<String, Any>()
     val stream = ByteArrayOutputStream()
@@ -134,5 +134,36 @@ fun modifyToFirebase(passwd: String,  name: String, callNumber: String, birthday
                 Toast.makeText(context, "정보가 성공적으로 업데이트 되었습니다", Toast.LENGTH_SHORT).show()
             }
             else Toast.makeText(context, task.exception?.message, Toast.LENGTH_SHORT).show()
+        }
+}
+
+fun pushBulletinInfoToFirebase(title : String, content : String, context: Context, upLoadSetSuccess: () -> Unit) {
+    val user = Firebase.auth.currentUser
+    val bulletinInfoModel = HashMap<String, Any>()
+    val hits = "0"
+
+    bulletinInfoModel["title"] = title
+    bulletinInfoModel["content"] = content
+    bulletinInfoModel["hits"] = hits
+    var useruid = ""
+
+    if (user != null) {
+        useruid = user.uid
+        bulletinInfoModel["userid"] = useruid
+        bulletinInfoModel["writer"] = user.displayName.toString()
+    }
+
+    FirebaseDatabase.getInstance().reference
+        .child("users")
+        .child("Bulletin")
+        .push()
+        .setValue(bulletinInfoModel)
+        .addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                upLoadSetSuccess()
+                Toast.makeText(context, "게시물을 성공적으로 업로드하였습니다", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "게시물이 정상적으로 업로드 되지 않았습니다.", Toast.LENGTH_SHORT).show()
+            }
         }
 }

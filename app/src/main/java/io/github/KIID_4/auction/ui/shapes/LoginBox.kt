@@ -1,5 +1,7 @@
 package io.github.KIID_4.auction.ui.shapes
 
+import android.annotation.SuppressLint
+import android.view.Gravity
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -18,6 +20,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+@SuppressLint("ShowToast")
 @Composable
 fun loginBox(navController : NavController) {
     val context = LocalContext.current
@@ -49,7 +52,11 @@ fun loginBox(navController : NavController) {
                         }
                     }
                 }
-                else Toast.makeText(context, "ID 및 PW를 다시확인해주십시오", Toast.LENGTH_SHORT).show()
+                else{
+                    val message = Toast.makeText(context, "ID 및 PW를 다시확인해주십시오", Toast.LENGTH_SHORT)
+                    message.setGravity(Gravity.CENTER, 0, 0) // 토스트 메세지 가운데 지정
+                    message.show()
+                }
             },
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xff070000))
