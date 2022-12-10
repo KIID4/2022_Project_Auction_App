@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import io.github.KIID_4.auction.ui.shapes.Modifiymember
+import io.github.KIID_4.auction.ui.shapes.modifiymember
 import io.github.KIID_4.auction.ui.shapes.topAppBar
 
 @Composable
@@ -16,7 +16,7 @@ fun modifyingInfor(navController : NavController) {
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center
     ) {
-        Modifiymember(navController)
+        modifiymember(navController)
     }
 }
 

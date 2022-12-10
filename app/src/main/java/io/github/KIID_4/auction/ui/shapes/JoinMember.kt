@@ -139,7 +139,7 @@ fun joinMember(navController : NavController, toLoginScreen: () -> Unit = {}) {
     }
 }
 @Composable
-fun Modifiymember(navController : NavController) {
+fun modifiymember(navController : NavController) {
 
     val (passWD, setPassWD) = remember { mutableStateOf(TextFieldValue()) }
     val (repassWD, setRepassWD) = remember { mutableStateOf(TextFieldValue()) }

@@ -1,7 +1,6 @@
 package io.github.KIID_4.auction.ui.shapes
 
 import android.graphics.Bitmap
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -22,7 +21,7 @@ import io.github.KIID_4.auction.ui.function.takeImageToFirebase
 @Composable
 @Preview
 fun popularPreview() {
-    val (bitmapImageList, setBitmap) = remember { mutableStateOf(listOf<Triple<String, Bitmap, Int>()) }
+    val (bitmapImageList, setBitmap) = remember { mutableStateOf(listOf <Triple<String, Bitmap, Int>>()) }
 
     takeImageToFirebase(setBitmap)  // 파이어베이스에서 사진 가져오기
 
@@ -51,8 +50,8 @@ fun popularPreview() {
                         )
                         Spacer(Modifier.weight(0.5f))
                         Column {
-                            Text(price.toString() + "원", fontSize = 30.sp
-                            Spacer(Modifier.padding(5.dp))>
+                            Text(price.toString() + "원", fontSize = 30.sp)
+                            Spacer(Modifier.padding(5.dp))
                             Text(name, fontSize = 30.sp)
                         }
                     }

@@ -16,23 +16,27 @@ import com.google.firebase.ktx.Firebase
 fun takeImageToFirebase(setProductList: (List<Triple<String, Bitmap, Int>>) -> Unit) {
     val database = Firebase.database
     val myRef = database.getReference("users").child("Products")
+    var price = 0
 
     myRef.addListenerForSingleValueEvent(object : ValueEventListener {
         override fun onDataChange(snapshot: DataSnapshot) {
             if (snapshot.exists()) {
-                val key: String
-                val productList = mutuableListOf<Triple<String, Bitmap, Int>>()
+                var key: String
+                val productList = mutableListOf<Triple<String, Bitmap, Int>>()
                 for (data in snapshot.children) {
-                    if (productList.count == 4) break
+                    if (productList.count() == 4) break
                     key = data.key as String
                     val title =  snapshot.child(key).child("Bitmap").value as String
-                    val price =  (snapshot.child(key).child("price").value as String).toInt()  // null check required
+                    val check = (snapshot.child(key).child("price").value as String)
+                    if (check != "null") {
+                         price =  check.toInt() // null check required
+                    }
                     val name =  snapshot.child(key).child("productName").value as String
                     val encodeByte = Base64.decode(title, Base64.DEFAULT)
-                    bitmapImage = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.size)
+                    val bitmapImage = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.size)
                     productList.add(Triple(name, bitmapImage, price))
                 }
-                if (productList.count != 0) {
+                if (productList.isNotEmpty()) {
                     setProductList(productList.toList())
                 }
             }
