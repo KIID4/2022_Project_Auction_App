@@ -22,11 +22,9 @@ import io.github.KIID_4.auction.ui.function.takeImageToFirebase
 @Composable
 @Preview
 fun popularPreview() {
-    val (bitmapImageList, setBitmap) = remember { mutableStateOf(listOf<Bitmap?>(null)) } // 물품이미지의 비트맵 저장 리스트
-    val (priceList, setPrice) = remember { mutableStateOf(listOf<Int?>(null)) } // 물품 가격 저장 리스트
-    val (productNameList, setName) = remember { mutableStateOf(listOf<String?>(null)) } // 물품 이름 저장 리스트
+    val (bitmapImageList, setBitmap) = remember { mutableStateOf(listOf<Triple<String, Bitmap, Int>()) }
 
-    takeImageToFirebase(setBitmap, setPrice, setName) // 파이어베이스에서 사진 가져오기
+    takeImageToFirebase(setBitmap)  // 파이어베이스에서 사진 가져오기
 
     Row(
         Modifier.padding(10.dp),
@@ -45,22 +43,17 @@ fun popularPreview() {
                     Row (
                         horizontalArrangement = Arrangement.Center
                     ) {
-                        bitmapImageList[page]?.let { btm ->
-                            Image(
-                                bitmap = btm.asImageBitmap(),
-                                contentDescription = null,
-                                modifier = Modifier.fillMaxSize(0.5f)
-                            )
-                        }
+                        val (name, btm, price) = bitmapImageList[page]
+                        Image(
+                            bitmap = btm.asImageBitmap(),
+                            contentDescription = null,
+                            modifier = Modifier.fillMaxSize(0.5f)
+                        )
                         Spacer(Modifier.weight(0.5f))
                         Column {
-                            priceList[page]?.let { price ->
-                                Text(price.toString() + "원", fontSize = 30.sp)
-                            }
-                            Spacer(Modifier.padding(5.dp))
-                            productNameList[page]?.let { name ->
-                                Text(name, fontSize = 30.sp)
-                            }
+                            Text(price.toString() + "원", fontSize = 30.sp
+                            Spacer(Modifier.padding(5.dp))>
+                            Text(name, fontSize = 30.sp)
                         }
                     }
                 }
