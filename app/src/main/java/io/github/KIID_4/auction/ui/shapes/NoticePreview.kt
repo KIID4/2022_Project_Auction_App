@@ -10,15 +10,19 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import io.github.KIID_4.auction.ui.function.takeNoticeContentFromFirebase
 
 
 @Composable
 fun noticePreview(navController: NavController) {
+    val (content, setContent) = remember { mutableStateOf("") }
+    takeNoticeContentFromFirebase(setContent)
     Row(
         Modifier.padding(10.dp),
         horizontalArrangement = Arrangement.Center
@@ -58,9 +62,7 @@ fun noticePreview(navController: NavController) {
                 ) {
                     Column(Modifier.padding(10.dp)
                     ) {
-                        Text("업데이트 내역입니다.", fontSize = 14.sp)
-                        Text("11월 15일 업데이트 내역", fontSize = 14.sp)
-                        Text("UI 업데이트", fontSize = 14.sp)
+                        Text(content, fontSize = 14.sp)
 
                         Spacer(Modifier.padding(40.dp)) // 밑 인덱스 맞춰주기 위함
                     }

@@ -71,6 +71,7 @@ fun tenderDisplay(navController: NavController) {
                 informationBar("가격을 한번더 입력해주세요", 150, 55, reBuyPrice, setReBuyPrice)
             }
 
+            Spacer(Modifier.padding(40.dp))
 
             Row(
                 modifier = Modifier.fillMaxWidth(),

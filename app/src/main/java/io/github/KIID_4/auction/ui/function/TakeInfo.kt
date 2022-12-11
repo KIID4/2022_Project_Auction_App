@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory
 import android.util.Base64
 import android.util.Log
 import androidx.compose.runtime.*
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -162,6 +163,56 @@ fun takeNoticeInFromFirebase ( // 파이어베이스에서 공지사항 정보 �
         }
         override fun onCancelled(error: DatabaseError) {
             // Failed to read value
+            Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
+        }
+    } )
+}
+
+fun takeUserInfoFromFirebase(setMoney: (Int) -> Unit) { // 파이어베이스에서 사용자의 돈을 가져오는 함수
+    val database = Firebase.database
+    val user = Firebase.auth.currentUser
+    var userUid = ""
+
+    if (user != null) {
+        userUid = user.uid
+    }
+
+    val myRef = database.getReference("users").child("info").child(userUid).child("money")
+    var money = 0
+
+    myRef.addValueEventListener(object : ValueEventListener { // 데이터 한번만 받고 연결 닫는 함수
+        override fun onDataChange(snapshot: DataSnapshot) {
+            if (snapshot.exists()) {
+                val checkInt = snapshot.value as String // 공지사항 내용
+                if (checkInt != "null") {
+                    money = checkInt.toInt() // null check required
+                    setMoney(money)
+                }
+            }
+        }
+        override fun onCancelled(error: DatabaseError) { // Failed to read value
+            Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
+        }
+    } )
+}
+
+fun takeNoticeContentFromFirebase(setContent: (String) -> Unit) { // 파이어베이스에서 사용자의 돈을 가져오는 함수
+    val database = Firebase.database
+    val user = Firebase.auth.currentUser
+    val myRef = database.getReference("users").child("notice").limitToFirst(1)
+
+    myRef.addValueEventListener(object : ValueEventListener { // 데이터 한번만 받고 연결 닫는 함수
+        override fun onDataChange(snapshot: DataSnapshot) {
+            if (snapshot.exists()) {
+                var key: String
+                for (data in snapshot.children) {
+                    key = data.key as String
+                    val noviceContent =  snapshot.child(key).child("content").value as String // 공지사항 내용
+                    setContent(noviceContent)
+                }
+            }
+        }
+        override fun onCancelled(error: DatabaseError) { // Failed to read value
             Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
         }
     } )

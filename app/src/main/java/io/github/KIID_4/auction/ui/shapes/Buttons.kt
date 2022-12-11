@@ -332,7 +332,6 @@ fun registerBulletButton(navController: NavController, title: String, content: S
 
 @Composable
 fun writeButton(navController: NavController, info : String) { // 게시글 작성 버튼
-    val (permission, permissionCheck) = remember { mutableStateOf(false) }
     val context = LocalContext.current
     val user = Firebase.auth.currentUser
 
@@ -369,7 +368,6 @@ fun registerNoticeButton(navController: NavController, title: String, content: S
     val context = LocalContext.current
 
     val (upLoadSuccess, upLoadSetSuccess) = remember { mutableStateOf(false) }
-
 
     if (upLoadSuccess) {
         navController.navigate("userMain")
@@ -423,6 +421,6 @@ fun tenderButton(navController: NavController, price: Int, buyPrice: String, reB
         shape = RoundedCornerShape(10.dp),
         colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
     ) {
-        Text("입찰", color = Color.White, fontSize = 10.sp)
+        Text("입찰", color = Color.White, fontSize = 15.sp)
     }
 }

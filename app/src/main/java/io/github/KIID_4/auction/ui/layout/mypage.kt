@@ -20,5 +20,6 @@ fun myPage(navController : NavController) {
         ) {
             transsactionCount()
         }
+        saleList()
     }
 }
