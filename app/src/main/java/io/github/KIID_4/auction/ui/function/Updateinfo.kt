@@ -1,10 +1,14 @@
 package io.github.KIID_4.auction.ui.function
 
+import android.content.Context
 import android.graphics.Bitmap
+import android.widget.Toast
+import androidx.navigation.NavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -57,4 +61,28 @@ fun saveDataNotice(title: String, hits: Int, content: String) {
     noticeInfo.title = title
     noticeInfo.hits = hits
     noticeInfo.content = content
+}
+
+fun updateTenderPrice(
+    buyPrice: String,
+    productName: String,
+    context: Context,
+    setPriceSuccess: () -> Unit
+) {
+    FirebaseDatabase.getInstance().reference
+        .child("users")
+        .child("Products")
+        .child(productName)
+        .child("price")
+        .setValue(buyPrice)
+        .addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                setPriceSuccess()
+                Toast.makeText(context, "입찰을 성공적으로 업로드하였습니다", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(context, "입찰이 정상적으로 되지 않았습니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
 }

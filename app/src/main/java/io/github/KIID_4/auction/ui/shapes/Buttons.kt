@@ -396,3 +396,33 @@ fun registerNoticeButton(navController: NavController, title: String, content: S
         Text("등록", color = Color.White, fontSize = 10.sp)
     }
 }
+
+@Composable
+fun tenderButton(navController: NavController, price: Int, buyPrice: String, reBuyPrice: String, productName: String) {
+    val context = LocalContext.current
+    val (priceSuccess, setPriceSuccess) = remember { mutableStateOf(false) }
+
+    if(priceSuccess) {
+        navController.navigate("auction")
+        setPriceSuccess(false)
+    }
+
+    Button(
+        onClick = {
+            if (buyPrice.isNotEmpty() && reBuyPrice.isNotEmpty() && isInteger(buyPrice) && isInteger(reBuyPrice) && (buyPrice == reBuyPrice)) {
+                if(price < buyPrice.toInt()) {
+                    updateTenderPrice(buyPrice, productName, context) {
+                        setPriceSuccess(true)
+                    }
+                }
+                else Toast.makeText(context, "현재 입찰하신 가격보다 현재입찰가보다 적습니다.", Toast.LENGTH_SHORT).show()
+            }
+            else Toast.makeText(context, "가격을 한번더 확인해 주세요.", Toast.LENGTH_SHORT).show()
+        },
+        modifier = Modifier.size(width = 80.dp, height = 40.dp),
+        shape = RoundedCornerShape(10.dp),
+        colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
+    ) {
+        Text("입찰", color = Color.White, fontSize = 10.sp)
+    }
+}

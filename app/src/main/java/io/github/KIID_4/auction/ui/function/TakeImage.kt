@@ -25,13 +25,13 @@ fun take4ImageFromFirebase(setProductList: (List<Triple<String, Bitmap, Int>>) -
                 val productList = mutableListOf<Triple<String, Bitmap, Int>>()
                 for (data in snapshot.children) {
                     key = data.key as String
-                    val title =  snapshot.child(key).child("Bitmap").value as String
+                    val value =  snapshot.child(key).child("Bitmap").value as String
                     val check = (snapshot.child(key).child("price").value as String)
                     if (check != "null") {
                         price =  check.toInt() // null check required
                     }
                     val productName =  snapshot.child(key).child("productName").value as String
-                    val encodeByte = Base64.decode(title, Base64.DEFAULT)
+                    val encodeByte = Base64.decode(value, Base64.DEFAULT)
                     val bitmapImage = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.size)
                     productList.add(Triple(productName, bitmapImage, price))
                 }

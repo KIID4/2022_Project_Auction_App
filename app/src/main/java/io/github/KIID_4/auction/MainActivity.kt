@@ -75,6 +75,10 @@ class MainActivity : ComponentActivity() {
                     composable("noticeInfo") { // 공지사항 세부 내용
                         noticeInfo(navController)
                     }
+
+                    composable("tender") { // 입찰 화면
+                        tender(navController)
+                    }
                 }
             }
         }

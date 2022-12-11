@@ -138,7 +138,7 @@ fun galleryImage(navController: NavController) {
     }
 }
 @Composable
-fun printProductInfo() {
+fun printProductInfo(navController: NavController) {
     val productName: String = productInfo.productName
     val bitmap : Bitmap? = productInfo.btm
     val price: Int = productInfo.price
@@ -217,7 +217,7 @@ fun printProductInfo() {
             ) {
                 Button(
                     onClick = {
-
+                        navController.navigate("tender")
                     },
                     modifier = Modifier.size(width = 80.dp, height = 40.dp),
                     shape = RoundedCornerShape(10.dp),
