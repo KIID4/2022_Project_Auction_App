@@ -26,6 +26,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import io.github.KIID_4.auction.ui.data.productInfo
 
 @Composable
 fun galleryImage(navController: NavController) {
@@ -137,9 +138,15 @@ fun galleryImage(navController: NavController) {
     }
 }
 @Composable
-fun printProductInfo(navController: NavController) { // 아직 구현안됨 물품 정보 출력하는거임
+fun printProductInfo() {
+    val productName: String = productInfo.productName
+    val bitmap : Bitmap? = productInfo.btm
+    val price: Int = productInfo.price
+    val sellerName: String = productInfo.sellerName
+    val time: Int = productInfo.time
 
-    val bitmap =  remember { mutableStateOf<Bitmap?>(null) }
+
+
     Row (
         modifier = Modifier.padding(70.dp),
         horizontalArrangement = Arrangement.Center,
@@ -150,52 +157,87 @@ fun printProductInfo(navController: NavController) { // 아직 구현안됨 물�
                 shape = RoundedCornerShape(20.dp),
                 color = Color.White
             ) {
-                if (bitmap.value != null) {
-                    bitmap.value?.let { btm ->
-                        Image(
-                            bitmap = btm.asImageBitmap(),
-                            contentDescription = null,
-                            modifier = Modifier.size(width = 200.dp, height = 200.dp)
-                        )
-                    }
+                if (bitmap != null) {
+                    Image(
+                        bitmap = bitmap.asImageBitmap(),
+                        contentDescription = null,
+                        modifier = Modifier.size(width = 200.dp, height = 200.dp)
+                    )
                 }
                 else Spacer(Modifier.padding(100.dp))
 
             }
 
-            Spacer(Modifier.padding(20.dp))
+            Spacer(Modifier.padding(30.dp))
 
             Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text("물품 이름", fontSize = 17.sp)
-                Spacer(Modifier.padding(10.dp))
+                Text("물품 이름 : $productName", fontSize = 25.sp)
             }
 
-            Spacer(Modifier.padding(5.dp))
+            Spacer(Modifier.padding(15.dp))
 
             Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Spacer(Modifier.padding(10.dp))
-                Text("남은 시간", fontSize = 17.sp)
+                Text("남은 시간 : $time 시간", fontSize = 25.sp)
             }
 
-            Spacer(Modifier.padding(5.dp))
+            Spacer(Modifier.padding(15.dp))
 
             Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Text("현재 가격", fontSize = 17.sp)
-                Spacer(Modifier.padding(10.dp))
+                Text("현재 가격 : $price 원", fontSize = 25.sp)
             }
 
-            Spacer(Modifier.padding(10.dp))
+            Spacer(Modifier.padding(15.dp))
 
             Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Spacer(Modifier.weight(1.0f))
+                Text("판매자 : $sellerName", fontSize = 25.sp)
+            }
+
+            Spacer(Modifier.padding(30.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Button(
+                    onClick = {
+
+                    },
+                    modifier = Modifier.size(width = 80.dp, height = 40.dp),
+                    shape = RoundedCornerShape(10.dp),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xffE71B1B))
+                ) {
+                    Text("입찰", color = Color.White, fontSize = 17.sp)
+                }
+
+                Spacer(Modifier.padding(10.dp))
+
+                Button(
+                    onClick = {
+
+                    },
+                    modifier = Modifier.size(width = 80.dp, height = 40.dp),
+                    shape = RoundedCornerShape(10.dp),
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xff0C8937))
+                ) {
+                    Text("관심", color = Color.White, fontSize = 17.sp)
+                }
             }
         }
     }

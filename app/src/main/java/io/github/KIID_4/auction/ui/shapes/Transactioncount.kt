@@ -5,13 +5,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -20,8 +16,8 @@ import androidx.compose.ui.unit.sp
 @Preview
 fun transsactionCount() {
 
-    val buycount = 0
-    val sellcount = 0
+    val buyCount = 0
+    val sellCount = 0
 
     Row(
         modifier = Modifier.padding(25.dp),
@@ -84,7 +80,7 @@ fun transsactionCount() {
                         horizontalArrangement = Arrangement.Center, // 가로
                         verticalAlignment = Alignment.CenterVertically // 세로
                     ) {
-                        Text("$buycount", fontSize = 14.sp)
+                        Text("$buyCount", fontSize = 14.sp)
                     }
                 }
 
@@ -99,7 +95,7 @@ fun transsactionCount() {
                         horizontalArrangement = Arrangement.Center, // 가로
                         verticalAlignment = Alignment.CenterVertically // 세로
                     ) {
-                        Text("$sellcount", fontSize = 14.sp)
+                        Text("$sellCount", fontSize = 14.sp)
                     }
                 }
             }

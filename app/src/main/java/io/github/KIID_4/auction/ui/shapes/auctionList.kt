@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import io.github.KIID_4.auction.ui.function.saveDataProductInfo
 import io.github.KIID_4.auction.ui.function.takeProductFromFirebase
 
 @Composable
@@ -41,6 +42,7 @@ fun auctionList(navController : NavController) {
                 val (sellerName, time) = sntList[it]
                 Button(
                     onClick = {
+                        saveDataProductInfo(productName, btm, price, sellerName, time)
                         navController.navigate("productInfo")
                     },
                     modifier = Modifier.size(200.dp),

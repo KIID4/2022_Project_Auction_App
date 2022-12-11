@@ -96,10 +96,12 @@ fun takeProductFromFirebase( // 파이어베이스에 있는 모든 경매 물�
 
 fun takeBulletinFromFirebase ( // 파이어베이스에서 게시글 정보 가져오는 함수
     setContentList: (List<Triple<String, String, Int>>) -> Unit,
+    setContent: (String) -> Unit,
 ) {
     val database = Firebase.database
     val myRef = database.getReference("users").child("Bulletin")
     var hits = 0
+    var content = ""
 
     myRef.addValueEventListener(object : ValueEventListener { // 데이터 한번만 받고 연결 닫는 함수
         override fun onDataChange(snapshot: DataSnapshot) {
@@ -109,16 +111,18 @@ fun takeBulletinFromFirebase ( // 파이어베이스에서 게시글 정보 가�
                 for (data in snapshot.children) {
                     key = data.key as String
                     val title =  snapshot.child(key).child("title").value as String // 게시글 제목
-                    val writer = (snapshot.child(key).child("writer").value as String) // 작성자
-                    val checkHits = (snapshot.child(key).child("hits").value as String) // 조회수
+                    val writer = snapshot.child(key).child("writer").value as String // 작성자
+                    val checkHits = snapshot.child(key).child("hits").value as String// 조회수
+                    content = snapshot.child(key).child("content").value as String // 게시글 내용
                     if (checkHits != "null") {
-                        hits =  checkHits.toInt() // null check required
+                        hits = checkHits.toInt() // null check required
                     }
-                    bulletinList.add(Triple(title, writer , hits))
-
+                    bulletinList.add(Triple(title, writer, hits))
                 }
-                if (bulletinList.isNotEmpty()) {
+
+                if (bulletinList.isNotEmpty() && content != "") {
                     setContentList(bulletinList.toList())
+                    setContent(content)
                 }
             }
         }
@@ -130,7 +134,7 @@ fun takeBulletinFromFirebase ( // 파이어베이스에서 게시글 정보 가�
 }
 
 fun takeNoticeInFromFirebase ( // 파이어베이스에서 공지사항 정보 가져오는 함수
-    setContentList: (List<Pair<String, Int>>) -> Unit,
+    setContentList: (List<Triple<String, Int, String>>) -> Unit,
 ) {
     val database = Firebase.database
     val myRef = database.getReference("users").child("notice")
@@ -140,16 +144,16 @@ fun takeNoticeInFromFirebase ( // 파이어베이스에서 공지사항 정보 �
         override fun onDataChange(snapshot: DataSnapshot) {
             if (snapshot.exists()) {
                 var key: String
-                val bulletinList = mutableListOf<Pair<String, Int>>()
+                val bulletinList = mutableListOf<Triple<String, Int, String>>()
                 for (data in snapshot.children) {
                     key = data.key as String
                     val title =  snapshot.child(key).child("title").value as String // 공지사항 제목
                     val checkHits = (snapshot.child(key).child("hits").value as String) // 조회수
+                    val content = (snapshot.child(key).child("content").value as String) // 공지사항 내용
                     if (checkHits != "null") {
                         hits =  checkHits.toInt() // null check required
                     }
-                    bulletinList.add(Pair(title, hits))
-
+                    bulletinList.add(Triple(title, hits, content))
                 }
                 if (bulletinList.isNotEmpty()) {
                     setContentList(bulletinList.toList())

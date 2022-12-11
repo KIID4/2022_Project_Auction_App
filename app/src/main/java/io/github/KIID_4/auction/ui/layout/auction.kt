@@ -9,7 +9,7 @@ import io.github.KIID_4.auction.ui.shapes.auctionList
 import io.github.KIID_4.auction.ui.shapes.topAppBar
 
 @Composable
-fun Auction(navController : NavController) {
+fun auction(navController : NavController) {
     Column(
         Modifier.fillMaxSize(),
     ) {

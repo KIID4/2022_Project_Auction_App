@@ -47,7 +47,7 @@ fun mainButton(navController: NavController) {
         horizontalArrangement = Arrangement.Center,
     ) {
         Button(onClick = {
-            navController.navigate("auctionList")
+            navController.navigate("auction")
         },
             modifier = Modifier.size(width = 100.dp, height = 100.dp).
             clip(CircleShape),
@@ -334,6 +334,7 @@ fun registerBulletButton(navController: NavController, title: String, content: S
 fun writeButton(navController: NavController, info : String) { // 게시글 작성 버튼
     val (permission, permissionCheck) = remember { mutableStateOf(false) }
     val context = LocalContext.current
+    val user = Firebase.auth.currentUser
 
     Spacer(Modifier.padding(10.dp))
     Row {
@@ -341,20 +342,17 @@ fun writeButton(navController: NavController, info : String) { // 게시글 작�
             onClick = {
                 if(info == "notice") {
                     if (info.isNotEmpty()) {
-                        CoroutineScope(Dispatchers.IO).launch {
-                            checkPermission(info) {
-                                permissionCheck(true)
+                        if (user != null) {
+                            val userUid = user.uid
+                            if (userUid == "23ueQFFFUDeDxWTFKGcV9NYOxGR2") {
+                                navController.navigate("NoticeLayout")
                             }
+                            else Toast.makeText(context, "권한이 존재하지 않습니다.", Toast.LENGTH_SHORT).show()
                         }
+                        else Toast.makeText(context, "로그인이 필요합니다.", Toast.LENGTH_SHORT).show()
                     }
                 }
                 else navController.navigate("bulletinLayout")
-
-                if(permission) {
-                    navController.navigate("NoticeLayout")
-                    permissionCheck(false)
-                }
-                else Toast.makeText(context, "권한이 존재하지 않습니다.", Toast.LENGTH_SHORT).show()
             },
             modifier = Modifier.size(width = 80.dp, height = 40.dp),
             shape = RoundedCornerShape(10.dp),

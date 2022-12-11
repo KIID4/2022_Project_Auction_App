@@ -16,6 +16,7 @@ import androidx.navigation.NavController
 fun writeNotice(navController: NavController) {
     val (title, setTitle) = remember { mutableStateOf(TextFieldValue()) }
     val (content, setContent) = remember { mutableStateOf(TextFieldValue()) }
+
     Column(
         modifier = Modifier.padding(20.dp)
     ) {

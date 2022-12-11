@@ -75,7 +75,7 @@ fun loginToFirebase(email: String, passwd: String, context: Context, setSuccess:
                 var useruid = ""
                 if (user != null) {
                     useruid = user.uid
-                    updateInfo(useruid)
+                    updateUserInfo(useruid)
                     setSuccess()
                     Toast.makeText(context, "로그인에 성공하셨습니다.", Toast.LENGTH_SHORT).show()
                 } else {

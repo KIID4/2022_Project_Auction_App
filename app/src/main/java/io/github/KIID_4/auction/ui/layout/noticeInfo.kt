@@ -5,15 +5,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import io.github.KIID_4.auction.ui.shapes.printNoticeInfo
 import io.github.KIID_4.auction.ui.shapes.topAppBar
-import io.github.KIID_4.auction.ui.shapes.writeNotice
 
 @Composable
-fun NoticeLayout(navController: NavController) {
+fun noticeInfo(navController: NavController) {
     Column(
-        Modifier.fillMaxSize(),
+        Modifier.fillMaxSize()
     ) {
         topAppBar(navController, true, "My")
-        writeNotice(navController)
+        printNoticeInfo()
     }
 }
