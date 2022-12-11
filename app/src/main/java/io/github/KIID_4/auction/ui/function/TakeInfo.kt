@@ -198,7 +198,6 @@ fun takeUserInfoFromFirebase(setMoney: (Int) -> Unit) { // 파이어베이스에
 
 fun takeNoticeContentFromFirebase(setContent: (String) -> Unit) { // 파이어베이스에서 사용자의 돈을 가져오는 함수
     val database = Firebase.database
-    val user = Firebase.auth.currentUser
     val myRef = database.getReference("users").child("notice").limitToFirst(1)
 
     myRef.addValueEventListener(object : ValueEventListener { // 데이터 한번만 받고 연결 닫는 함수
@@ -213,6 +212,54 @@ fun takeNoticeContentFromFirebase(setContent: (String) -> Unit) { // 파이어�
             }
         }
         override fun onCancelled(error: DatabaseError) { // Failed to read value
+            Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
+        }
+    } )
+}
+
+
+fun takeSellProductFromFirebase( // 파이어베이스에 있는 모든 경매 물품 목록 가져오는 함수
+    setProductList: (List<Triple<String, Int, Int>>) -> Unit
+) {
+    val database = Firebase.database
+    val user = Firebase.auth.currentUser
+    var userUid = ""
+
+    if (user != null) {
+        userUid = user.uid
+    }
+    val myRef = database.getReference("users").child("Products")
+    var price = 0
+    var time = 0
+
+    myRef.addValueEventListener(object : ValueEventListener { // 데이터 상시수신대기 함수
+        override fun onDataChange(snapshot: DataSnapshot) {
+            if (snapshot.exists()) {
+                var key: String
+                val productList = mutableListOf<Triple<String, Int, Int>>()
+                for (data in snapshot.children) {
+                    key = data.key as String
+                    val id = snapshot.child(key).child("userid").value as String // 사용자의 id 같은지 비교
+                    if (id == userUid) {
+                        val productName = snapshot.child(key).child("productName").value as String // 물품 이름
+                        val checkPrice = (snapshot.child(key).child("price").value as String) // 물품 가격
+                        if (checkPrice != "null") {
+                            price =  checkPrice.toInt()
+                        }
+                        val checkTime = (snapshot.child(key).child("time").value as String) // 경매 남은 시간
+                        if (checkTime != "null") {
+                            time =  checkTime.toInt()
+                        }
+                        productList.add(Triple(productName, price, time))
+                    }
+                }
+                if (productList.isNotEmpty()) {
+                    setProductList(productList.toList())
+                }
+            }
+        }
+        override fun onCancelled(error: DatabaseError) {
+            // Failed to read value
             Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
         }
     } )
