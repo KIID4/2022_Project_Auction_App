@@ -9,6 +9,7 @@ object productInfo {
     var sellerName : String = ""
     var time : Int = 0
     var productUserUid : String = ""
+    var buyerUid : String = ""
 }
 
 object bulletinInfo {

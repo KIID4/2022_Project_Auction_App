@@ -41,13 +41,14 @@ fun updateUserInfo(useruid: String) {
     } )
 }
 
-fun saveDataProductInfo(productName: String, btm: Bitmap, price: Int, sellerName: String, time: Int, userUid: String) {
+fun saveDataProductInfo(productName: String, btm: Bitmap, price: Int, sellerName: String, time: Int, userUid: String, buyerUid : String) {
     productInfo.productName = productName
     productInfo.btm = btm
     productInfo.price = price
     productInfo.sellerName = sellerName
     productInfo.time = time
     productInfo.productUserUid = userUid
+    productInfo.buyerUid = buyerUid
 }
 
 fun saveDataBulletin(title: String, writer: String, hits: Int, content: String) {
@@ -71,7 +72,7 @@ fun updateTenderPrice(
     currentUserMoney: Int,
     beforeUserMoney: Int,
     price: Int,
-    beforeUserUid: String,
+    buyerUserUid: String,
     setPriceSuccess: () -> Unit
 ) {
     val user = Firebase.auth.currentUser
@@ -105,15 +106,25 @@ fun updateTenderPrice(
                             FirebaseDatabase.getInstance().reference // 전 구매자 돈 업데이트
                                 .child("users")
                                 .child("info")
-                                .child(beforeUserUid)
+                                .child(buyerUserUid)
                                 .child("money")
                                 .setValue(beforeChange.toString())
                                 .addOnCompleteListener { task3 ->
                                     if (task3.isSuccessful) {
-                                        setPriceSuccess()
-                                        Toast.makeText(context, "입찰에 성공하셨습니다.", Toast.LENGTH_SHORT).show()
+                                        FirebaseDatabase.getInstance().reference // 현재 구매자 Uid 업데이트
+                                            .child("users")
+                                            .child("Products")
+                                            .child(productName)
+                                            .child("buyer")
+                                            .setValue(currentUserUid)
+                                            .addOnCompleteListener { task4 ->
+                                                if (task4.isSuccessful) {
+                                                    setPriceSuccess()
+                                                    Toast.makeText(context, "입찰에 성공하셨습니다.", Toast.LENGTH_SHORT).show()
+                                                } else Toast.makeText(context, "입찰에 실패하셨습니다.", Toast.LENGTH_SHORT)
+                                                    .show()
+                                            }
                                     }
-                                    else Toast.makeText(context, "입찰에 실패하셨습니다.", Toast.LENGTH_SHORT).show()
                                 }
                         }
                     }

@@ -28,8 +28,9 @@ fun auctionList(navController : NavController) {
     // 비트맵, 물건 이름, 가격 정보 들어 있는 리스트
     val (snuList, setInfo2) = remember { mutableStateOf(listOf <Triple<String, Int, String>>()) }
     // 판매자 이름, 남은 시간, 현재 경매자의 Uid
+    val (buyerUserUid, setBuyerUserUid) = remember { mutableStateOf("")}
 
-    takeProductFromFirebase(setInfo, setInfo2)  // 파이어베이스에서 사진 가져오기
+    takeProductFromFirebase(setInfo, setInfo2, setBuyerUserUid)  // 파이어베이스에서 사진 가져오기
 
     LazyColumn(
         state = scrollState) {
@@ -43,7 +44,7 @@ fun auctionList(navController : NavController) {
                 val (sellerName, time, userUid) = snuList[it]
                 Button(
                     onClick = {
-                        saveDataProductInfo(productName, btm, price, sellerName, time, userUid)
+                        saveDataProductInfo(productName, btm, price, sellerName, time, userUid, buyerUserUid)
                         navController.navigate("productInfo")
                     },
                     modifier = Modifier.size(200.dp),

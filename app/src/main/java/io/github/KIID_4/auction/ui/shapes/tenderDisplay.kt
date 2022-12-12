@@ -28,7 +28,7 @@ fun tenderDisplay(navController: NavController) {
     val bitmap : Bitmap? = productInfo.btm
     val price: Int = productInfo.price
     val productName : String = productInfo.productName
-    val productUserUid : String = productInfo.productUserUid
+    val buyerUserUid : String = productInfo.buyerUid
 
     Row (
         modifier = Modifier.padding(70.dp),
@@ -77,7 +77,7 @@ fun tenderDisplay(navController: NavController) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.End
             ) {
-                tenderButton(navController, price, buyPrice.text, reBuyPrice.text, productName, productUserUid)
+                tenderButton(navController, price, buyPrice.text, reBuyPrice.text, productName, buyerUserUid)
             }
         }
     }

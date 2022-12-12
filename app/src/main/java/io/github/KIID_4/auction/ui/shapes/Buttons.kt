@@ -402,7 +402,7 @@ fun tenderButton(
     buyPrice: String,
     reBuyPrice: String,
     productName: String,
-    productUserUid: String
+    buyerUserUid: String
 ) {
     val context = LocalContext.current
     val (priceSuccess, setPriceSuccess) = remember { mutableStateOf(false) }
@@ -415,7 +415,7 @@ fun tenderButton(
     }
 
     takeCurrentUserInfoFromFirebase(setCurrentUserMoney)
-    takeBeforeUserInfoFromFirebase(setBeforeUserMoney, productUserUid)
+    takeBeforeUserInfoFromFirebase(setBeforeUserMoney, buyerUserUid)
 
 
     Button(
@@ -423,7 +423,7 @@ fun tenderButton(
             if (buyPrice.isNotEmpty() && reBuyPrice.isNotEmpty() && isInteger(buyPrice) && isInteger(reBuyPrice) && (buyPrice == reBuyPrice)) {
                 if(price < buyPrice.toInt()) {
                     if(currentUserMoney > (buyPrice.toInt())){
-                        updateTenderPrice(buyPrice, productName, context, currentUserMoney, beforeUserMoney, price, productUserUid) {
+                        updateTenderPrice(buyPrice, productName, context, currentUserMoney, beforeUserMoney, price, buyerUserUid) {
                             setPriceSuccess(true)
                         }
                     }

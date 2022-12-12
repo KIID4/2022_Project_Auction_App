@@ -50,7 +50,8 @@ fun take4ImageFromFirebase(setProductList: (List<Triple<String, Bitmap, Int>>) -
 
 fun takeProductFromFirebase( // 파이어베이스에 있는 모든 경매 물품 목록 가져오는 함수
     setProductList: (List<Triple<String, Bitmap, Int>>) -> Unit,
-    setProductList2: (List<Triple<String, Int, String>>) -> Unit
+    setProductList2: (List<Triple<String, Int, String>>) -> Unit,
+    setBuyerUserUid: (String) -> Unit,
 ) {
     val database = Firebase.database
     val myRef = database.getReference("users").child("Products")
@@ -79,8 +80,10 @@ fun takeProductFromFirebase( // 파이어베이스에 있는 모든 경매 물�
                     val sellerName = snapshot.child(key).child("seller").value as String // 판매자 이름
                     val productName =  snapshot.child(key).child("productName").value as String // 물품 이름
                     val userUid = snapshot.child(key).child("userid").value as String // 현재 경매자 uid
+                    val buyer = snapshot.child(key).child("buyer").value as String // 구매희망 경매자 uid
                     productList.add(Triple(productName, bitmapImage, price))
                     productList2.add(Triple(sellerName, time, userUid))
+                    setBuyerUserUid(buyer)
                 }
                 if (productList.isNotEmpty() && productList2.isNotEmpty()) {
                     setProductList(productList.toList())
