@@ -396,22 +396,38 @@ fun registerNoticeButton(navController: NavController, title: String, content: S
 }
 
 @Composable
-fun tenderButton(navController: NavController, price: Int, buyPrice: String, reBuyPrice: String, productName: String) {
+fun tenderButton(
+    navController: NavController,
+    price: Int,
+    buyPrice: String,
+    reBuyPrice: String,
+    productName: String,
+    productUserUid: String
+) {
     val context = LocalContext.current
     val (priceSuccess, setPriceSuccess) = remember { mutableStateOf(false) }
+    val (currentUserMoney, setCurrentUserMoney) = remember { mutableStateOf(0) }
+    val (beforeUserMoney, setBeforeUserMoney) = remember { mutableStateOf(0) }
 
     if(priceSuccess) {
         navController.navigate("auction")
         setPriceSuccess(false)
     }
 
+    takeCurrentUserInfoFromFirebase(setCurrentUserMoney)
+    takeBeforeUserInfoFromFirebase(setBeforeUserMoney, productUserUid)
+
+
     Button(
         onClick = {
             if (buyPrice.isNotEmpty() && reBuyPrice.isNotEmpty() && isInteger(buyPrice) && isInteger(reBuyPrice) && (buyPrice == reBuyPrice)) {
                 if(price < buyPrice.toInt()) {
-                    updateTenderPrice(buyPrice, productName, context) {
-                        setPriceSuccess(true)
+                    if(currentUserMoney > (buyPrice.toInt())){
+                        updateTenderPrice(buyPrice, productName, context, currentUserMoney, beforeUserMoney, price, productUserUid) {
+                            setPriceSuccess(true)
+                        }
                     }
+                    else Toast.makeText(context, "현재 보유하신 돈이 부족합니다.", Toast.LENGTH_SHORT).show()
                 }
                 else Toast.makeText(context, "현재 입찰하신 가격보다 현재입찰가보다 적습니다.", Toast.LENGTH_SHORT).show()
             }

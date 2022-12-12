@@ -3,7 +3,6 @@ package io.github.KIID_4.auction.ui.function
 import android.content.Context
 import android.graphics.Bitmap
 import android.widget.Toast
-import androidx.navigation.NavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.database.DataSnapshot
@@ -42,12 +41,13 @@ fun updateUserInfo(useruid: String) {
     } )
 }
 
-fun saveDataProductInfo(productName: String, btm: Bitmap, price: Int, sellerName: String, time: Int) {
+fun saveDataProductInfo(productName: String, btm: Bitmap, price: Int, sellerName: String, time: Int, userUid: String) {
     productInfo.productName = productName
     productInfo.btm = btm
     productInfo.price = price
     productInfo.sellerName = sellerName
     productInfo.time = time
+    productInfo.productUserUid = userUid
 }
 
 fun saveDataBulletin(title: String, writer: String, hits: Int, content: String) {
@@ -63,26 +63,60 @@ fun saveDataNotice(title: String, hits: Int, content: String) {
     noticeInfo.content = content
 }
 
+
 fun updateTenderPrice(
     buyPrice: String,
     productName: String,
     context: Context,
+    currentUserMoney: Int,
+    beforeUserMoney: Int,
+    price: Int,
+    beforeUserUid: String,
     setPriceSuccess: () -> Unit
 ) {
-    FirebaseDatabase.getInstance().reference
+    val user = Firebase.auth.currentUser
+    var currentUserUid = ""
+    if (user != null) {
+        currentUserUid = user.uid
+    }
+
+
+    val currentChange = currentUserMoney - buyPrice.toInt()
+    val beforeChange = beforeUserMoney + price
+
+    FirebaseDatabase.getInstance().reference // 현재 구매자 돈 업데이트
         .child("users")
-        .child("Products")
-        .child(productName)
-        .child("price")
-        .setValue(buyPrice)
+        .child("info")
+        .child(currentUserUid)
+        .child("money")
+        .setValue(currentChange.toString())
         .addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                setPriceSuccess()
-                Toast.makeText(context, "입찰을 성공적으로 업로드하였습니다", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(context, "입찰이 정상적으로 되지 않았습니다.", Toast.LENGTH_SHORT).show()
+
+                FirebaseDatabase.getInstance().reference // 물품 가격 업데이트
+                    .child("users")
+                    .child("Products")
+                    .child(productName)
+                    .child("price")
+                    .setValue(buyPrice)
+                    .addOnCompleteListener { task2 ->
+                        if (task2.isSuccessful) {
+
+                            FirebaseDatabase.getInstance().reference // 전 구매자 돈 업데이트
+                                .child("users")
+                                .child("info")
+                                .child(beforeUserUid)
+                                .child("money")
+                                .setValue(beforeChange.toString())
+                                .addOnCompleteListener { task3 ->
+                                    if (task3.isSuccessful) {
+                                        setPriceSuccess()
+                                        Toast.makeText(context, "입찰에 성공하셨습니다.", Toast.LENGTH_SHORT).show()
+                                    }
+                                    else Toast.makeText(context, "입찰에 실패하셨습니다.", Toast.LENGTH_SHORT).show()
+                                }
+                        }
+                    }
             }
         }
-
-
 }

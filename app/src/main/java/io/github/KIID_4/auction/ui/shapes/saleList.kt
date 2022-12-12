@@ -1,12 +1,9 @@
 package io.github.KIID_4.auction.ui.shapes
 
-import android.graphics.Bitmap
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -16,26 +13,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import io.github.KIID_4.auction.ui.function.saveDataNotice
+import io.github.KIID_4.auction.ui.function.takeCurrentUserInfoFromFirebase
 import io.github.KIID_4.auction.ui.function.takeSellProductFromFirebase
-import io.github.KIID_4.auction.ui.function.takeUserInfoFromFirebase
 
 @Composable
 fun saleList() {
-    val (money, setMoney) = remember { mutableStateOf(0) }
+    val (currentUserMoney, setCurrentUserMoney) = remember { mutableStateOf(0) }
     val scrollState = rememberLazyListState()
     val (bpnpList, setInfo) = remember { mutableStateOf(listOf <Triple<String, Int, Int>>()) }
     // 물건이름, 가격 정보, 남은 시간 들어 있는 리스트
 
-    takeUserInfoFromFirebase(setMoney)
+    takeCurrentUserInfoFromFirebase(setCurrentUserMoney)
     takeSellProductFromFirebase(setInfo)
+
     Column{
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.Center
         ) {
             Spacer(Modifier.padding(20.dp))
-            Text("현재 남은 돈 : $money 원", fontSize = 20.sp)
+            Text("현재 남은 돈 : $currentUserMoney 원", fontSize = 20.sp)
         }
 
         Spacer(Modifier.padding(20.dp))

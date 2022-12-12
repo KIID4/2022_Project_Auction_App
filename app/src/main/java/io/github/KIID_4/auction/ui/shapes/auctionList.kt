@@ -22,12 +22,13 @@ import io.github.KIID_4.auction.ui.function.saveDataProductInfo
 import io.github.KIID_4.auction.ui.function.takeProductFromFirebase
 
 @Composable
-fun auctionList2(navController : NavController) {
+fun auctionList(navController : NavController) {
     val scrollState = rememberLazyListState()
     val (bpnpList, setInfo) = remember { mutableStateOf(listOf <Triple<String, Bitmap, Int>>()) }
     // 비트맵, 물건 이름, 가격 정보 들어 있는 리스트
-    val (sntList, setInfo2) = remember { mutableStateOf(listOf <Pair<String, Int>>()) }
-    // 판매자 이름, 남은 시간
+    val (snuList, setInfo2) = remember { mutableStateOf(listOf <Triple<String, Int, String>>()) }
+    // 판매자 이름, 남은 시간, 현재 경매자의 Uid
+
     takeProductFromFirebase(setInfo, setInfo2)  // 파이어베이스에서 사진 가져오기
 
     LazyColumn(
@@ -39,10 +40,10 @@ fun auctionList2(navController : NavController) {
                 horizontalArrangement = Arrangement.Start
             ) {
                 val (productName, btm, price) = bpnpList[it]
-                val (sellerName, time) = sntList[it]
+                val (sellerName, time, userUid) = snuList[it]
                 Button(
                     onClick = {
-                        saveDataProductInfo(productName, btm, price, sellerName, time)
+                        saveDataProductInfo(productName, btm, price, sellerName, time, userUid)
                         navController.navigate("productInfo")
                     },
                     modifier = Modifier.size(200.dp),

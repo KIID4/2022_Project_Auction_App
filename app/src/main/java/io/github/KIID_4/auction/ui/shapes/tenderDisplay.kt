@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import io.github.KIID_4.auction.ui.data.productInfo
-import kotlinx.coroutines.CompletionHandler
 
 @Composable
 fun tenderDisplay(navController: NavController) {
@@ -29,6 +28,7 @@ fun tenderDisplay(navController: NavController) {
     val bitmap : Bitmap? = productInfo.btm
     val price: Int = productInfo.price
     val productName : String = productInfo.productName
+    val productUserUid : String = productInfo.productUserUid
 
     Row (
         modifier = Modifier.padding(70.dp),
@@ -77,7 +77,7 @@ fun tenderDisplay(navController: NavController) {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.End
             ) {
-                tenderButton(navController, price, buyPrice.text, reBuyPrice.text, productName)
+                tenderButton(navController, price, buyPrice.text, reBuyPrice.text, productName, productUserUid)
             }
         }
     }

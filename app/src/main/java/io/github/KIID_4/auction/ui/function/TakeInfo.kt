@@ -50,7 +50,7 @@ fun take4ImageFromFirebase(setProductList: (List<Triple<String, Bitmap, Int>>) -
 
 fun takeProductFromFirebase( // 파이어베이스에 있는 모든 경매 물품 목록 가져오는 함수
     setProductList: (List<Triple<String, Bitmap, Int>>) -> Unit,
-    setProductList2: (List<Pair<String, Int>>) -> Unit
+    setProductList2: (List<Triple<String, Int, String>>) -> Unit
 ) {
     val database = Firebase.database
     val myRef = database.getReference("users").child("Products")
@@ -62,25 +62,25 @@ fun takeProductFromFirebase( // 파이어베이스에 있는 모든 경매 물�
             if (snapshot.exists()) {
                 var key: String
                 val productList = mutableListOf<Triple<String, Bitmap, Int>>()
-                val productList2 = mutableListOf<Pair<String, Int>>()
+                val productList2 = mutableListOf<Triple<String, Int, String>>()
                 for (data in snapshot.children) {
                     key = data.key as String
                     val bitmap =  snapshot.child(key).child("Bitmap").value as String // 비트맵
                     val encodeByte = Base64.decode(bitmap, Base64.DEFAULT)
                     val bitmapImage = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.size)
-                    val checkPrice = (snapshot.child(key).child("price").value as String) // 물품 가격
+                    val checkPrice = snapshot.child(key).child("price").value as String // 물품 가격
                     if (checkPrice != "null") {
                         price =  checkPrice.toInt() // null check required
                     }
-                    val checkTime = (snapshot.child(key).child("time").value as String)
+                    val checkTime = snapshot.child(key).child("time").value as String
                     if (checkTime != "null") {
                         time =  checkTime.toInt() // null check required
                     }
-                    val sellerName = (snapshot.child(key).child("seller").value as String) // 판매자 이름
+                    val sellerName = snapshot.child(key).child("seller").value as String // 판매자 이름
                     val productName =  snapshot.child(key).child("productName").value as String // 물품 이름
+                    val userUid = snapshot.child(key).child("userid").value as String // 현재 경매자 uid
                     productList.add(Triple(productName, bitmapImage, price))
-
-                    productList2.add(Pair(sellerName, time))
+                    productList2.add(Triple(sellerName, time, userUid))
                 }
                 if (productList.isNotEmpty() && productList2.isNotEmpty()) {
                     setProductList(productList.toList())
@@ -168,7 +168,7 @@ fun takeNoticeInFromFirebase ( // 파이어베이스에서 공지사항 정보 �
     } )
 }
 
-fun takeUserInfoFromFirebase(setMoney: (Int) -> Unit) { // 파이어베이스에서 사용자의 돈을 가져오는 함수
+fun takeCurrentUserInfoFromFirebase(setCurrentUserMoney: (Int) -> Unit) { // 파이어베이스에서 현재 사용자의 돈을 가져오는 함수
     val database = Firebase.database
     val user = Firebase.auth.currentUser
     var userUid = ""
@@ -186,7 +186,7 @@ fun takeUserInfoFromFirebase(setMoney: (Int) -> Unit) { // 파이어베이스에
                 val checkInt = snapshot.value as String // 공지사항 내용
                 if (checkInt != "null") {
                     money = checkInt.toInt() // null check required
-                    setMoney(money)
+                    setCurrentUserMoney(money)
                 }
             }
         }
@@ -196,7 +196,30 @@ fun takeUserInfoFromFirebase(setMoney: (Int) -> Unit) { // 파이어베이스에
     } )
 }
 
-fun takeNoticeContentFromFirebase(setContent: (String) -> Unit) { // 파이어베이스에서 사용자의 돈을 가져오는 함수
+fun takeBeforeUserInfoFromFirebase(setBeforeUserMoney: (Int) -> Unit, userUid: String) { // 파이어베이스에서 전 경매자의 돈을 가져오는 함수
+    val database = Firebase.database
+    val beforeUserUid = userUid
+
+    val myRef = database.getReference("users").child("info").child(beforeUserUid).child("money")
+    var money = 0
+
+    myRef.addValueEventListener(object : ValueEventListener { // 데이터 한번만 받고 연결 닫는 함수
+        override fun onDataChange(snapshot: DataSnapshot) {
+            if (snapshot.exists()) {
+                val checkInt = snapshot.value as String // 공지사항 내용
+                if (checkInt != "null") {
+                    money = checkInt.toInt() // null check required
+                    setBeforeUserMoney(money)
+                }
+            }
+        }
+        override fun onCancelled(error: DatabaseError) { // Failed to read value
+            Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
+        }
+    } )
+}
+
+fun takeNoticeContentFromFirebase(setContent: (String) -> Unit) { // 파이어베이스에서 공지사항 내용 가져오는 함수
     val database = Firebase.database
     val myRef = database.getReference("users").child("notice").limitToFirst(1)
 

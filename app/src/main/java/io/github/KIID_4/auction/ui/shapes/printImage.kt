@@ -5,6 +5,7 @@ import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
@@ -26,6 +27,8 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import io.github.KIID_4.auction.ui.data.productInfo
 
 @Composable
@@ -144,7 +147,14 @@ fun printProductInfo(navController: NavController) {
     val price: Int = productInfo.price
     val sellerName: String = productInfo.sellerName
     val time: Int = productInfo.time
+    val productUserUid = productInfo.productUserUid
+    val user = Firebase.auth.currentUser
+    val context = LocalContext.current
+    var currentUserUid = ""
 
+    if (user != null) {
+        currentUserUid = user.uid
+    }
 
 
     Row (
@@ -217,7 +227,10 @@ fun printProductInfo(navController: NavController) {
             ) {
                 Button(
                     onClick = {
-                        navController.navigate("tender")
+                        if(currentUserUid != productUserUid) {
+                            navController.navigate("tender")
+                        }
+                        else Toast.makeText(context, "본인이 등록한 물품은 경매에 참여하실수 없습니다", Toast.LENGTH_SHORT).show()
                     },
                     modifier = Modifier.size(width = 80.dp, height = 40.dp),
                     shape = RoundedCornerShape(10.dp),
