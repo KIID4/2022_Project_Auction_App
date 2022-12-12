@@ -150,7 +150,9 @@ fun myPageButton(navController : NavController) {
         Spacer(Modifier.padding(10.dp))
 
         Column{
-            Button(onClick = { },
+            Button(onClick = {
+                navController.navigate("myAuctionProduct")
+            },
                 modifier = Modifier.size(width = 70.dp, height = 70.dp).
                 clip(CircleShape),
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)

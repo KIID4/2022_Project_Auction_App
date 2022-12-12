@@ -51,7 +51,7 @@ fun saleList() {
                 ) {
                     val (title, price, time) = bpnpList[it]
                     Box(
-                        modifier = Modifier.fillMaxWidth().height(80.dp).background(color =  Color(0xffF9F1F1)),
+                        modifier = Modifier.fillMaxWidth().height(80.dp).background(color =  Color(0xffF9F1F1))
                     ) {
                         Text("물품 이름  : $title \n 현재 가격 : $price \n 남은 시간 : $time", fontSize = 17.sp)
                     }

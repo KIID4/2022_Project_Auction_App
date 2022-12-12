@@ -79,6 +79,10 @@ class MainActivity : ComponentActivity() {
                     composable("tender") { // 입찰 화면
                         tender(navController)
                     }
+
+                    composable("myAuctionProduct") {
+                        myAuctionProduct(navController)
+                    }
                 }
             }
         }
