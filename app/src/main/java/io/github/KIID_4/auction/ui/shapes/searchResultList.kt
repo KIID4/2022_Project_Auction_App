@@ -12,19 +12,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import io.github.KIID_4.auction.ui.function.takeMyItemFromFirebase
+import io.github.KIID_4.auction.ui.function.takeSearchItemFromFirebase
 
 @Composable
-fun myAuctionList() {
+fun searchResultList() {
     val scrollState = rememberLazyListState()
-    val (auctionMyItemList, setAuctionMyItemList) = remember { mutableStateOf(listOf <Triple<String, Int, Int>>()) }
+    val (searchItemList, setSearchItemList) = remember { mutableStateOf(listOf <Triple<String, Int, Int>>()) }
 
-    takeMyItemFromFirebase(setAuctionMyItemList)  // 파이어베이스에서 게시글 가져오기
+    takeSearchItemFromFirebase(setSearchItemList)  // 파이어베이스에서 게시글 가져오기
 
     LazyColumn(
         state = scrollState,
         modifier = Modifier.fillMaxHeight(0.8f)) {
-        items(auctionMyItemList.size) {
+        items(searchItemList.size) {
             Column{
                 Spacer(Modifier.padding(10.dp))
             }
@@ -32,7 +32,7 @@ fun myAuctionList() {
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Start
             ) {
-                val (title, price, time) = auctionMyItemList[it]
+                val (title, price, time) = searchItemList[it]
                 Box(
                     modifier = Modifier.fillMaxWidth().height(80.dp).background(color =  Color(0xffF9F1F1))
                 ) {

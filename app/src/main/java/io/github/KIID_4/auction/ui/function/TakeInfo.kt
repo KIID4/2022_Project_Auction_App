@@ -12,6 +12,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import io.github.KIID_4.auction.ui.data.searchInfo
 
 @Composable
 fun take4ImageFromFirebase(setProductList: (List<Triple<String, Bitmap, Int>>) -> Unit) { // 파이어베이스에서 제한된 경매물품의 정보를 가져옴
@@ -314,6 +315,50 @@ fun takeMyItemFromFirebase( // 현재 내가 경매중인 물품 리스트 가�
                     key = data.key as String
                     val id = snapshot.child(key).child("buyer").value as String // 사용자의 id 같은지 비교
                     if (id == userUid) {
+                        val productName = snapshot.child(key).child("productName").value as String // 물품 이름
+                        val checkPrice = (snapshot.child(key).child("price").value as String) // 물품 가격
+                        if (checkPrice != "null") {
+                            price =  checkPrice.toInt()
+                        }
+                        val checkTime = (snapshot.child(key).child("time").value as String) // 경매 남은 시간
+                        if (checkTime != "null") {
+                            time =  checkTime.toInt()
+                        }
+                        productList.add(Triple(productName, price, time))
+                    }
+                }
+                if (productList.isNotEmpty()) {
+                    setProductList(productList.toList())
+                }
+            }
+        }
+        override fun onCancelled(error: DatabaseError) {
+            // Failed to read value
+            Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
+        }
+    } )
+}
+
+
+fun takeSearchItemFromFirebase( // 파이어베이스에서 검색한 물품 가져오기
+    setProductList: (List<Triple<String, Int, Int>>) -> Unit
+) {
+    val database = Firebase.database
+    val user = Firebase.auth.currentUser
+    val searchWord = searchInfo.word
+
+    val myRef = database.getReference("users").child("Products")
+    var price = 0
+    var time = 0
+
+    myRef.addValueEventListener(object : ValueEventListener { // 데이터 상시수신대기 함수
+        override fun onDataChange(snapshot: DataSnapshot) {
+            if (snapshot.exists()) {
+                var key: String
+                val productList = mutableListOf<Triple<String, Int, Int>>()
+                for (data in snapshot.children) {
+                    key = data.key as String
+                    if(key == searchWord) {
                         val productName = snapshot.child(key).child("productName").value as String // 물품 이름
                         val checkPrice = (snapshot.child(key).child("price").value as String) // 물품 가격
                         if (checkPrice != "null") {

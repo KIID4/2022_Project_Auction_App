@@ -83,6 +83,10 @@ class MainActivity : ComponentActivity() {
                     composable("myAuctionProduct") {
                         myAuctionProduct(navController)
                     }
+
+                    composable("searchProduct") {
+                        searchProduct(navController)
+                    }
                 }
             }
         }

@@ -14,6 +14,7 @@ import com.google.firebase.ktx.Firebase
 import io.github.KIID_4.auction.ui.data.bulletinInfo
 import io.github.KIID_4.auction.ui.data.noticeInfo
 import io.github.KIID_4.auction.ui.data.productInfo
+import io.github.KIID_4.auction.ui.data.searchInfo
 
 fun updateUserInfo(useruid: String) {
     val user = Firebase.auth.currentUser
@@ -62,6 +63,10 @@ fun saveDataNotice(title: String, hits: Int, content: String) {
     noticeInfo.title = title
     noticeInfo.hits = hits
     noticeInfo.content = content
+}
+
+fun saveSearchWord(search: String) {
+    searchInfo.word = search
 }
 
 

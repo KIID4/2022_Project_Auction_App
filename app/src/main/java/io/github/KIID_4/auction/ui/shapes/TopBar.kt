@@ -1,6 +1,5 @@
 package io.github.KIID_4.auction.ui.shapes
 
-import android.graphics.Bitmap
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -75,7 +74,7 @@ fun topAppBar(navController: NavController, use: Boolean, check: String) {
 
             }
             Spacer(Modifier.padding(6.dp))
-            searchBar()
+            searchBar(navController)
         }
     }
 }

@@ -442,3 +442,23 @@ fun tenderButton(
         Text("입찰", color = Color.White, fontSize = 15.sp)
     }
 }
+
+@Composable
+fun searchButton(navController: NavController, text: String) { // 갤러리 불러오는 메소드
+    val context = LocalContext.current
+
+    Button(
+        onClick = {
+            if(text != "") {
+                saveSearchWord(text)
+                navController.navigate("searchProduct")
+            }
+            else Toast.makeText(context, "검색란이 비어있습니다.", Toast.LENGTH_SHORT).show()
+        },
+        modifier = Modifier.fillMaxWidth().wrapContentHeight(),
+        shape = RoundedCornerShape(10.dp),
+        colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
+    ) {
+        Text("검색", color = Color.White, fontSize = 10.sp)
+    }
+}

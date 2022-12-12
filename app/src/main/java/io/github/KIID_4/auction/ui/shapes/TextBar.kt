@@ -13,24 +13,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 @Composable
-@Preview
 // Compose의 경우 Textfield에 Text의 상태를 저장하는 공간이 없음 즉 저장하는 부분을 만들어 줘야함
-fun searchBar() {
+fun searchBar(navController: NavController) {
     var searchInput by remember { mutableStateOf(TextFieldValue()) }
 
     Row(
-        modifier = Modifier,
+        modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
         TextField(
             modifier = Modifier
-                .fillMaxWidth()
+                .fillMaxWidth(0.8f)
                 .wrapContentHeight(),  // width value will be ignored because of fillMaxWidth
             value = searchInput,
             singleLine = true,  // 한줄로만 입력
@@ -49,6 +48,8 @@ fun searchBar() {
             onValueChange = { newValue -> searchInput = newValue },  // 사용자의 새로운 입력을 사용자의 입력을 넣어줌
             placeholder = { Text(text = "물품검색", color = Color.Gray) }  // 바탕 글
         )
+        Spacer(Modifier.padding(10.dp))
+        searchButton(navController, searchInput.text)
     }
 }
 

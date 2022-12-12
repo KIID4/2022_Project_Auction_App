@@ -24,3 +24,7 @@ object noticeInfo {
     var hits : Int = 0
     var content : String = ""
 }
+
+object searchInfo {
+    var word : String = ""
+}
