@@ -457,8 +457,8 @@ fun searchButton(navController: NavController, text: String) { // 갤러리 불�
         },
         modifier = Modifier.fillMaxWidth().wrapContentHeight(),
         shape = RoundedCornerShape(10.dp),
-        colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
+        colors = ButtonDefaults.buttonColors(backgroundColor = Color.White)
     ) {
-        Text("검색", color = Color.White, fontSize = 10.sp)
+        Text("검색", color = Color.Black, fontSize = 10.sp)
     }
 }
