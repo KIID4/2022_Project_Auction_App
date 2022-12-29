@@ -33,6 +33,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+/*
+   각종 버튼 컴포넌트
+ */
+
 
 @Composable
 fun mainButton(navController: NavController) {

@@ -19,7 +19,7 @@ import io.github.KIID_4.auction.ui.function.saveDataNotice
 import io.github.KIID_4.auction.ui.function.takeNoticeInFromFirebase
 
 @Composable
-fun noticeList(navController: NavController) {
+fun noticeList(navController: NavController) { // 게시글 리스트 컴포넌트
     val scrollState = rememberLazyListState()
     val (noticeList, setBoard) = remember { mutableStateOf(listOf <Triple<String, Int, String>>()) }
     // 게시글 제목, 작성자, 조회수가 저장된 리스트

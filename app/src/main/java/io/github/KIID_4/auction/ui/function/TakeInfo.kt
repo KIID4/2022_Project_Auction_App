@@ -15,9 +15,9 @@ import com.google.firebase.ktx.Firebase
 import io.github.KIID_4.auction.ui.data.searchInfo
 
 @Composable
-fun take4ImageFromFirebase(setProductList: (List<Triple<String, Bitmap, Int>>) -> Unit) { // 파이어베이스에서 제한된 경매물품의 정보를 가져옴
+fun take4ImageFromFirebase(setProductList: (List<Triple<String, Bitmap, Int>>) -> Unit) { // 파이어베이스에서 미리보기를 위해 제한된 경매물품의 정보를 가져옴
     val database = Firebase.database
-    val myRef = database.getReference("users").child("Products").limitToFirst(4)
+    val myRef = database.getReference("users").child("Products").limitToFirst(4) // 4개까지 가져옴
     var price = 0
 
     myRef.addValueEventListener(object : ValueEventListener { // 데이터 한번만 받고 연결 닫는 함수
@@ -30,7 +30,7 @@ fun take4ImageFromFirebase(setProductList: (List<Triple<String, Bitmap, Int>>) -
                     val value =  snapshot.child(key).child("Bitmap").value as String
                     val check = (snapshot.child(key).child("price").value as String)
                     if (check != "null") {
-                        price =  check.toInt() // null check required
+                        price =  check.toInt()
                     }
                     val productName =  snapshot.child(key).child("productName").value as String
                     val encodeByte = Base64.decode(value, Base64.DEFAULT)
@@ -80,8 +80,8 @@ fun takeProductFromFirebase( // 파이어베이스에 있는 모든 경매 물�
                     }
                     val sellerName = snapshot.child(key).child("seller").value as String // 판매자 이름
                     val productName =  snapshot.child(key).child("productName").value as String // 물품 이름
-                    val userUid = snapshot.child(key).child("userid").value as String // 현재 경매자 uid
-                    val buyer = snapshot.child(key).child("buyer").value as String // 구매희망 경매자 uid
+                    val userUid = snapshot.child(key).child("userid").value as String // 현재 입찰자 uid
+                    val buyer = snapshot.child(key).child("buyer").value as String // 구매희망자 uid
                     productList.add(Triple(productName, bitmapImage, price))
                     productList2.add(Triple(sellerName, time, userUid))
                     setBuyerUserUid(buyer)
@@ -194,7 +194,7 @@ fun takeCurrentUserInfoFromFirebase(setCurrentUserMoney: (Int) -> Unit) { // 파
                 }
             }
         }
-        override fun onCancelled(error: DatabaseError) { // Failed to read value
+        override fun onCancelled(error: DatabaseError) {
             Log.w(ContentValues.TAG, "Failed to read value.", error.toException())
         }
     } )

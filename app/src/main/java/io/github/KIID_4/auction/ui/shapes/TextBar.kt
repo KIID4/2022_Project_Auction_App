@@ -19,7 +19,7 @@ import androidx.navigation.NavController
 
 @Composable
 // Compose의 경우 Textfield에 Text의 상태를 저장하는 공간이 없음 즉 저장하는 부분을 만들어 줘야함
-fun searchBar(navController: NavController) {
+fun searchBar(navController: NavController) { // 검색란 컴포넌트
     var searchInput by remember { mutableStateOf(TextFieldValue()) }
 
     Row(

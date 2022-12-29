@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
 @Composable
-fun writeNotice(navController: NavController) {
+fun writeNotice(navController: NavController) { // 게시글 작성 컴포넌트
     val (title, setTitle) = remember { mutableStateOf(TextFieldValue()) }
     val (content, setContent) = remember { mutableStateOf(TextFieldValue()) }
 

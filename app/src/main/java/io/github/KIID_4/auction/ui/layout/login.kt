@@ -8,7 +8,7 @@ import androidx.navigation.NavController
 import io.github.KIID_4.auction.ui.shapes.*
 
 @Composable
-fun login(navController : NavController){
+fun login(navController : NavController){ // 로그인 화면
     Column(
         Modifier.fillMaxSize(),
     ) {

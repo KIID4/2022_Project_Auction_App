@@ -10,7 +10,7 @@ import io.github.KIID_4.auction.ui.shapes.topAppBar
 
 
 @Composable
-fun regisProduct(navController: NavHostController) {
+fun regisProduct(navController: NavHostController) { // 물품 등록 화면
 
     Column(
         Modifier.fillMaxSize()

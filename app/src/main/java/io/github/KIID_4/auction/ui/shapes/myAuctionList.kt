@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.sp
 import io.github.KIID_4.auction.ui.function.takeMyItemFromFirebase
 
 @Composable
-fun myAuctionList() {
+fun myAuctionList() { // 현재 나의 경매 리스트 컴포넌트
     val scrollState = rememberLazyListState()
     val (auctionMyItemList, setAuctionMyItemList) = remember { mutableStateOf(listOf <Triple<String, Int, Int>>()) }
 

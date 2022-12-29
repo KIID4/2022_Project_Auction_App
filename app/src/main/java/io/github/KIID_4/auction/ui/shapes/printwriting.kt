@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -13,7 +12,7 @@ import io.github.KIID_4.auction.ui.data.bulletinInfo
 import io.github.KIID_4.auction.ui.data.noticeInfo
 
 @Composable
-fun printBulletinInfo() {
+fun printBulletinInfo() { // 공지사항 정보 컴포넌트
     val title: String = bulletinInfo.title
     val writer : String = bulletinInfo.writer
     val hits: Int = bulletinInfo.hits

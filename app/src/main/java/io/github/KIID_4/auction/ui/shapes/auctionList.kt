@@ -22,7 +22,7 @@ import io.github.KIID_4.auction.ui.function.saveDataProductInfo
 import io.github.KIID_4.auction.ui.function.takeProductFromFirebase
 
 @Composable
-fun auctionList(navController : NavController) {
+fun auctionList(navController : NavController) { // 현재 경매 리스트 컴포넌트
     val scrollState = rememberLazyListState()
     val (bpnpList, setInfo) = remember { mutableStateOf(listOf <Triple<String, Bitmap, Int>>()) }
     // 비트맵, 물건 이름, 가격 정보 들어 있는 리스트

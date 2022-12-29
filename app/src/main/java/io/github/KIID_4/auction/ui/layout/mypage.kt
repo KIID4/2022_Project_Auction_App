@@ -7,8 +7,7 @@ import androidx.navigation.NavController
 import io.github.KIID_4.auction.ui.shapes.*
 
 @Composable
-fun myPage(navController : NavController) {
-
+fun myPage(navController : NavController) { // 마이페이지 화면
     Column(
         Modifier.fillMaxSize(),
     ) {

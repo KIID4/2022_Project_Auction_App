@@ -22,7 +22,7 @@ import androidx.navigation.NavController
 import io.github.KIID_4.auction.ui.data.productInfo
 
 @Composable
-fun tenderDisplay(navController: NavController) {
+fun tenderDisplay(navController: NavController) { // 입찰화면 컴포넌트
     val (buyPrice, setBuyPrice) = remember { mutableStateOf(TextFieldValue()) }
     val (reBuyPrice, setReBuyPrice) = remember { mutableStateOf(TextFieldValue()) }
     val bitmap : Bitmap? = productInfo.btm

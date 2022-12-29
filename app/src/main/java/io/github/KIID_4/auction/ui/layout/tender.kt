@@ -9,7 +9,7 @@ import io.github.KIID_4.auction.ui.shapes.tenderDisplay
 import io.github.KIID_4.auction.ui.shapes.topAppBar
 
 @Composable
-fun tender(navController: NavHostController) {
+fun tender(navController: NavHostController) { // 입찰 화면
 
     Column(
         Modifier.fillMaxSize()

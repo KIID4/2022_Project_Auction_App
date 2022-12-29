@@ -12,7 +12,7 @@ import java.io.ByteArrayOutputStream
 
 
 fun registerToFirebase(email: String, passwd: String, name: String, callNum: String, birthday: String, context: Context, registersetSuccess: () -> Unit) {
-    FirebaseAuth.getInstance()
+    FirebaseAuth.getInstance() // 파이어베이스 회원가입 메소드
         .createUserWithEmailAndPassword(email, passwd)
         .addOnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -31,7 +31,7 @@ fun registerToFirebase(email: String, passwd: String, name: String, callNum: Str
         }
 }
 
-fun inputToFirebase(name: String, callNum: String, birthday: String, useruid: String) {
+fun inputToFirebase(name: String, callNum: String, birthday: String, useruid: String) { // 회원가입시 파이어베이스에 사용자 정보 저장 메소드
     val userModel = HashMap<String, Any>()
 
     userModel["name"] = name
@@ -47,7 +47,7 @@ fun inputToFirebase(name: String, callNum: String, birthday: String, useruid: St
         .setValue(userModel)
 }
 
-fun updateToFirebase(name: String, callNum: String, birthday: String) {
+fun updateToFirebase(name: String, callNum: String, birthday: String) { // 정보 수정시 파이어베이스내 정보 업데이트 메소드
     val userModel = HashMap<String, Any>()
     val user = Firebase.auth.currentUser
 
@@ -66,7 +66,7 @@ fun updateToFirebase(name: String, callNum: String, birthday: String) {
     }
 }
 
-fun loginToFirebase(email: String, passwd: String, context: Context, setSuccess: () -> Unit) {
+fun loginToFirebase(email: String, passwd: String, context: Context, setSuccess: () -> Unit) { // 파이어베이스 로그인 메소드
     FirebaseAuth.getInstance()
         .signInWithEmailAndPassword(email, passwd)
         .addOnCompleteListener { task ->
@@ -87,14 +87,14 @@ fun loginToFirebase(email: String, passwd: String, context: Context, setSuccess:
 
 
 fun pushProductInfoToFirebase(bitmap: Bitmap, productName: String, price: String, time: String, context: Context, upLoadSetSuccess: () -> Unit) {
-    val user = Firebase.auth.currentUser
+    val user = Firebase.auth.currentUser // 물품 정보 입력 후 저장 메소드
     val productInfoModel = HashMap<String, Any>()
     val stream = ByteArrayOutputStream()
     val str: String
 
-    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
-    val byteArray = stream.toByteArray()
-    str = Base64.encodeToString(byteArray, Base64.DEFAULT)
+    bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream) // 받아온 비트맵(png)을 문자열로 변환하여 저장
+    val byteArray = stream.toByteArray() // 받아온 비트맵(png)을 문자열로 변환하여 저장
+    str = Base64.encodeToString(byteArray, Base64.DEFAULT) // 받아온 비트맵(png)을 문자열로 변환하여 저장
 
     productInfoModel["Bitmap"] = str
     productInfoModel["productName"] = productName
@@ -125,7 +125,7 @@ fun pushProductInfoToFirebase(bitmap: Bitmap, productName: String, price: String
 
 
 fun modifyToFirebase(passwd: String,  name: String, callNumber: String, birthday : String, context: Context, setpasswordSuccess: () -> Unit) {
-    FirebaseAuth.getInstance().currentUser!!
+    FirebaseAuth.getInstance().currentUser!! // 파이어베이스 회원 정보 수정 메소드
         .updatePassword (passwd)
         .addOnCompleteListener { task ->
             if (task.isSuccessful) {
@@ -138,7 +138,7 @@ fun modifyToFirebase(passwd: String,  name: String, callNumber: String, birthday
 }
 
 fun pushBulletinInfoToFirebase(title : String, content : String, context: Context, upLoadSetSuccess: () -> Unit) {
-    val user = Firebase.auth.currentUser
+    val user = Firebase.auth.currentUser // 파이어베이스 공지사항 데이터 저장 메소드
     val bulletinInfoModel = HashMap<String, Any>()
     val hits = "0"
 
@@ -170,7 +170,7 @@ fun pushBulletinInfoToFirebase(title : String, content : String, context: Contex
 
 
 fun pushNoticeToFirebase(title : String, content : String, context: Context, upLoadSetSuccess: () -> Unit) {
-    val user = Firebase.auth.currentUser
+    val user = Firebase.auth.currentUser // 파이어베이스 게시글 정보 저장
     val bulletinInfoModel = HashMap<String, Any>()
     val hits = "0"
 

@@ -14,8 +14,7 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 @Preview
-fun transsactionCount() {
-
+fun transsactionCount() { // 거래내역 개수 컴포넌트
     val buyCount = 0
     val sellCount = 0
 

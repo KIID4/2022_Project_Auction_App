@@ -18,7 +18,7 @@ import io.github.KIID_4.auction.ui.function.saveDataBulletin
 import io.github.KIID_4.auction.ui.function.takeBulletinFromFirebase
 
 @Composable
-fun bulletinList(navController : NavController) {
+fun bulletinList(navController : NavController) { // 공지사항 미리보기 리스트 컴포넌트
     val scrollState = rememberLazyListState()
     val (boardList, setBoard) = remember { mutableStateOf(listOf <Triple<String, String, Int>>()) }
     val (content, setContent) = remember{ mutableStateOf("")} // 게시글 제목, 작성자, 조회수가 저장된 리스트

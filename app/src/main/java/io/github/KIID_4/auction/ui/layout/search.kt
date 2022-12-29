@@ -9,7 +9,7 @@ import io.github.KIID_4.auction.ui.shapes.searchResultList
 import io.github.KIID_4.auction.ui.shapes.topAppBar
 
 @Composable
-fun searchProduct(navController: NavController) {
+fun searchProduct(navController: NavController) { // 검색 물품 화면
     Column(
         Modifier.fillMaxSize(),
     ) {

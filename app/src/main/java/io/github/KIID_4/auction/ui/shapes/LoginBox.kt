@@ -20,9 +20,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+
 @SuppressLint("ShowToast")
 @Composable
-fun loginBox(navController : NavController) {
+fun loginBox(navController : NavController) { // 로그인 컴포넌트
     val context = LocalContext.current
 
     Row(

@@ -16,7 +16,7 @@ import io.github.KIID_4.auction.ui.data.noticeInfo
 import io.github.KIID_4.auction.ui.data.productInfo
 import io.github.KIID_4.auction.ui.data.searchInfo
 
-fun updateUserInfo(useruid: String) {
+fun updateUserInfo(useruid: String) { // 메인화면 로그인 사용자 이름 업데이트
     val user = Firebase.auth.currentUser
     var name = ""
 
@@ -43,7 +43,7 @@ fun updateUserInfo(useruid: String) {
 }
 
 fun saveDataProductInfo(productName: String, btm: Bitmap, price: Int, sellerName: String, time: Int, userUid: String, buyerUid : String) {
-    productInfo.productName = productName
+    productInfo.productName = productName // Object클래스에 물품데이터 저장
     productInfo.btm = btm
     productInfo.price = price
     productInfo.sellerName = sellerName
@@ -52,25 +52,25 @@ fun saveDataProductInfo(productName: String, btm: Bitmap, price: Int, sellerName
     productInfo.buyerUid = buyerUid
 }
 
-fun saveDataBulletin(title: String, writer: String, hits: Int, content: String) {
+fun saveDataBulletin(title: String, writer: String, hits: Int, content: String) { // Object클래스에 공지사항데이터 저장
     bulletinInfo.title = title
     bulletinInfo.writer = writer
     bulletinInfo.hits = hits
     bulletinInfo.content = content
 }
 
-fun saveDataNotice(title: String, hits: Int, content: String) {
+fun saveDataNotice(title: String, hits: Int, content: String) { // Object클래스에 게시글데이터 저장
     noticeInfo.title = title
     noticeInfo.hits = hits
     noticeInfo.content = content
 }
 
-fun saveSearchWord(search: String) {
+fun saveSearchWord(search: String) { // Object클래스에 검색어 데이터 저장
     searchInfo.word = search
 }
 
 
-fun updateTenderPrice(
+fun updateTenderPrice( // 파이어베이스 입찰가 업데이트
     buyPrice: String,
     productName: String,
     context: Context,

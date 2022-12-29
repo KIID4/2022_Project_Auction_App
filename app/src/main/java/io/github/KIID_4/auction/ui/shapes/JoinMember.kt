@@ -12,8 +12,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 
+
 @Composable
-fun joinMember(navController : NavController) {
+fun joinMember(navController : NavController) { // 회원가입 컴포넌트
 
     val (emailID, setEmailID) = remember { mutableStateOf(TextFieldValue()) }
     val (passWD, setPassWD) = remember { mutableStateOf(TextFieldValue()) }

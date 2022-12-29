@@ -16,7 +16,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 @Composable
-fun topAppBar(navController: NavController, use: Boolean, check: String) {
+fun topAppBar(navController: NavController, use: Boolean, check: String) { // 화면 상단바 컴포넌트
     val user = Firebase.auth.currentUser
     var userName by remember { mutableStateOf<String>("로그인이 필요합니다") }
 

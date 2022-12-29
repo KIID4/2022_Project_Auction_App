@@ -9,7 +9,7 @@ import io.github.KIID_4.auction.ui.shapes.printNoticeInfo
 import io.github.KIID_4.auction.ui.shapes.topAppBar
 
 @Composable
-fun noticeInfo(navController: NavController) {
+fun noticeInfo(navController: NavController) { // 공지사항 세부 내용
     Column(
         Modifier.fillMaxSize()
     ) {

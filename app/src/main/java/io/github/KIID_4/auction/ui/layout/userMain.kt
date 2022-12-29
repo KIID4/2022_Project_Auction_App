@@ -9,7 +9,7 @@ import io.github.KIID_4.auction.ui.shapes.popularPreview
 import io.github.KIID_4.auction.ui.shapes.*
 
 @Composable
-fun userMain(navController : NavController) {
+fun userMain(navController : NavController) { // 메인 화면
         Column(
             Modifier.fillMaxSize()
         ) {

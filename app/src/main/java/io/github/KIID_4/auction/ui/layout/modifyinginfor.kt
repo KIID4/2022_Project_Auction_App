@@ -10,7 +10,7 @@ import io.github.KIID_4.auction.ui.shapes.modifiymember
 import io.github.KIID_4.auction.ui.shapes.topAppBar
 
 @Composable
-fun modifyingInfor(navController : NavController) {
+fun modifyingInfor(navController : NavController) { // 정보 수정 화면
     topAppBar(navController, true, "Logout")
     Column(
         modifier = Modifier.fillMaxSize(),

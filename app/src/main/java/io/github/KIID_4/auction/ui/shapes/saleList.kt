@@ -17,7 +17,7 @@ import io.github.KIID_4.auction.ui.function.takeCurrentUserInfoFromFirebase
 import io.github.KIID_4.auction.ui.function.takeSellProductFromFirebase
 
 @Composable
-fun saleList() {
+fun saleList() { // 현재 경매중인 물품 리스트 컴포넌트
     val (currentUserMoney, setCurrentUserMoney) = remember { mutableStateOf(0) }
     val scrollState = rememberLazyListState()
     val (bpnpList, setInfo) = remember { mutableStateOf(listOf <Triple<String, Int, Int>>()) }

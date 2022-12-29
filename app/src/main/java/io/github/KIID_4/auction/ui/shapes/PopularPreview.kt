@@ -20,7 +20,7 @@ import io.github.KIID_4.auction.ui.function.take4ImageFromFirebase
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 @Preview
-fun popularPreview() {
+fun popularPreview() { // 인기 물품 미리보기 컴포넌트
     val (bitmapImageList, setBitmap) = remember { mutableStateOf(listOf <Triple<String, Bitmap, Int>>()) }
 
     take4ImageFromFirebase(setBitmap)  // 파이어베이스에서 사진 가져오기

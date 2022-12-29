@@ -20,7 +20,7 @@ import io.github.KIID_4.auction.ui.function.takeNoticeContentFromFirebase
 
 
 @Composable
-fun noticePreview(navController: NavController) {
+fun noticePreview(navController: NavController) { // 게시글 미리보기 컴포넌트
     val (content, setContent) = remember { mutableStateOf("") }
     takeNoticeContentFromFirebase(setContent)
     Row(

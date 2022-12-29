@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.sp
 import io.github.KIID_4.auction.ui.function.takeSearchItemFromFirebase
 
 @Composable
-fun searchResultList() {
+fun searchResultList() { // 검색결과 리스트 컴포넌트
     val scrollState = rememberLazyListState()
     val (searchItemList, setSearchItemList) = remember { mutableStateOf(listOf <Triple<String, Int, Int>>()) }
 

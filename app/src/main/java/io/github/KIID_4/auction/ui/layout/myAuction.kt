@@ -9,7 +9,7 @@ import io.github.KIID_4.auction.ui.shapes.myAuctionList
 import io.github.KIID_4.auction.ui.shapes.topAppBar
 
 @Composable
-fun myAuctionProduct(navController: NavController) {
+fun myAuctionProduct(navController: NavController) { // 나의 경매 물품 화면
     Column(
         Modifier.fillMaxSize(),
     ) {

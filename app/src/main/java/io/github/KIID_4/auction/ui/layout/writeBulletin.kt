@@ -9,7 +9,7 @@ import io.github.KIID_4.auction.ui.shapes.topAppBar
 import io.github.KIID_4.auction.ui.shapes.writeBulletin
 
 @Composable
-fun bulletinLayout(navController: NavController) {
+fun bulletinLayout(navController: NavController) { // 게시글 작성 화면
     Column(
         Modifier.fillMaxSize(),
     ) {

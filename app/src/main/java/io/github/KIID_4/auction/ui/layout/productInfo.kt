@@ -9,8 +9,7 @@ import io.github.KIID_4.auction.ui.shapes.printProductInfo
 import io.github.KIID_4.auction.ui.shapes.topAppBar
 
 @Composable
-fun productInfo(navController: NavHostController) {
-
+fun productInfo(navController: NavHostController) { // 물품 정보 출력 화면
     Column(
         Modifier.fillMaxSize()
     ) {

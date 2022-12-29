@@ -80,11 +80,11 @@ class MainActivity : ComponentActivity() {
                         tender(navController)
                     }
 
-                    composable("myAuctionProduct") {
+                    composable("myAuctionProduct") { // 나의 경매 물품 화면
                         myAuctionProduct(navController)
                     }
 
-                    composable("searchProduct") {
+                    composable("searchProduct") { // 검색 물품 화면
                         searchProduct(navController)
                     }
                 }

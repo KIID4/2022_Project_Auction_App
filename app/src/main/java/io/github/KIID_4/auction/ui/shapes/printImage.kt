@@ -32,7 +32,7 @@ import com.google.firebase.ktx.Firebase
 import io.github.KIID_4.auction.ui.data.productInfo
 
 @Composable
-fun galleryImage(navController: NavController) {
+fun galleryImage(navController: NavController) { // 갤러리에서 이미지 선택 후 출력 컴포넌트
 
     val (productName, setProductName) = remember { mutableStateOf(TextFieldValue()) }
     val (price, setPrice) = remember { mutableStateOf(TextFieldValue()) }
@@ -46,7 +46,7 @@ fun galleryImage(navController: NavController) {
         imageUri = uri
     }
 
-    imageUri?.let { //
+    imageUri?.let { // Uri를 비트맵 형식으로 변환
         if (Build.VERSION.SDK_INT < 28) {
             bitmap.value = MediaStore.Images
                 .Media.getBitmap(context.contentResolver, it)

@@ -10,7 +10,7 @@ import io.github.KIID_4.auction.ui.shapes.topAppBar
 
 
 @Composable
-fun bulletinInfo(navController: NavController) {
+fun bulletinInfo(navController: NavController) { // 게시글 세부 내용
     Column(
         Modifier.fillMaxSize()
     ) {

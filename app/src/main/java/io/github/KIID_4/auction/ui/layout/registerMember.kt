@@ -7,7 +7,7 @@ import io.github.KIID_4.auction.ui.shapes.*
 
 
 @Composable
-fun registerMember(navController : NavController) {
+fun registerMember(navController : NavController) { // 회원가입 화면
     topAppBar(navController, true, "My")
     Column(
         modifier = Modifier.fillMaxSize(),
