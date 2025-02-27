@@ -31,4 +31,5 @@
 
 # UI
 
-![image](https://github.com/user-attachments/assets/981c7ace-4178-4bf7-a00a-aa4e45b55124)
+![image](https://github.com/user-attachments/assets/f1b941cf-7c6d-4252-9b0f-902e2af4cfba)
+
