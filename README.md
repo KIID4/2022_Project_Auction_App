@@ -1,20 +1,21 @@
 # 2022 Project Auction App
 프로젝트 주제 : 온라인 경매 앱 제작
 
-#### 프론트엔드
+#### FrontEnd
 * Kotlin (Jetpack Compose)
 
-#### 백엔드
+#### Backend
 * Firebase (.json파일 이용하여 연결)
 
-#### 개발 IDE 
+#### Tool
 * IntelliJ
+* Figma
 
-# 모듈 설명
+# Module
 
 ## data 
 
-게시글, 물품정보등의 정보를 저장하는 object클래스입니다.
+게시글, 물품정보등의 정보를 저장하는 object클래스
 
 ## function 
 
@@ -27,3 +28,7 @@
 ## shapes
 
 각 화면의 컴포넌트들을 구성하는 패키지입니다.
+
+# UI
+
+![image](https://github.com/user-attachments/assets/981c7ace-4178-4bf7-a00a-aa4e45b55124)
