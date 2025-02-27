@@ -1,4 +1,4 @@
-# 2022 Project Auction App
+# Auction App
 프로젝트 주제 : 온라인 경매 앱 제작
 
 #### FrontEnd
